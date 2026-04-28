@@ -1,0 +1,138 @@
+/* ===== PAGE BACKGROUND ===== */
+.authPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== CARD ===== */
+.authCard {
+  background: rgba(30, 41, 59, 0.9);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+/* ===== TEXT ===== */
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+/* ===== FORM ===== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #cbd5f5;
+  letter-spacing: 0.3px;
+}
+
+/* ===== INPUT ===== */
+.field input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #e2e8f0;
+  transition: all 0.25s ease;
+}
+
+.field input::placeholder {
+  color: #64748b;
+}
+
+.field input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+}
+
+/* ===== BUTTON ===== */
+.btn {
+  margin-top: 10px;
+  padding: 13px;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #020617;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.4px;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.3);
+}
+
+.btn:disabled {
+  background: #475569;
+  cursor: not-allowed;
+  color: #cbd5f5;
+  box-shadow: none;
+}
+
+/* ===== ERROR ===== */
+.error {
+  font-size: 12px;
+  color: #f87171;
+}
+
+.errorBanner {
+  background: rgba(127, 29, 29, 0.2);
+  color: #fca5a5;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+/* ===== LINK ===== */
+.switchLink {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.switchLink a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.switchLink a:hover {
+  color: #0ea5e9;
+}
