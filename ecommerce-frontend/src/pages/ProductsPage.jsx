@@ -11,7 +11,6 @@ export default function ProductsPage() {
   const [category, setCategory] = useState("");
   const navigate = useNavigate();
 
-  // Load all products on first render
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -49,48 +48,50 @@ export default function ProductsPage() {
     fetchProducts();
   };
 
-  // Get unique categories from loaded products for the dropdown
   const categories = [...new Set(products.map((p) => p.category))];
 
   return (
     <div className={styles.page}>
 
-      {/* Header */}
-      <div className={styles.header}>
-        <h1 className={styles.title}>Products</h1>
+      {/* 🔝 TOP BAR */}
+      <div className={styles.topBar}>
+        <h1>Explore Products</h1>
+        <button onClick={() => navigate("/dashboard")}>← Back</button>
       </div>
 
-      {/* Search + Filter Bar */}
+      {/* 🔍 SEARCH */}
       <form onSubmit={handleSearch} className={styles.searchBar}>
         <input
           type="text"
-          placeholder="Search products..."
+          placeholder="Search anything..."
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           className={styles.searchInput}
         />
+
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           className={styles.select}
         >
-          <option value="">All Categories</option>
+          <option value="">All</option>
           {categories.map((cat) => (
             <option key={cat} value={cat}>{cat}</option>
           ))}
         </select>
+
         <button type="submit" className={styles.searchBtn}>Search</button>
         <button type="button" onClick={handleReset} className={styles.resetBtn}>Reset</button>
       </form>
 
-      {/* States */}
-      {loading && <p className={styles.message}>Loading products...</p>}
+      {/* STATES */}
+      {loading && <p className={styles.message}>Loading...</p>}
       {error && <p className={styles.error}>{error}</p>}
       {!loading && !error && products.length === 0 && (
-        <p className={styles.message}>No products found.</p>
+        <p className={styles.message}>No products found 🚫</p>
       )}
 
-      {/* Product Grid */}
+      {/* 🧱 GRID */}
       {!loading && !error && (
         <div className={styles.grid}>
           {products.map((product) => (
@@ -99,22 +100,24 @@ export default function ProductsPage() {
               className={styles.card}
               onClick={() => navigate(`/products/${product.productId}`)}
             >
-              <img
-                src={product.imageUrl || "https://placehold.co/300x200"}
-                alt={product.name}
-                className={styles.image}
-              />
+              <div className={styles.imageWrapper}>
+                <img
+                  src={product.imageUrl || "https://placehold.co/300x200"}
+                  alt={product.name}
+                />
+                <div className={styles.overlay}>
+                  <span>View Details</span>
+                </div>
+              </div>
+
               <div className={styles.cardBody}>
-                <span className={styles.category}>{product.category}</span>
-                <h3 className={styles.productName}>{product.name}</h3>
-                <p className={styles.description}>
-                  {product.description?.slice(0, 80)}
-                  {product.description?.length > 80 ? "..." : ""}
-                </p>
+                <h3>{product.name}</h3>
+                <p>{product.category}</p>
+
                 <div className={styles.cardFooter}>
-                  <span className={styles.price}>₹{product.price}</span>
-                  <span className={styles.stock}>
-                    {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
+                  <span>₹{product.price}</span>
+                  <span>
+                    {product.stock > 0 ? "In Stock" : "Out"}
                   </span>
                 </div>
               </div>

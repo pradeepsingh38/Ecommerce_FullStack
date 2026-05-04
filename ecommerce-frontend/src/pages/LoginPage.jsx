@@ -36,7 +36,7 @@ export default function LoginPage() {
   return (
     <div className={styles.authPage}>
       <div className={styles.authCard}>
-        <h1 className={styles.title}>Welcome back</h1>
+        <h1 className={styles.title}>Welcome Ecommerce Web</h1>
         <p className={styles.subtitle}>Sign in to your account</p>
         {errors.general && <p className={styles.errorBanner}>{errors.general}</p>}
         <form onSubmit={handleSubmit} className={styles.form}>
