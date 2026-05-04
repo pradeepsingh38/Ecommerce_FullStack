@@ -68,7 +68,8 @@
   gap: 14px;
 }
 
-.card input {
+.card input,
+.card select {
   width: 100%;
   padding: 14px 16px;
   border-radius: 12px;
@@ -84,7 +85,12 @@
   color: #94a3b8;
 }
 
-.card input:focus {
+.card select {
+  cursor: pointer;
+}
+
+.card input:focus,
+.card select:focus {
   border-color: #38bdf8;
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
 }

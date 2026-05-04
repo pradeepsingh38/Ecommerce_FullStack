@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import styles from "../styles/dashboard.module.css";
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -22,6 +22,16 @@ export default function DashboardPage() {
             Products
           </button>
 
+          <button onClick={() => navigate("/cart")}>
+            Cart
+          </button>
+
+          {user?.role === "ADMIN" && (
+            <button onClick={() => navigate("/products/new")}>
+              Add Product
+            </button>
+          )}
+
           <button onClick={handleLogout}>
             Logout
           </button>
@@ -41,6 +51,9 @@ export default function DashboardPage() {
         <div className={styles.actions}>
           <button onClick={() => navigate("/products")}>
             Browse Products
+          </button>
+          <button onClick={() => navigate("/cart")}>
+            View Cart
           </button>
         </div>
       </main>

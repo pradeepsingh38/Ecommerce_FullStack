@@ -1,28 +1,24 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
-
-const AuthContext = createContext(null);
+import { AuthContext } from "./AuthContextObject";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => Boolean(localStorage.getItem("token")));
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      // No token at all — definitely not logged in
-      setLoading(false);
       return;
     }
 
-    // Token exists — ask backend if it's still valid
-    axiosInstance.get("/auth/me")
+    axiosInstance
+      .get("/auth/me")
       .then((res) => {
-        setUser(res.data); // token valid, restore user
+        setUser(res.data);
       })
       .catch(() => {
-        // Token expired or invalid
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setUser(null);
@@ -44,7 +40,6 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
-  // Show nothing while verifying token — prevents page flash
   if (loading) return null;
 
   return (
@@ -52,8 +47,4 @@ export function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
 }

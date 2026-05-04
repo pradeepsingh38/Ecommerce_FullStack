@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../api/authApi";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import styles from "../styles/register.module.css";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", role: "USER" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -76,6 +76,12 @@ export default function RegisterPage() {
               onChange={handleChange}
             />
             {errors.password && <span>{errors.password}</span>}
+
+            <select name="role" value={form.role} onChange={handleChange}>
+              <option value="USER">User</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+            {errors.role && <span>{errors.role}</span>}
 
             <button type="submit" disabled={loading}>
               {loading ? "Creating..." : "Register"}
