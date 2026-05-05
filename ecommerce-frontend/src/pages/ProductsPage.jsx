@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getAllProducts, searchProducts } from "../api/ProductApi";
 import { addToCart } from "../api/cartApi";
 import { useAuth } from "../context/useAuth";
+import { handleProductImageError, productImageFallback } from "../utils/productImage";
 import styles from "../styles/products.module.css";
 
 export default function ProductsPage() {
@@ -10,11 +11,28 @@ export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [cartMessage, setCartMessage] = useState("");
+  const [toast, setToast] = useState(null);
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
   const { user } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state?.toast) {
+      setToast(location.state.toast);
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.pathname, location.state, navigate]);
+
+  useEffect(() => {
+    if (!toast) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => setToast(null), 3200);
+    return () => window.clearTimeout(timer);
+  }, [toast]);
 
   useEffect(() => {
     let active = true;
@@ -63,12 +81,12 @@ export default function ProductsPage() {
     setKeyword("");
     setCategory("");
     setProducts(allProducts);
-    setCartMessage("");
+    setToast(null);
   };
 
   const handleCategoryChange = (nextCategory) => {
     setCategory(nextCategory);
-    setCartMessage("");
+    setToast(null);
 
     const normalizedKeyword = keyword.trim().toLowerCase();
     const filteredProducts = allProducts.filter((product) => {
@@ -82,14 +100,14 @@ export default function ProductsPage() {
 
   const handleAddToCart = async (event, product) => {
     event.stopPropagation();
-    setCartMessage("");
+    setToast(null);
     setError("");
 
     try {
       await addToCart(product.productId, 1);
-      setCartMessage(`${product.name} added to cart`);
+      setToast({ type: "success", message: `${product.name} added to cart` });
     } catch (err) {
-      setError(err.response?.data?.error || "Product could not be added to cart");
+      setToast({ type: "error", message: err.response?.data?.error || "Product could not be added to cart" });
     }
   };
 
@@ -104,6 +122,13 @@ export default function ProductsPage() {
 
   return (
     <div className={styles.page}>
+      {toast && (
+        <div className={`${styles.toast} ${toast.type === "error" ? styles.toastError : styles.toastSuccess}`}>
+          <strong>{toast.type === "error" ? "Action failed" : "Success"}</strong>
+          <span>{toast.message}</span>
+        </div>
+      )}
+
       <div className={styles.topBar}>
         <h1>Explore Products</h1>
         <div className={styles.topActions}>
@@ -152,7 +177,6 @@ export default function ProductsPage() {
       </form>
 
       {loading && <p className={styles.message}>Loading...</p>}
-      {cartMessage && <p className={styles.success}>{cartMessage}</p>}
       {error && <p className={styles.error}>{error}</p>}
       {!loading && !error && products.length === 0 && (
         <p className={styles.message}>No products found</p>
@@ -170,7 +194,11 @@ export default function ProductsPage() {
               onKeyDown={(event) => handleCardKeyDown(event, product.productId)}
             >
               <div className={styles.imageWrapper}>
-                <img src={product.imageUrl || "https://placehold.co/300x200"} alt={product.name} />
+                <img
+                  src={product.imageUrl || productImageFallback(product.name)}
+                  alt={product.name}
+                  onError={(event) => handleProductImageError(event, product.name)}
+                />
                 <div className={styles.overlay}>
                   <span>View Details</span>
                 </div>

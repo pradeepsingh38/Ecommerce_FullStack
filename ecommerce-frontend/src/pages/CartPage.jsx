@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clearCart, getCart, removeCartItem, updateCartItem } from "../api/cartApi";
+import { handleProductImageError, productImageFallback } from "../utils/productImage";
 import styles from "../styles/products.module.css";
 
 export default function CartPage() {
@@ -113,7 +114,11 @@ export default function CartPage() {
           <div className={styles.cartItems}>
             {cart.items.map((item) => (
               <article className={styles.cartItem} key={item.cartItemId}>
-                <img src={item.imageUrl || "https://placehold.co/120x120"} alt={item.name} />
+                <img
+                  src={item.imageUrl || productImageFallback(item.name)}
+                  alt={item.name}
+                  onError={(event) => handleProductImageError(event, item.name)}
+                />
 
                 <div>
                   <h3>{item.name}</h3>

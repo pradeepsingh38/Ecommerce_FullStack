@@ -35,7 +35,11 @@ export default function AddProductPage() {
         stock: Number(form.stock),
       };
       await addProduct(payload);
-      navigate("/products");
+      navigate("/products", {
+        state: {
+          toast: { type: "success", message: `${payload.name} added successfully` },
+        },
+      });
     } catch (err) {
       setError(err.response?.data?.error || "Product could not be added");
     } finally {

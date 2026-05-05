@@ -2,16 +2,31 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../api/cartApi";
 import { getProductById } from "../api/ProductApi";
+import { useAuth } from "../context/useAuth";
+import { handleProductImageError, productImageFallback } from "../utils/productImage";
 import styles from "../styles/products.module.css";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [cartMessage, setCartMessage] = useState("");
+  const [toast, setToast] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
+  const isAdmin = user?.role === "ADMIN";
+
+  useEffect(() => {
+    if (!toast) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => setToast(null), 3200);
+    return () => window.clearTimeout(timer);
+  }, [toast]);
 
   useEffect(() => {
     let active = true;
@@ -40,16 +55,26 @@ export default function ProductDetailsPage() {
     };
   }, [id]);
 
+  const handleQuantityChange = (event) => {
+    const nextQuantity = Number(event.target.value);
+    const maxQuantity = product?.stock || 1;
+    setQuantity(Math.min(Math.max(nextQuantity, 1), maxQuantity));
+    setToast(null);
+  };
+
   const handleAddToCart = async () => {
     setSaving(true);
-    setCartMessage("");
+    setToast(null);
     setError("");
 
     try {
-      await addToCart(product.productId, 1);
-      setCartMessage("Product added to cart");
+      await addToCart(product.productId, quantity);
+      setToast({
+        type: "success",
+        message: `${quantity} item${quantity > 1 ? "s" : ""} added to cart`,
+      });
     } catch (err) {
-      setError(err.response?.data?.error || "Product could not be added to cart");
+      setToast({ type: "error", message: err.response?.data?.error || "Product could not be added to cart" });
     } finally {
       setSaving(false);
     }
@@ -57,24 +82,46 @@ export default function ProductDetailsPage() {
 
   return (
     <div className={styles.page}>
+      {toast && (
+        <div className={`${styles.toast} ${toast.type === "error" ? styles.toastError : styles.toastSuccess}`}>
+          <strong>{toast.type === "error" ? "Action failed" : "Success"}</strong>
+          <span>{toast.message}</span>
+        </div>
+      )}
+
       <div className={styles.topBar}>
         <h1>Product Details</h1>
-        <button type="button" onClick={() => navigate("/products")}>
-          Back
-        </button>
+        <div className={styles.topActions}>
+          {isAdmin && (
+            <button type="button" onClick={() => navigate("/products/new")}>
+              Add Product
+            </button>
+          )}
+          <button type="button" onClick={() => navigate("/products")}>
+            Products
+          </button>
+          <button type="button" onClick={() => navigate("/cart")}>
+            Cart
+          </button>
+        </div>
       </div>
 
       {loading && <p className={styles.message}>Loading...</p>}
-      {cartMessage && <p className={styles.success}>{cartMessage}</p>}
       {error && <p className={styles.error}>{error}</p>}
 
       {!loading && !error && product && (
         <section className={styles.detailLayout}>
-          <img
-            className={styles.detailImage}
-            src={product.imageUrl || "https://placehold.co/640x420"}
-            alt={product.name}
-          />
+          <div className={styles.detailMedia}>
+            <img
+              className={styles.detailImage}
+              src={product.imageUrl || productImageFallback(product.name)}
+              alt={product.name}
+              onError={(event) => handleProductImageError(event, product.name)}
+            />
+            <span className={product.stock > 0 ? styles.stockBadge : styles.stockBadgeEmpty}>
+              {product.stock > 0 ? "In Stock" : "Out of Stock"}
+            </span>
+          </div>
 
           <div className={styles.detailInfo}>
             <span className={styles.category}>{product.category}</span>
@@ -82,9 +129,27 @@ export default function ProductDetailsPage() {
             <p>{product.description || "No description available."}</p>
 
             <div className={styles.detailMeta}>
-              <strong>Rs. {product.price}</strong>
-              <span>{product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}</span>
+              <div>
+                <span className={styles.metaLabel}>Price</span>
+                <strong>Rs. {product.price}</strong>
+              </div>
+              <div>
+                <span className={styles.metaLabel}>Available</span>
+                <span>{product.stock > 0 ? `${product.stock} units` : "No stock"}</span>
+              </div>
             </div>
+
+            <label className={styles.quantityField}>
+              Quantity
+              <input
+                type="number"
+                min="1"
+                max={product.stock || 1}
+                value={quantity}
+                onChange={handleQuantityChange}
+                disabled={product.stock <= 0}
+              />
+            </label>
 
             <div className={styles.detailActions}>
               <button

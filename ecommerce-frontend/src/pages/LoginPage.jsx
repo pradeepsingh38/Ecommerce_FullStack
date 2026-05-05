@@ -19,15 +19,25 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrors({});
     try {
       const res = await loginUser(form);
       const { token, ...userData } = res.data;
+      if (!token) {
+        setErrors({ general: "Login succeeded, but no JWT token was returned." });
+        return;
+      }
       login(userData, token);
       navigate("/dashboard");
     } catch (err) {
       const data = err.response?.data;
-      if (typeof data === "object") setErrors(data);
-      else setErrors({ general: "Invalid email or password" });
+      if (data?.error) {
+        setErrors({ general: data.error });
+      } else if (data && typeof data === "object") {
+        setErrors(data);
+      } else {
+        setErrors({ general: "Invalid email or password" });
+      }
     } finally {
       setLoading(false);
     }

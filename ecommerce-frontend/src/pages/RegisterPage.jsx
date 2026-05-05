@@ -8,7 +8,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [form, setForm] = useState({ name: "", email: "", password: "", role: "USER" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -20,15 +20,25 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrors({});
     try {
       const res = await registerUser(form);
       const { token, ...userData } = res.data;
+      if (!token) {
+        setErrors({ general: "Registration succeeded, but no JWT token was returned." });
+        return;
+      }
       login(userData, token);
       navigate("/dashboard");
     } catch (err) {
       const data = err.response?.data;
-      if (typeof data === "object") setErrors(data);
-      else setErrors({ general: data?.error || "Registration failed" });
+      if (data?.error) {
+        setErrors({ general: data.error });
+      } else if (data && typeof data === "object") {
+        setErrors(data);
+      } else {
+        setErrors({ general: "Registration failed" });
+      }
     } finally {
       setLoading(false);
     }
@@ -76,12 +86,6 @@ export default function RegisterPage() {
               onChange={handleChange}
             />
             {errors.password && <span>{errors.password}</span>}
-
-            <select name="role" value={form.role} onChange={handleChange}>
-              <option value="USER">User</option>
-              <option value="ADMIN">Admin</option>
-            </select>
-            {errors.role && <span>{errors.role}</span>}
 
             <button type="submit" disabled={loading}>
               {loading ? "Creating..." : "Register"}

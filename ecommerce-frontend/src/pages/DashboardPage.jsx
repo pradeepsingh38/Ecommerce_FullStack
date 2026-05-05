@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 import styles from "../styles/dashboard.module.css";
+
 export default function DashboardPage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const isAdmin = user?.role === "ADMIN";
 
   const handleLogout = () => {
     logout();
@@ -12,10 +14,8 @@ export default function DashboardPage() {
 
   return (
     <div className={styles.layout}>
-      
-      {/* ===== SIDEBAR ===== */}
       <aside className={styles.sidebar}>
-        <h2 className={styles.logo}>Ecoomerce Web</h2>
+        <h2 className={styles.logo}>Ecommerce Web</h2>
 
         <nav className={styles.nav}>
           <button onClick={() => navigate("/products")}>
@@ -26,7 +26,7 @@ export default function DashboardPage() {
             Cart
           </button>
 
-          {user?.role === "ADMIN" && (
+          {isAdmin && (
             <button onClick={() => navigate("/products/new")}>
               Add Product
             </button>
@@ -38,12 +38,11 @@ export default function DashboardPage() {
         </nav>
       </aside>
 
-      {/* ===== MAIN CONTENT ===== */}
       <main className={styles.content}>
-        <h1 className={styles.title}>Dashboard</h1>
+        <h1 className={styles.title}>{isAdmin ? "Admin Dashboard" : "Dashboard"}</h1>
 
         <div className={styles.card}>
-          <h3>Welcome back 👋</h3>
+          <h3>{isAdmin ? "Welcome back, Admin" : "Welcome back"}</h3>
           <p><strong>Name:</strong> {user?.name}</p>
           <p><strong>Role:</strong> {user?.role}</p>
         </div>
