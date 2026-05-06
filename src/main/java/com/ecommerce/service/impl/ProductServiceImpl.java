@@ -29,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
 		response.setImageUrl(product.getImageUrl());
 		response.setActive(product.getActive());
 		response.setCreatedAt(product.getCreatedAt());
+		response.setUpdatedAt(product.getUpdatedAt());
 		return response;
 	}
 

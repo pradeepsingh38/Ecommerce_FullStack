@@ -6,6 +6,8 @@ import ProductsPage from "../pages/ProductsPage";
 import AddProductPage from "../pages/AddProductPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
+import UsersPage from "../pages/UsersPage";
+import OrderHistoryPage from "../pages/OrderHistoryPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AdminRoute from "../components/AdminRoute";
 
@@ -29,6 +31,12 @@ export default function AppRoutes() {
       }/>
       <Route path="/cart" element={
         <ProtectedRoute><CartPage /></ProtectedRoute>
+      }/>
+      <Route path="/users" element={
+        <ProtectedRoute><AdminRoute><UsersPage /></AdminRoute></ProtectedRoute>
+      }/>
+      <Route path="/orders" element={
+        <ProtectedRoute><AdminRoute><OrderHistoryPage /></AdminRoute></ProtectedRoute>
       }/>
     </Routes>
   );

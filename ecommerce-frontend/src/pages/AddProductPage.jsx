@@ -34,8 +34,8 @@ export default function AddProductPage() {
         price: Number(form.price),
         stock: Number(form.stock),
       };
-      await addProduct(payload);
-      navigate("/products", {
+      const res = await addProduct(payload);
+      navigate(`/products/${res.data.productId}`, {
         state: {
           toast: { type: "success", message: `${payload.name} added successfully` },
         },

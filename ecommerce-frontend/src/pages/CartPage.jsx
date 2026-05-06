@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clearCart, getCart, removeCartItem, updateCartItem } from "../api/cartApi";
+import { placeOrder } from "../api/orderApi";
 import { useAuth } from "../context/useAuth";
 import { handleProductImageError, productImageFallback } from "../utils/productImage";
 import styles from "../styles/products.module.css";
@@ -96,6 +97,22 @@ export default function CartPage() {
     }
   };
 
+  const handleCheckout = async () => {
+    setError("");
+
+    try {
+      await placeOrder();
+      setCart({ items: [], totalItems: 0, totalAmount: 0 });
+      navigate("/products", {
+        state: {
+          toast: { type: "success", message: "Order placed successfully" },
+        },
+      });
+    } catch (err) {
+      setError(err.response?.data?.error || "Order could not be placed");
+    }
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.topBar}>
@@ -166,7 +183,7 @@ export default function CartPage() {
               <span>Total</span>
               <strong>Rs. {cart.totalAmount}</strong>
             </p>
-            <button type="button" className={styles.searchBtn}>
+            <button type="button" className={styles.searchBtn} onClick={handleCheckout}>
               Checkout
             </button>
             <button type="button" className={styles.resetBtn} onClick={handleClear}>

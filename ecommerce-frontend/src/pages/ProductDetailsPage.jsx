@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../api/cartApi";
 import { deleteProduct, getProductById } from "../api/ProductApi";
 import { useAuth } from "../context/useAuth";
@@ -8,6 +8,7 @@ import styles from "../styles/products.module.css";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [product, setProduct] = useState(null);
@@ -18,6 +19,16 @@ export default function ProductDetailsPage() {
   const [quantity, setQuantity] = useState(1);
 
   const isAdmin = user?.role === "ADMIN";
+
+  useEffect(() => {
+    if (location.state?.toast) {
+      const timer = window.setTimeout(() => setToast(location.state.toast), 0);
+      navigate(location.pathname, { replace: true, state: {} });
+      return () => window.clearTimeout(timer);
+    }
+
+    return undefined;
+  }, [location.pathname, location.state, navigate]);
 
   useEffect(() => {
     if (!toast) {
@@ -163,6 +174,10 @@ export default function ProductDetailsPage() {
 
             <div className={styles.detailMeta}>
               <div>
+                <span className={styles.metaLabel}>Product ID</span>
+                <span>#{product.productId}</span>
+              </div>
+              <div>
                 <span className={styles.metaLabel}>Price</span>
                 <strong>Rs. {product.price}</strong>
               </div>
@@ -170,7 +185,26 @@ export default function ProductDetailsPage() {
                 <span className={styles.metaLabel}>Available</span>
                 <span>{product.stock > 0 ? `${product.stock} units` : "No stock"}</span>
               </div>
+              <div>
+                <span className={styles.metaLabel}>Status</span>
+                <span>{product.active ? "Active" : "Inactive"}</span>
+              </div>
+              <div>
+                <span className={styles.metaLabel}>Created</span>
+                <span>{product.createdAt ? new Date(product.createdAt).toLocaleString() : "New product"}</span>
+              </div>
+              <div>
+                <span className={styles.metaLabel}>Updated</span>
+                <span>{product.updatedAt ? new Date(product.updatedAt).toLocaleString() : "Not updated"}</span>
+              </div>
             </div>
+
+            {product.imageUrl && (
+              <div className={styles.detailUrl}>
+                <span className={styles.metaLabel}>Image URL</span>
+                <span>{product.imageUrl}</span>
+              </div>
+            )}
 
             {!isAdmin && (
               <label className={styles.quantityField}>

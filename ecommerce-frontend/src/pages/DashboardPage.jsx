@@ -16,7 +16,7 @@ export default function DashboardPage() {
     <div className={`${styles.layout} ${isAdmin ? styles.adminLayout : ""}`}>
       <aside className={styles.sidebar}>
         <h2 className={styles.logo}>{isAdmin ? "Admin Panel" : "Ecommerce Web"}</h2>
-        {isAdmin && <span className={styles.adminBadge}>Product Management</span>}
+        {isAdmin && <span className={styles.adminBadge}>Admin Management</span>}
 
         <nav className={styles.nav}>
           <button onClick={() => navigate("/products")}>
@@ -32,6 +32,18 @@ export default function DashboardPage() {
           {isAdmin && (
             <button onClick={() => navigate("/products/new")}>
               Add Product
+            </button>
+          )}
+
+          {isAdmin && (
+            <button onClick={() => navigate("/users")}>
+              Users
+            </button>
+          )}
+
+          {isAdmin && (
+            <button onClick={() => navigate("/orders")}>
+              Order History
             </button>
           )}
 
@@ -57,6 +69,16 @@ export default function DashboardPage() {
           {!isAdmin && (
             <button onClick={() => navigate("/cart")}>
               View Cart
+            </button>
+          )}
+          {isAdmin && (
+            <button onClick={() => navigate("/users")}>
+              Users
+            </button>
+          )}
+          {isAdmin && (
+            <button onClick={() => navigate("/orders")}>
+              Order History
             </button>
           )}
         </div>

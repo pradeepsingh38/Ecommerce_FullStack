@@ -15,4 +15,5 @@ public class ProductResponse {
 	private String imageUrl;
 	private Boolean active;
 	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 }

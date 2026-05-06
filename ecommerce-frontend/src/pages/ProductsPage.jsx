@@ -243,7 +243,9 @@ export default function ProductsPage() {
 
                 <div className={styles.cardFooter}>
                   <span>Rs. {product.price}</span>
-                  <span>{product.stock > 0 ? "In Stock" : "Out"}</span>
+                  <span className={product.stock > 0 ? styles.stockQuantity : styles.stockEmpty}>
+                    {product.stock > 0 ? `${product.stock} Qty` : "Out"}
+                  </span>
                 </div>
 
                 {isAdmin ? (
