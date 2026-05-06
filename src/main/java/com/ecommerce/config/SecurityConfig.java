@@ -55,8 +55,13 @@ public class SecurityConfig {
 						// Public product browsing (GET only)
 						.requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
 
-						// Product creation is admin-only
+						// Product management is admin-only
 						.requestMatchers(HttpMethod.POST, "/api/products").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")
+
+						// Cart actions are customer-only; admins manage products instead.
+						.requestMatchers("/api/cart/**").hasRole("USER")
+						.requestMatchers("/api/cart").hasRole("USER")
 
 						// Everything else requires authentication
 						.anyRequest().authenticated())

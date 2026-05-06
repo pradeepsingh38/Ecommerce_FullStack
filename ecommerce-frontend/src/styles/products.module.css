@@ -13,6 +13,35 @@
   margin-bottom: 28px;
 }
 
+.adminBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  border: 1px solid rgba(56, 189, 248, 0.48);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.18), rgba(79, 70, 229, 0.24));
+  color: #e0f2fe;
+  box-shadow: 0 18px 38px rgba(2, 132, 199, 0.14);
+}
+
+.adminBanner span {
+  padding: 5px 9px;
+  border-radius: 8px;
+  border: 1px solid rgba(125, 211, 252, 0.34);
+  background: rgba(2, 132, 199, 0.26);
+  color: #f0f9ff;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.adminBanner strong {
+  font-size: 18px;
+}
+
 .topBar h1 {
   margin: 0;
   color: #f8fafc;
@@ -520,9 +549,29 @@
 }
 
 .addCartBtn:disabled,
-.searchBtn:disabled {
+.searchBtn:disabled,
+.deleteProductBtn:disabled {
   cursor: not-allowed;
   opacity: 0.55;
+}
+
+.deleteProductBtn {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 14px;
+  border: 1px solid rgba(129, 140, 248, 0.72);
+  border-radius: 8px;
+  background: linear-gradient(135deg, #4f46e5, #0284c7);
+  color: #f8fafc;
+  cursor: pointer;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.2);
+}
+
+.deleteProductBtn:hover {
+  background: linear-gradient(135deg, #4338ca, #0369a1);
+  border-color: #bae6fd;
+  transform: translateY(-1px);
 }
 
 .emptyState {

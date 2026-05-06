@@ -18,26 +18,32 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	// POST /api/products — add a product (protected, needs JWT)
+	// POST /api/products - add a product.
 	@PostMapping
 	public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductRequest request) {
 		return ResponseEntity.ok(productService.addProduct(request));
 	}
 
-	// GET /api/products — get all active products
+	// DELETE /api/products/{id} - soft delete a product.
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+		productService.deleteProduct(id);
+		return ResponseEntity.noContent().build();
+	}
+
+	// GET /api/products - get all active products.
 	@GetMapping
 	public ResponseEntity<List<ProductResponse>> getAllProducts() {
 		return ResponseEntity.ok(productService.getAllProducts());
 	}
 
-	// GET /api/products/{id} — get one product by ID
+	// GET /api/products/{id} - get one product by ID.
 	@GetMapping("/{id}")
 	public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
 		return ResponseEntity.ok(productService.getProductById(id));
 	}
 
 	// GET /api/products/search?keyword=phone&category=Electronics
-	// Both params are optional — works with either, both, or neither
 	@GetMapping("/search")
 	public ResponseEntity<List<ProductResponse>> search(@RequestParam(required = false) String keyword,
 			@RequestParam(required = false) String category) {

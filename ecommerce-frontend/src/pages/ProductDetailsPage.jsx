@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../api/cartApi";
-import { getProductById } from "../api/ProductApi";
+import { deleteProduct, getProductById } from "../api/ProductApi";
 import { useAuth } from "../context/useAuth";
 import { handleProductImageError, productImageFallback } from "../utils/productImage";
 import styles from "../styles/products.module.css";
@@ -63,6 +63,11 @@ export default function ProductDetailsPage() {
   };
 
   const handleAddToCart = async () => {
+    if (isAdmin) {
+      setToast({ type: "error", message: "Admin users manage products and cannot add items to cart" });
+      return;
+    }
+
     setSaving(true);
     setToast(null);
     setError("");
@@ -80,6 +85,25 @@ export default function ProductDetailsPage() {
     }
   };
 
+  const handleDeleteProduct = async () => {
+    setSaving(true);
+    setToast(null);
+    setError("");
+
+    try {
+      await deleteProduct(product.productId);
+      navigate("/products", {
+        state: {
+          toast: { type: "success", message: `${product.name} deleted successfully` },
+        },
+      });
+    } catch (err) {
+      setToast({ type: "error", message: err.response?.data?.error || "Product could not be deleted" });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div className={styles.page}>
       {toast && (
@@ -89,8 +113,15 @@ export default function ProductDetailsPage() {
         </div>
       )}
 
+      {isAdmin && (
+        <div className={styles.adminBanner}>
+          <span>Admin UI</span>
+          <strong>Product Details Management</strong>
+        </div>
+      )}
+
       <div className={styles.topBar}>
-        <h1>Product Details</h1>
+        <h1>{isAdmin ? "Admin Product Details" : "Product Details"}</h1>
         <div className={styles.topActions}>
           {isAdmin && (
             <button type="button" onClick={() => navigate("/products/new")}>
@@ -100,9 +131,11 @@ export default function ProductDetailsPage() {
           <button type="button" onClick={() => navigate("/products")}>
             Products
           </button>
-          <button type="button" onClick={() => navigate("/cart")}>
-            Cart
-          </button>
+          {!isAdmin && (
+            <button type="button" onClick={() => navigate("/cart")}>
+              Cart
+            </button>
+          )}
         </div>
       </div>
 
@@ -139,30 +172,45 @@ export default function ProductDetailsPage() {
               </div>
             </div>
 
-            <label className={styles.quantityField}>
-              Quantity
-              <input
-                type="number"
-                min="1"
-                max={product.stock || 1}
-                value={quantity}
-                onChange={handleQuantityChange}
-                disabled={product.stock <= 0}
-              />
-            </label>
+            {!isAdmin && (
+              <label className={styles.quantityField}>
+                Quantity
+                <input
+                  type="number"
+                  min="1"
+                  max={product.stock || 1}
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  disabled={product.stock <= 0}
+                />
+              </label>
+            )}
 
             <div className={styles.detailActions}>
-              <button
-                type="button"
-                className={styles.searchBtn}
-                onClick={handleAddToCart}
-                disabled={saving || product.stock <= 0}
-              >
-                {saving ? "Adding..." : "Add to Cart"}
-              </button>
-              <button type="button" className={styles.resetBtn} onClick={() => navigate("/cart")}>
-                View Cart
-              </button>
+              {isAdmin ? (
+                <button
+                  type="button"
+                  className={styles.deleteProductBtn}
+                  onClick={handleDeleteProduct}
+                  disabled={saving}
+                >
+                  {saving ? "Deleting..." : "Delete Product"}
+                </button>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className={styles.searchBtn}
+                    onClick={handleAddToCart}
+                    disabled={saving || product.stock <= 0}
+                  >
+                    {saving ? "Adding..." : "Add to Cart"}
+                  </button>
+                  <button type="button" className={styles.resetBtn} onClick={() => navigate("/cart")}>
+                    View Cart
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </section>

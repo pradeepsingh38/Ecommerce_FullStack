@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clearCart, getCart, removeCartItem, updateCartItem } from "../api/cartApi";
+import { useAuth } from "../context/useAuth";
 import { handleProductImageError, productImageFallback } from "../utils/productImage";
 import styles from "../styles/products.module.css";
 
 export default function CartPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [cart, setCart] = useState({ items: [], totalItems: 0, totalAmount: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const isAdmin = user?.role === "ADMIN";
 
   const loadCart = async () => {
     setError("");
@@ -24,6 +27,16 @@ export default function CartPage() {
   };
 
   useEffect(() => {
+    if (isAdmin) {
+      navigate("/products", {
+        replace: true,
+        state: {
+          toast: { type: "error", message: "Admin users manage products and cannot use the cart" },
+        },
+      });
+      return undefined;
+    }
+
     let active = true;
 
     const loadInitialCart = async () => {
@@ -48,7 +61,7 @@ export default function CartPage() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [isAdmin, navigate]);
 
   const handleQuantityChange = async (item, quantity) => {
     const nextQuantity = Number(quantity);

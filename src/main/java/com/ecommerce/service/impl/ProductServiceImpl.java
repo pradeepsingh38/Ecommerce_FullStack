@@ -48,6 +48,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public void deleteProduct(Long id) {
+		Product product = productRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+		product.setActive(false);
+		productRepository.save(product);
+	}
+
+	@Override
 	public List<ProductResponse> getAllProducts() {
 		return productRepository.findByActiveTrue().stream().map(this::mapToResponse).collect(Collectors.toList());
 	}

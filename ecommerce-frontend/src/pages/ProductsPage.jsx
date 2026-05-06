@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getAllProducts, searchProducts } from "../api/ProductApi";
+import { deleteProduct, getAllProducts, searchProducts } from "../api/ProductApi";
 import { addToCart } from "../api/cartApi";
 import { useAuth } from "../context/useAuth";
 import { handleProductImageError, productImageFallback } from "../utils/productImage";
@@ -17,12 +17,16 @@ export default function ProductsPage() {
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const isAdmin = user?.role === "ADMIN";
 
   useEffect(() => {
     if (location.state?.toast) {
-      setToast(location.state.toast);
+      const timer = window.setTimeout(() => setToast(location.state.toast), 0);
       navigate(location.pathname, { replace: true, state: {} });
+      return () => window.clearTimeout(timer);
     }
+
+    return undefined;
   }, [location.pathname, location.state, navigate]);
 
   useEffect(() => {
@@ -100,6 +104,11 @@ export default function ProductsPage() {
 
   const handleAddToCart = async (event, product) => {
     event.stopPropagation();
+    if (isAdmin) {
+      setToast({ type: "error", message: "Admin users manage products and cannot add items to cart" });
+      return;
+    }
+
     setToast(null);
     setError("");
 
@@ -108,6 +117,21 @@ export default function ProductsPage() {
       setToast({ type: "success", message: `${product.name} added to cart` });
     } catch (err) {
       setToast({ type: "error", message: err.response?.data?.error || "Product could not be added to cart" });
+    }
+  };
+
+  const handleDeleteProduct = async (event, product) => {
+    event.stopPropagation();
+    setToast(null);
+    setError("");
+
+    try {
+      await deleteProduct(product.productId);
+      setAllProducts((current) => current.filter((item) => item.productId !== product.productId));
+      setProducts((current) => current.filter((item) => item.productId !== product.productId));
+      setToast({ type: "success", message: `${product.name} deleted successfully` });
+    } catch (err) {
+      setToast({ type: "error", message: err.response?.data?.error || "Product could not be deleted" });
     }
   };
 
@@ -129,17 +153,26 @@ export default function ProductsPage() {
         </div>
       )}
 
+      {isAdmin && (
+        <div className={styles.adminBanner}>
+          <span>Admin UI</span>
+          <strong>Product Management</strong>
+        </div>
+      )}
+
       <div className={styles.topBar}>
-        <h1>Explore Products</h1>
+        <h1>{isAdmin ? "Manage Products" : "Explore Products"}</h1>
         <div className={styles.topActions}>
-          {user?.role === "ADMIN" && (
+          {isAdmin && (
             <button type="button" onClick={() => navigate("/products/new")}>
               Add Product
             </button>
           )}
-          <button type="button" onClick={() => navigate("/cart")}>
-            Cart
-          </button>
+          {!isAdmin && (
+            <button type="button" onClick={() => navigate("/cart")}>
+              Cart
+            </button>
+          )}
           <button type="button" onClick={() => navigate("/dashboard")}>
             Back
           </button>
@@ -213,14 +246,24 @@ export default function ProductsPage() {
                   <span>{product.stock > 0 ? "In Stock" : "Out"}</span>
                 </div>
 
-                <button
-                  type="button"
-                  className={styles.addCartBtn}
-                  onClick={(event) => handleAddToCart(event, product)}
-                  disabled={product.stock <= 0}
-                >
-                  Add to Cart
-                </button>
+                {isAdmin ? (
+                  <button
+                    type="button"
+                    className={styles.deleteProductBtn}
+                    onClick={(event) => handleDeleteProduct(event, product)}
+                  >
+                    Delete Product
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className={styles.addCartBtn}
+                    onClick={(event) => handleAddToCart(event, product)}
+                    disabled={product.stock <= 0}
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
             </article>
           ))}
