@@ -6,6 +6,7 @@ import ProductsPage from "../pages/ProductsPage";
 import AddProductPage from "../pages/AddProductPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
+import CheckoutPage from "../pages/CheckoutPage";
 import UsersPage from "../pages/UsersPage";
 import OrderHistoryPage from "../pages/OrderHistoryPage";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -26,11 +27,17 @@ export default function AppRoutes() {
       <Route path="/products/new" element={
         <ProtectedRoute><AdminRoute><AddProductPage /></AdminRoute></ProtectedRoute>
       }/>
+      <Route path="/products/:id/edit" element={
+        <ProtectedRoute><AdminRoute><AddProductPage /></AdminRoute></ProtectedRoute>
+      }/>
       <Route path="/products/:id" element={
         <ProtectedRoute><ProductDetailsPage /></ProtectedRoute>
       }/>
       <Route path="/cart" element={
         <ProtectedRoute><CartPage /></ProtectedRoute>
+      }/>
+      <Route path="/checkout" element={
+        <ProtectedRoute><CheckoutPage /></ProtectedRoute>
       }/>
       <Route path="/users" element={
         <ProtectedRoute><AdminRoute><UsersPage /></AdminRoute></ProtectedRoute>

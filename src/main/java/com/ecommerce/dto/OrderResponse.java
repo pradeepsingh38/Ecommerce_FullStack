@@ -16,6 +16,9 @@ public class OrderResponse {
 	private BigDecimal totalAmount;
 	private Integer totalItems;
 	private String status;
+	private String shippingAddress;
+	private String paymentMethod;
+	private String contactNumber;
 	private LocalDateTime createdAt;
 	private List<OrderItemResponse> items = new ArrayList<>();
 }

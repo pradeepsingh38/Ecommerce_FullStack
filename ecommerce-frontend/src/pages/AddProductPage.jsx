@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { addProduct } from "../api/ProductApi";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { addProduct, getProductById, updateProduct } from "../api/ProductApi";
 import styles from "../styles/products.module.css";
 
 const initialForm = {
@@ -12,11 +12,71 @@ const initialForm = {
   imageUrl: "",
 };
 
+function getApiError(err, fallback) {
+  const data = err.response?.data;
+
+  if (!data) {
+    return fallback;
+  }
+
+  if (typeof data === "string") {
+    return data;
+  }
+
+  if (data.error) {
+    return data.error;
+  }
+
+  const messages = Object.values(data).filter(Boolean);
+  return messages.length > 0 ? messages.join(", ") : fallback;
+}
+
 export default function AddProductPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEditMode = Boolean(id);
   const [form, setForm] = useState(initialForm);
+  const [loading, setLoading] = useState(isEditMode);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!isEditMode) {
+      return undefined;
+    }
+
+    let active = true;
+
+    const loadProduct = async () => {
+      try {
+        const res = await getProductById(id);
+        if (active) {
+          setForm({
+            name: res.data.name || "",
+            description: res.data.description || "",
+            price: res.data.price ?? "",
+            stock: res.data.stock ?? "",
+            category: res.data.category || "",
+            imageUrl: res.data.imageUrl || "",
+          });
+        }
+      } catch (err) {
+        if (active) {
+          setError(getApiError(err, "Product could not be loaded"));
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadProduct();
+
+    return () => {
+      active = false;
+    };
+  }, [id, isEditMode]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,14 +94,17 @@ export default function AddProductPage() {
         price: Number(form.price),
         stock: Number(form.stock),
       };
-      const res = await addProduct(payload);
+      const res = isEditMode ? await updateProduct(id, payload) : await addProduct(payload);
       navigate(`/products/${res.data.productId}`, {
         state: {
-          toast: { type: "success", message: `${payload.name} added successfully` },
+          toast: {
+            type: "success",
+            message: `${payload.name} ${isEditMode ? "updated" : "added"} successfully`,
+          },
         },
       });
     } catch (err) {
-      setError(err.response?.data?.error || "Product could not be added");
+      setError(getApiError(err, `Product could not be ${isEditMode ? "updated" : "added"}`));
     } finally {
       setSaving(false);
     }
@@ -50,12 +113,15 @@ export default function AddProductPage() {
   return (
     <div className={styles.page}>
       <div className={styles.topBar}>
-        <h1>Add Product</h1>
+        <h1>{isEditMode ? "Update Product" : "Add Product"}</h1>
         <button type="button" onClick={() => navigate("/products")}>
           Back
         </button>
       </div>
 
+      {loading && <p className={styles.message}>Loading product...</p>}
+
+      {!loading && (
       <form className={styles.productForm} onSubmit={handleSubmit}>
         <input name="name" placeholder="Product name" value={form.name} onChange={handleChange} required />
         <input name="category" placeholder="Category" value={form.category} onChange={handleChange} required />
@@ -67,9 +133,10 @@ export default function AddProductPage() {
         {error && <p className={styles.errorCompact}>{error}</p>}
 
         <button className={styles.searchBtn} type="submit" disabled={saving}>
-          {saving ? "Adding..." : "Add Product"}
+          {saving ? "Saving..." : isEditMode ? "Update" : "Add"}
         </button>
       </form>
+      )}
     </div>
   );
 }

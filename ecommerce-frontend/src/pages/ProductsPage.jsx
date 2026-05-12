@@ -135,6 +135,11 @@ export default function ProductsPage() {
     }
   };
 
+  const handleUpdateProduct = (event, productId) => {
+    event.stopPropagation();
+    navigate(`/products/${productId}/edit`);
+  };
+
   const handleCardKeyDown = (event, productId) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -249,13 +254,22 @@ export default function ProductsPage() {
                 </div>
 
                 {isAdmin ? (
-                  <button
-                    type="button"
-                    className={styles.deleteProductBtn}
-                    onClick={(event) => handleDeleteProduct(event, product)}
-                  >
-                    Delete Product
-                  </button>
+                  <div className={styles.adminProductActions}>
+                    <button
+                      type="button"
+                      className={styles.updateProductBtn}
+                      onClick={(event) => handleUpdateProduct(event, product.productId)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.deleteProductBtn}
+                      onClick={(event) => handleDeleteProduct(event, product)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 ) : (
                   <button
                     type="button"

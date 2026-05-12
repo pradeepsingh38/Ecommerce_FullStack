@@ -26,6 +26,15 @@ public class ProductController {
 		return ResponseEntity.ok(productService.addProduct(request));
 	}
 
+	// PUT /api/products/{id} - update a product.
+	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<ProductResponse> updateProduct(
+			@PathVariable Long id,
+			@Valid @RequestBody ProductRequest request) {
+		return ResponseEntity.ok(productService.updateProduct(id, request));
+	}
+
 	// DELETE /api/products/{id} - soft delete a product.
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")

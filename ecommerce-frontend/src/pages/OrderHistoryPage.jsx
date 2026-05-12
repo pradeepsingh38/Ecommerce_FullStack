@@ -101,7 +101,11 @@ export default function OrderHistoryPage() {
               <div className={styles.orderMeta}>
                 <span>{formatDate(order.createdAt)}</span>
                 <span>{order.totalItems} items</span>
+                <span>{order.paymentMethod}</span>
+                {order.contactNumber && <span>{order.contactNumber}</span>}
               </div>
+
+              <p className={styles.orderAddress}>{order.shippingAddress}</p>
 
               <table className={styles.orderItems}>
                 <thead>

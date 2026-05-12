@@ -584,6 +584,35 @@
   box-shadow: 0 10px 24px rgba(14, 165, 233, 0.2);
 }
 
+.adminProductActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.adminProductActions .deleteProductBtn {
+  margin-top: 0;
+}
+
+.updateProductBtn {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid rgba(45, 212, 191, 0.54);
+  border-radius: 8px;
+  background: linear-gradient(135deg, #14b8a6, #38bdf8);
+  color: #04111f;
+  cursor: pointer;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(45, 212, 191, 0.18);
+}
+
+.updateProductBtn:hover {
+  border-color: rgba(153, 246, 228, 0.76);
+  background: linear-gradient(135deg, #0d9488, #0ea5e9);
+  transform: translateY(-1px);
+}
+
 .deleteProductBtn:hover {
   background: linear-gradient(135deg, #4338ca, #0369a1);
   border-color: #bae6fd;
@@ -677,6 +706,154 @@
   margin: 0;
 }
 
+.checkoutLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 24px;
+  align-items: start;
+}
+
+.checkoutForm {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid rgba(45, 212, 191, 0.14);
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.9);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+}
+
+.checkoutForm label {
+  display: grid;
+  gap: 8px;
+  color: #cbd5e1;
+  font-weight: 700;
+}
+
+.checkoutForm input,
+.checkoutForm textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid rgba(71, 85, 105, 0.78);
+  border-radius: 8px;
+  background: rgba(2, 6, 23, 0.82);
+  color: #e2e8f0;
+  font: inherit;
+}
+
+.checkoutForm textarea {
+  resize: vertical;
+}
+
+.checkoutForm input:focus,
+.checkoutForm textarea:focus {
+  outline: none;
+  border-color: #2dd4bf;
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.18);
+}
+
+.paymentOptions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.paymentOptions legend {
+  grid-column: 1 / -1;
+  margin-bottom: 2px;
+  color: #cbd5e1;
+  font-weight: 800;
+}
+
+.paymentOptions label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 1px solid rgba(71, 85, 105, 0.78);
+  border-radius: 8px;
+  background: rgba(2, 6, 23, 0.5);
+  cursor: pointer;
+}
+
+.paymentOptions input {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  accent-color: #2dd4bf;
+}
+
+.checkoutSummary {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(45, 212, 191, 0.14);
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.9);
+  color: #e2e8f0;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+}
+
+.checkoutSummary h2 {
+  margin: 0;
+  color: #f8fafc;
+}
+
+.checkoutItems {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.checkoutItem {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.checkoutItem img {
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #020617;
+}
+
+.checkoutItem div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.checkoutItem strong {
+  overflow: hidden;
+  color: #f8fafc;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.checkoutItem span {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.checkoutItem b {
+  color: #5eead4;
+}
+
+.checkoutSummary p {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
 @media (max-width: 720px) {
   .page {
     padding: 28px 16px;
@@ -685,10 +862,15 @@
   .topBar,
   .detailLayout,
   .cartLayout,
+  .checkoutLayout,
   .cartItem {
     grid-template-columns: 1fr;
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .paymentOptions {
+    grid-template-columns: 1fr;
   }
 
   .detailMeta {
@@ -701,6 +883,10 @@
 
   .topActions {
     justify-content: flex-start;
+  }
+
+  .adminProductActions {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -738,6 +924,7 @@
 .cartItem input,
 .cartItem button,
 .addCartBtn,
+.updateProductBtn,
 .deleteProductBtn {
   border-radius: 8px;
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.service.impl;
 
+import com.ecommerce.dto.CheckoutRequest;
 import com.ecommerce.dto.OrderItemResponse;
 import com.ecommerce.dto.OrderResponse;
 import com.ecommerce.entity.CartItem;
@@ -37,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public OrderResponse placeOrder(UserDetails userDetails) {
+	public OrderResponse placeOrder(UserDetails userDetails, CheckoutRequest request) {
 		User user = getUser(userDetails);
 		List<CartItem> cartItems = cartItemRepository.findByUser_UserId(user.getUserId());
 
@@ -48,6 +49,9 @@ public class OrderServiceImpl implements OrderService {
 		Order order = new Order();
 		order.setUser(user);
 		order.setStatus("PLACED");
+		order.setShippingAddress(request.getShippingAddress().trim());
+		order.setPaymentMethod(request.getPaymentMethod());
+		order.setContactNumber(normalizeContactNumber(request.getContactNumber()));
 
 		BigDecimal totalAmount = BigDecimal.ZERO;
 		int totalItems = 0;
@@ -125,9 +129,20 @@ public class OrderServiceImpl implements OrderService {
 		response.setTotalAmount(order.getTotalAmount());
 		response.setTotalItems(order.getTotalItems());
 		response.setStatus(order.getStatus());
+		response.setShippingAddress(order.getShippingAddress());
+		response.setPaymentMethod(order.getPaymentMethod());
+		response.setContactNumber(order.getContactNumber());
 		response.setCreatedAt(order.getCreatedAt());
 		response.setItems(order.getItems().stream().map(this::mapItemToResponse).toList());
 		return response;
+	}
+
+	private String normalizeContactNumber(String contactNumber) {
+		if (contactNumber == null || contactNumber.isBlank()) {
+			return null;
+		}
+
+		return contactNumber.trim();
 	}
 
 	private OrderItemResponse mapItemToResponse(OrderItem orderItem) {

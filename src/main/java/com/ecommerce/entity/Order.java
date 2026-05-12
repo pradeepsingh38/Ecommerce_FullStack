@@ -41,6 +41,15 @@ public class Order {
 	@Column(nullable = false)
 	private String status = "PLACED";
 
+	@Column(nullable = false, length = 500)
+	private String shippingAddress;
+
+	@Column(nullable = false, length = 30)
+	private String paymentMethod;
+
+	@Column(length = 20)
+	private String contactNumber;
+
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItem> items = new ArrayList<>();
 

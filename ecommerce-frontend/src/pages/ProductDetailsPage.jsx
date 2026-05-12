@@ -222,14 +222,24 @@ export default function ProductDetailsPage() {
 
             <div className={styles.detailActions}>
               {isAdmin ? (
-                <button
-                  type="button"
-                  className={styles.deleteProductBtn}
-                  onClick={handleDeleteProduct}
-                  disabled={saving}
-                >
-                  {saving ? "Deleting..." : "Delete Product"}
-                </button>
+                <>
+                  <button
+                    type="button"
+                    className={styles.updateProductBtn}
+                    onClick={() => navigate(`/products/${product.productId}/edit`)}
+                    disabled={saving}
+                  >
+                    Update
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.deleteProductBtn}
+                    onClick={handleDeleteProduct}
+                    disabled={saving}
+                  >
+                    {saving ? "Deleting..." : "Delete"}
+                  </button>
+                </>
               ) : (
                 <>
                   <button

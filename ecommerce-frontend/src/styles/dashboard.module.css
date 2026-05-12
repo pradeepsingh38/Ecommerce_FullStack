@@ -277,8 +277,15 @@
   gap: 18px;
   flex-wrap: wrap;
   padding-bottom: 14px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
   font-size: 13px;
+}
+
+.orderAddress {
+  margin: 0 0 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  color: #cbd5e1;
+  line-height: 1.6;
 }
 
 .orderItems {
