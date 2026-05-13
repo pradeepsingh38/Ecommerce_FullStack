@@ -46,58 +46,58 @@ export default function RegisterPage() {
 
   return (
     <div className={styles.container}>
+      <section className={styles.card}>
+        <span className={styles.formEyebrow}>Ecommerce Web</span>
+        <h1>Sign up</h1>
+        <p className={styles.subtitle}>Fill in your details to create a new customer account.</p>
 
-      {/* LEFT SIDE */}
-      <div className={styles.left}>
-        <h1>Welcome 🚀</h1>
-        <p>Create your account and start exploring products.</p>
-      </div>
+        {errors.general && <p className={styles.errorBanner}>{errors.general}</p>}
 
-      {/* RIGHT SIDE (FORM) */}
-      <div className={styles.right}>
-        <div className={styles.card}>
-          <h2>Create Account</h2>
-
-          {errors.general && <p className={styles.errorBanner}>{errors.general}</p>}
-
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <label>
+            <span>Full Name</span>
             <input
               name="name"
-              placeholder="Full Name"
+              placeholder="Enter your name"
               value={form.name}
               onChange={handleChange}
             />
-            {errors.name && <span>{errors.name}</span>}
+            {errors.name && <small>{errors.name}</small>}
+          </label>
 
+          <label>
+            <span>Email</span>
             <input
               name="email"
               type="email"
-              placeholder="Email"
+              placeholder="you@example.com"
               value={form.email}
               onChange={handleChange}
             />
-            {errors.email && <span>{errors.email}</span>}
+            {errors.email && <small>{errors.email}</small>}
+          </label>
 
+          <label>
+            <span>Password</span>
             <input
               name="password"
               type="password"
-              placeholder="Password"
+              placeholder="Create password"
               value={form.password}
               onChange={handleChange}
             />
-            {errors.password && <span>{errors.password}</span>}
+            {errors.password && <small>{errors.password}</small>}
+          </label>
 
-            <button type="submit" disabled={loading}>
-              {loading ? "Creating..." : "Register"}
-            </button>
-          </form>
+          <button type="submit" disabled={loading}>
+            {loading ? "Creating..." : "Create account"}
+          </button>
+        </form>
 
-          <p>
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-        </div>
-      </div>
-
+        <p>
+          Already have an account? <Link to="/login">Sign in</Link>
+        </p>
+      </section>
     </div>
   );
 }

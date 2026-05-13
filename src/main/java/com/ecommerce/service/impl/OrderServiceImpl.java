@@ -92,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional(readOnly = true)
 	public List<OrderResponse> getMyOrders(UserDetails userDetails) {
 		User user = getUser(userDetails);
-		return orderRepository.findByUser_UserIdOrderByCreatedAtDesc(user.getUserId()).stream()
+		return orderRepository.findMyOrdersWithItems(user.getUserId()).stream()
 				.map(this::mapToResponse)
 				.toList();
 	}

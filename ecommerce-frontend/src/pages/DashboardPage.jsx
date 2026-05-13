@@ -29,6 +29,12 @@ export default function DashboardPage() {
             </button>
           )}
 
+          {!isAdmin && (
+            <button onClick={() => navigate("/my-orders")}>
+              My Orders
+            </button>
+          )}
+
           {isAdmin && (
             <button onClick={() => navigate("/products/new")}>
               Add Product
@@ -69,6 +75,11 @@ export default function DashboardPage() {
           {!isAdmin && (
             <button onClick={() => navigate("/cart")}>
               View Cart
+            </button>
+          )}
+          {!isAdmin && (
+            <button onClick={() => navigate("/my-orders")}>
+              My Orders
             </button>
           )}
           {isAdmin && (

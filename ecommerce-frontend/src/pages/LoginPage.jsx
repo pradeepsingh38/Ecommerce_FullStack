@@ -45,9 +45,10 @@ export default function LoginPage() {
 
   return (
     <div className={styles.authPage}>
-      <div className={styles.authCard}>
-        <h1 className={styles.title}>Welcome Ecommerce Web</h1>
-        <p className={styles.subtitle}>Sign in to your account</p>
+      <section className={styles.authCard}>
+        <span className={styles.formEyebrow}>Ecommerce Web</span>
+        <h1 className={styles.title}>Sign in</h1>
+        <p className={styles.subtitle}>Enter your details to continue shopping.</p>
         {errors.general && <p className={styles.errorBanner}>{errors.general}</p>}
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
@@ -65,9 +66,9 @@ export default function LoginPage() {
           </button>
         </form>
         <p className={styles.switchLink}>
-          No account yet? <Link to="/register">Register</Link>
+          No account yet? <Link to="/register">Create account</Link>
         </p>
-      </div>
+      </section>
     </div>
   );
 }

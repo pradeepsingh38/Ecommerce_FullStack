@@ -6,7 +6,11 @@ import { handleProductImageError, productImageFallback } from "../utils/productI
 import styles from "../styles/products.module.css";
 
 const initialForm = {
-  shippingAddress: "",
+  houseNo: "",
+  street: "",
+  city: "",
+  pincode: "",
+  state: "",
   paymentMethod: "COD",
   contactNumber: "",
 };
@@ -18,6 +22,18 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  const buildShippingAddress = () => {
+    return [
+      form.houseNo.trim(),
+      form.street.trim(),
+      form.city.trim(),
+      form.pincode.trim(),
+      form.state.trim(),
+    ]
+      .filter(Boolean)
+      .join(", ");
+  };
 
   useEffect(() => {
     let active = true;
@@ -47,8 +63,15 @@ export default function CheckoutPage() {
   }, []);
 
   const canSubmit = useMemo(() => {
-    return cart.items.length > 0 && form.shippingAddress.trim() && !submitting;
-  }, [cart.items.length, form.shippingAddress, submitting]);
+    return (
+      cart.items.length > 0 &&
+      form.houseNo.trim() &&
+      form.city.trim() &&
+      form.pincode.trim() &&
+      form.state.trim() &&
+      !submitting
+    );
+  }, [cart.items.length, form.city, form.houseNo, form.pincode, form.state, submitting]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -59,7 +82,9 @@ export default function CheckoutPage() {
     event.preventDefault();
     setError("");
 
-    if (!form.shippingAddress.trim()) {
+    const shippingAddress = buildShippingAddress();
+
+    if (!shippingAddress) {
       setError("Shipping address is required");
       return;
     }
@@ -68,12 +93,12 @@ export default function CheckoutPage() {
 
     try {
       await placeOrder({
-        ...form,
-        shippingAddress: form.shippingAddress.trim(),
+        shippingAddress,
+        paymentMethod: form.paymentMethod,
         contactNumber: form.contactNumber.trim(),
       });
 
-      navigate("/products", {
+      navigate("/my-orders", {
         state: {
           toast: { type: "success", message: "Order placed successfully" },
         },
@@ -114,17 +139,68 @@ export default function CheckoutPage() {
       {!loading && cart.items.length > 0 && (
         <div className={styles.checkoutLayout}>
           <form className={styles.checkoutForm} onSubmit={handleSubmit}>
-            <label>
-              <span>Shipping Address</span>
-              <textarea
-                name="shippingAddress"
-                rows="6"
-                value={form.shippingAddress}
-                onChange={handleChange}
-                maxLength="500"
-                required
-              />
-            </label>
+            <div className={styles.addressGrid}>
+              <label>
+                <span>House / Flat No.</span>
+                <input
+                  type="text"
+                  name="houseNo"
+                  value={form.houseNo}
+                  onChange={handleChange}
+                  maxLength="120"
+                  required
+                />
+              </label>
+
+              <label>
+                <span>Street / Area</span>
+                <input
+                  type="text"
+                  name="street"
+                  value={form.street}
+                  onChange={handleChange}
+                  maxLength="160"
+                />
+              </label>
+
+              <label>
+                <span>City</span>
+                <input
+                  type="text"
+                  name="city"
+                  value={form.city}
+                  onChange={handleChange}
+                  maxLength="80"
+                  required
+                />
+              </label>
+
+              <label>
+                <span>Pincode</span>
+                <input
+                  type="text"
+                  name="pincode"
+                  value={form.pincode}
+                  onChange={handleChange}
+                  inputMode="numeric"
+                  pattern="[0-9]{6}"
+                  maxLength="6"
+                  required
+                />
+              </label>
+
+              <label>
+                <span>State</span>
+                <input
+                  type="text"
+                  name="state"
+                  value={form.state}
+                  onChange={handleChange}
+                  maxLength="80"
+                  required
+                />
+              </label>
+            </div>
 
             <label>
               <span>Contact Number</span>

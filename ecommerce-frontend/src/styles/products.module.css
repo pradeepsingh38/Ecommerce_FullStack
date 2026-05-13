@@ -730,6 +730,18 @@
   font-weight: 700;
 }
 
+.addressGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.addressGrid label:first-child,
+.addressGrid label:nth-child(2),
+.addressGrid label:last-child {
+  grid-column: 1 / -1;
+}
+
 .checkoutForm input,
 .checkoutForm textarea {
   width: 100%;
@@ -870,6 +882,10 @@
   }
 
   .paymentOptions {
+    grid-template-columns: 1fr;
+  }
+
+  .addressGrid {
     grid-template-columns: 1fr;
   }
 

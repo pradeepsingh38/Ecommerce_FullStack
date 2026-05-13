@@ -9,6 +9,7 @@ import CartPage from "../pages/CartPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import UsersPage from "../pages/UsersPage";
 import OrderHistoryPage from "../pages/OrderHistoryPage";
+import UserOrdersPage from "../pages/UserOrdersPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AdminRoute from "../components/AdminRoute";
 
@@ -44,6 +45,9 @@ export default function AppRoutes() {
       }/>
       <Route path="/orders" element={
         <ProtectedRoute><AdminRoute><OrderHistoryPage /></AdminRoute></ProtectedRoute>
+      }/>
+      <Route path="/my-orders" element={
+        <ProtectedRoute><UserOrdersPage /></ProtectedRoute>
       }/>
     </Routes>
   );
