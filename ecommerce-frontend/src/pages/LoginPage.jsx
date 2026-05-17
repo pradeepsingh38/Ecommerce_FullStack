@@ -21,7 +21,7 @@ export default function LoginPage() {
     setLoading(true);
     setErrors({});
     try {
-      const res = await loginUser(form);
+      const res = await loginUser({ ...form, email: form.email.trim().toLowerCase() });
       const { token, ...userData } = res.data;
       if (!token) {
         setErrors({ general: "Login succeeded, but no JWT token was returned." });

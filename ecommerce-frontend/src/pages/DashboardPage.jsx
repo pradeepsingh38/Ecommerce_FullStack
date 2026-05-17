@@ -1,16 +1,23 @@
 import { useNavigate } from "react-router-dom";
+import PanelNavbar from "../components/PanelNavbar";
 import { useAuth } from "../context/useAuth";
 import styles from "../styles/dashboard.module.css";
 
 export default function DashboardPage() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const isAdmin = user?.role === "ADMIN";
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+  const dashboardItems = isAdmin
+    ? [
+        { label: "Products", value: "Manage catalog", path: "/products" },
+        { label: "Users", value: "Customer accounts", path: "/users" },
+        { label: "Orders", value: "Order history", path: "/orders" },
+      ]
+    : [
+        { label: "Products", value: "Browse catalog", path: "/products" },
+        { label: "Cart", value: "View cart items", path: "/cart" },
+        { label: "Orders", value: "Track purchases", path: "/my-orders" },
+      ];
 
   return (
     <div className={`${styles.layout} ${isAdmin ? styles.adminLayout : ""}`}>
@@ -53,46 +60,40 @@ export default function DashboardPage() {
             </button>
           )}
 
-          <button onClick={handleLogout}>
-            Logout
+          <button onClick={() => navigate("/profile")}>
+            Profile
           </button>
         </nav>
       </aside>
 
       <main className={styles.content}>
-        <h1 className={styles.title}>{isAdmin ? "Admin Dashboard" : "Dashboard"}</h1>
+        <PanelNavbar title={isAdmin ? "Admin Dashboard" : "Dashboard"} isAdmin={isAdmin} />
 
-        <div className={styles.card}>
-          <h3>{isAdmin ? "Welcome back, Admin" : "Welcome back"}</h3>
-          <p><strong>Name:</strong> {user?.name}</p>
-          <p><strong>Role:</strong> {user?.role}</p>
-        </div>
+        <section className={styles.summaryGrid}>
+          <article className={styles.welcomePanel}>
+            <div>
+              <span className={styles.heroEyebrow}>{isAdmin ? "Admin overview" : "User overview"}</span>
+              <h2>{isAdmin ? "Welcome back, Admin" : `Welcome back, ${user?.name || "User"}`}</h2>
+              <p>
+                {isAdmin
+                  ? "Review store activity and manage the catalog, users, and orders."
+                  : "Continue shopping, review your cart, and check your recent orders."}
+              </p>
+            </div>
+            <button type="button" onClick={() => navigate("/products")}>
+              {isAdmin ? "Manage Products" : "Shop Products"}
+            </button>
+          </article>
+        </section>
 
-        <div className={styles.actions}>
-          <button onClick={() => navigate("/products")}>
-            {isAdmin ? "Manage Products" : "Browse Products"}
-          </button>
-          {!isAdmin && (
-            <button onClick={() => navigate("/cart")}>
-              View Cart
+        <section className={styles.dashboardCards}>
+          {dashboardItems.map((item) => (
+            <button type="button" key={item.label} onClick={() => navigate(item.path)}>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
             </button>
-          )}
-          {!isAdmin && (
-            <button onClick={() => navigate("/my-orders")}>
-              My Orders
-            </button>
-          )}
-          {isAdmin && (
-            <button onClick={() => navigate("/users")}>
-              Users
-            </button>
-          )}
-          {isAdmin && (
-            <button onClick={() => navigate("/orders")}>
-              Order History
-            </button>
-          )}
-        </div>
+          ))}
+        </section>
       </main>
     </div>
   );

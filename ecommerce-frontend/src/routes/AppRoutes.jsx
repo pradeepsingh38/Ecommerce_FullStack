@@ -10,6 +10,7 @@ import CheckoutPage from "../pages/CheckoutPage";
 import UsersPage from "../pages/UsersPage";
 import OrderHistoryPage from "../pages/OrderHistoryPage";
 import UserOrdersPage from "../pages/UserOrdersPage";
+import ProfilePage from "../pages/ProfilePage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AdminRoute from "../components/AdminRoute";
 
@@ -48,6 +49,9 @@ export default function AppRoutes() {
       }/>
       <Route path="/my-orders" element={
         <ProtectedRoute><UserOrdersPage /></ProtectedRoute>
+      }/>
+      <Route path="/profile" element={
+        <ProtectedRoute><ProfilePage /></ProtectedRoute>
       }/>
     </Routes>
   );

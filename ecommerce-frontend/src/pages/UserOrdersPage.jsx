@@ -44,7 +44,7 @@ export default function UserOrdersPage() {
   }, [orders]);
 
   return (
-    <div className={styles.usersPage}>
+    <div className={styles.ordersPage}>
       <header className={styles.usersHeader}>
         <div>
           <span className={styles.userBadge}>Account</span>

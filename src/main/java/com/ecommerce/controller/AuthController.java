@@ -41,4 +41,30 @@ public class AuthController {
 
 		return ResponseEntity.ok(new AuthResponse(null, user.getName(), user.getEmail(), user.getRole()));
 	}
+
+	@PutMapping("/profile")
+	public ResponseEntity<AuthResponse> updateProfile(@AuthenticationPrincipal UserDetails userDetails,
+			@Valid @RequestBody UpdateProfileRequest request) {
+		return ResponseEntity.ok(authService.updateProfile(userDetails.getUsername(), request));
+	}
+
+	@PutMapping("/password")
+	public ResponseEntity<PasswordUpdateResponse> updatePassword(@Valid @RequestBody UpdatePasswordRequest request) {
+		return ResponseEntity.ok(authService.updatePassword(request));
+	}
+
+	@PostMapping("/password")
+	public ResponseEntity<PasswordUpdateResponse> updatePasswordPost(@Valid @RequestBody UpdatePasswordRequest request) {
+		return ResponseEntity.ok(authService.updatePassword(request));
+	}
+
+	@PostMapping("/change-password")
+	public ResponseEntity<PasswordUpdateResponse> changePassword(@Valid @RequestBody UpdatePasswordRequest request) {
+		return ResponseEntity.ok(authService.updatePassword(request));
+	}
+
+	@PostMapping("/logout")
+	public ResponseEntity<Void> logout() {
+		return ResponseEntity.noContent().build();
+	}
 }

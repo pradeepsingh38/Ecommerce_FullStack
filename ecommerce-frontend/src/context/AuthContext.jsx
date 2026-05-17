@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../api/axiosInstance";
+import { getCurrentUser, logoutUser } from "../api/authApi";
 import { AuthContext } from "./AuthContextObject";
 
 export function AuthProvider({ children }) {
@@ -13,8 +13,7 @@ export function AuthProvider({ children }) {
       return;
     }
 
-    axiosInstance
-      .get("/auth/me")
+    getCurrentUser()
       .then((res) => {
         setUser(res.data);
       })
@@ -34,7 +33,22 @@ export function AuthProvider({ children }) {
     setUser(userData);
   };
 
-  const logout = () => {
+  const updateUser = (userData, token) => {
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
+  };
+
+  const logout = async () => {
+    try {
+      if (localStorage.getItem("token")) {
+        await logoutUser();
+      }
+    } catch {
+      // Local cleanup is still the source of truth for this stateless JWT logout.
+    }
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
@@ -43,7 +57,7 @@ export function AuthProvider({ children }) {
   if (loading) return null;
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

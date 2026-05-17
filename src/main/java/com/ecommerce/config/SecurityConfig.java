@@ -53,6 +53,8 @@ public class SecurityConfig {
 						// Public auth endpoints
 						.requestMatchers("/api/auth/register").permitAll().requestMatchers("/api/auth/login")
 						.permitAll()
+						.requestMatchers("/api/auth/password").permitAll()
+						.requestMatchers("/api/auth/change-password").permitAll()
 
 						// Public product browsing (GET only)
 						.requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
