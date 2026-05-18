@@ -166,7 +166,15 @@ export default function ProductsPage() {
       )}
 
       <div className={styles.topBar}>
-        <h1>{isAdmin ? "Manage Products" : "Explore Products"}</h1>
+        <div>
+          <span className={styles.pageEyebrow}>{isAdmin ? "Catalog control" : "Online store"}</span>
+          <h1>{isAdmin ? "Manage Products" : "Explore Products"}</h1>
+          <p className={styles.pageSubtitle}>
+            {isAdmin
+              ? "Update inventory, pricing, and product availability from one clean workspace."
+              : "Find products by search or category and add them to your cart in one tap."}
+          </p>
+        </div>
         <div className={styles.topActions}>
           {isAdmin && (
             <button type="button" onClick={() => navigate("/products/new")}>
@@ -184,35 +192,56 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      <form onSubmit={handleSearch} className={styles.searchBar}>
-        <input
-          type="text"
-          placeholder="Search anything..."
-          value={keyword}
-          onChange={(event) => setKeyword(event.target.value)}
-          className={styles.searchInput}
-        />
+      <section className={styles.catalogToolbar}>
+        <form onSubmit={handleSearch} className={styles.searchBar}>
+          <input
+            type="text"
+            placeholder="Search anything..."
+            value={keyword}
+            onChange={(event) => setKeyword(event.target.value)}
+            className={styles.searchInput}
+          />
 
-        <select
-          value={category}
-          onChange={(event) => handleCategoryChange(event.target.value)}
-          className={styles.select}
-        >
-          <option value="">All</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
+          <select
+            value={category}
+            onChange={(event) => handleCategoryChange(event.target.value)}
+            className={styles.select}
+          >
+            <option value="">All categories</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
 
-        <button type="submit" className={styles.searchBtn}>
-          Search
-        </button>
-        <button type="button" onClick={handleReset} className={styles.resetBtn}>
-          Reset
-        </button>
-      </form>
+          <button type="submit" className={styles.searchBtn}>
+            Search
+          </button>
+          <button type="button" onClick={handleReset} className={styles.resetBtn}>
+            Reset
+          </button>
+        </form>
+
+        <div className={styles.catalogMeta}>
+          <span>{products.length} products showing</span>
+          <div className={styles.categoryChips}>
+            <button type="button" className={!category ? styles.activeChip : ""} onClick={() => handleCategoryChange("")}>
+              All
+            </button>
+            {categories.slice(0, 5).map((cat) => (
+              <button
+                type="button"
+                key={cat}
+                className={category === cat ? styles.activeChip : ""}
+                onClick={() => handleCategoryChange(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {loading && <p className={styles.message}>Loading...</p>}
       {error && <p className={styles.error}>{error}</p>}
@@ -243,8 +272,9 @@ export default function ProductsPage() {
               </div>
 
               <div className={styles.cardBody}>
+                <span className={styles.categoryPill}>{product.category || "Product"}</span>
                 <h3>{product.name}</h3>
-                <p>{product.category}</p>
+                <p>{product.description || "Premium product ready for your store catalog."}</p>
 
                 <div className={styles.cardFooter}>
                   <span>Rs. {product.price}</span>

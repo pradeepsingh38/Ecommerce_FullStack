@@ -1039,3 +1039,540 @@
   border-color: rgba(253, 186, 116, 0.7);
   background: linear-gradient(135deg, #be123c, #ea580c);
 }
+
+/* Retail light theme overrides */
+.page {
+  color: #172033;
+}
+
+.topBar,
+.adminBanner,
+.card,
+.detailLayout,
+.cartItem,
+.cartSummary,
+.checkoutForm,
+.checkoutSummary {
+  border-color: #e5eaf1;
+  background: #ffffff;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.08);
+}
+
+.adminBanner {
+  background: linear-gradient(135deg, #fff7ed, #eff6ff);
+  color: #172033;
+}
+
+.adminBanner span {
+  border-color: #fed7aa;
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.topBar h1,
+.title,
+.cardBody h3,
+.productName,
+.detailInfo h2,
+.cartItem h3,
+.cartSummary h2,
+.checkoutSummary h2,
+.checkoutItem strong {
+  color: #0f172a;
+}
+
+.topBar button,
+.resetBtn,
+.cartItem button {
+  border-color: #dbe4f0;
+  background: #ffffff;
+  color: #475569;
+}
+
+.topBar button:hover,
+.resetBtn:hover,
+.cartItem button:hover {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.searchInput,
+.select,
+.productForm input,
+.productForm textarea,
+.quantityField input,
+.cartItem input,
+.checkoutForm input,
+.checkoutForm textarea,
+.paymentOptions label {
+  border-color: #dbe4f0;
+  background: #f8fafc;
+  color: #172033;
+}
+
+.searchInput::placeholder {
+  color: #94a3b8;
+}
+
+.searchInput:focus,
+.productForm input:focus,
+.productForm textarea:focus,
+.quantityField input:focus,
+.checkoutForm input:focus,
+.checkoutForm textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.13);
+}
+
+.searchBtn,
+.addCartBtn,
+.updateProductBtn {
+  background: #f97316;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.searchBtn:hover,
+.addCartBtn:hover,
+.updateProductBtn:hover {
+  background: #ea580c;
+  box-shadow: 0 14px 28px rgba(249, 115, 22, 0.22);
+}
+
+.deleteProductBtn {
+  border-color: #fecaca;
+  background: #ffffff;
+  color: #b91c1c;
+  box-shadow: none;
+}
+
+.deleteProductBtn:hover {
+  border-color: #fca5a5;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.card:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.12);
+}
+
+.cardBody p,
+.category,
+.description,
+.message,
+.emptyState,
+.detailInfo,
+.detailInfo p,
+.metaLabel,
+.detailUrl span:last-child,
+.quantityField,
+.cartItem p,
+.checkoutForm label,
+.paymentOptions legend,
+.checkoutItem span {
+  color: #64748b;
+}
+
+.cardFooter span:first-child,
+.price,
+.detailMeta strong,
+.checkoutItem b {
+  color: #2563eb;
+}
+
+.cardFooter span:last-child,
+.stock,
+.detailMeta span {
+  color: #16a34a;
+}
+
+.image,
+.imageWrapper,
+.detailMedia,
+.detailImage,
+.cartItem img,
+.checkoutItem img {
+  background: #eef2f7;
+}
+
+.overlay {
+  background: rgba(15, 23, 42, 0.62);
+  color: #ffffff;
+}
+
+.detailMeta,
+.checkoutItems {
+  border-color: #e5eaf1;
+}
+
+.detailUrl {
+  border-color: #e5eaf1;
+  background: #f8fafc;
+}
+
+.paymentOptions input {
+  accent-color: #f97316;
+}
+
+.stockQuantity {
+  color: #166534;
+  background: #dcfce7;
+  border-color: #86efac;
+}
+
+/* Real storefront polish */
+.topBar {
+  align-items: flex-start;
+}
+
+.pageEyebrow,
+.categoryPill {
+  display: inline-flex;
+  width: max-content;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 10px;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pageSubtitle {
+  max-width: 620px;
+  margin: 10px 0 0;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.catalogToolbar {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding: 18px;
+  border: 1px solid #e5eaf1;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.08);
+}
+
+.catalogToolbar .searchBar {
+  margin-bottom: 0;
+}
+
+.catalogMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.catalogMeta > span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.categoryChips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.categoryChips button {
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #475569;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.categoryChips button:hover,
+.categoryChips .activeChip {
+  border-color: #fdba74;
+  background: #fff7ed;
+  color: #c2410c;
+  box-shadow: 0 10px 22px rgba(249, 115, 22, 0.1);
+}
+
+.card {
+  position: relative;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: auto 16px 0;
+  height: 3px;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(90deg, #f97316, #2563eb);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+.cardBody {
+  display: grid;
+  gap: 10px;
+}
+
+.categoryPill {
+  min-height: 24px;
+  padding: 0 8px;
+  font-size: 11px;
+}
+
+.cardBody h3 {
+  margin: 0;
+  line-height: 1.25;
+}
+
+.cardBody p {
+  display: -webkit-box;
+  min-height: 40px;
+  margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.5;
+}
+
+.imageWrapper {
+  background:
+    linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(37, 99, 235, 0.08)),
+    #eef2f7;
+}
+
+/* Final storefront hover polish */
+.topBar button,
+.resetBtn,
+.searchBtn,
+.addCartBtn,
+.updateProductBtn,
+.deleteProductBtn,
+.card,
+.cartItem button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.topBar button:hover,
+.resetBtn:hover,
+.cartItem button:hover {
+  border-color: #fdba74;
+  background: #fff7ed;
+  color: #c2410c;
+  box-shadow: 0 10px 22px rgba(249, 115, 22, 0.12);
+}
+
+.searchBtn,
+.addCartBtn,
+.updateProductBtn {
+  background: linear-gradient(135deg, #ff7a1a, #f97316);
+}
+
+.searchBtn:hover,
+.addCartBtn:hover,
+.updateProductBtn:hover {
+  background: linear-gradient(135deg, #ea580c, #dc4f08);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(249, 115, 22, 0.24);
+}
+
+.card:hover {
+  border-color: #fdba74;
+  background: linear-gradient(180deg, #ffffff 0%, #fffaf5 100%);
+  transform: translateY(-5px);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.13);
+}
+
+.card:hover .productName,
+.card:hover .cardBody h3 {
+  color: #c2410c;
+}
+
+.deleteProductBtn:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 720px) {
+  .catalogToolbar {
+    padding: 14px;
+  }
+
+  .catalogMeta {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+/* Final ecommerce color system */
+.page {
+  color: #102033;
+}
+
+.topBar,
+.adminBanner,
+.catalogToolbar,
+.card,
+.detailLayout,
+.cartItem,
+.cartSummary,
+.checkoutForm,
+.checkoutSummary {
+  border-color: #dfe8f2;
+  background: #ffffff;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.07);
+}
+
+.adminBanner {
+  background: linear-gradient(135deg, #ecfdf7, #f0f9ff);
+}
+
+.adminBanner span,
+.pageEyebrow,
+.categoryPill {
+  border-color: #b9e8dc;
+  background: #ecfdf7;
+  color: #047857;
+}
+
+.topBar h1,
+.title,
+.cardBody h3,
+.productName,
+.detailInfo h2,
+.cartItem h3,
+.cartSummary h2,
+.checkoutSummary h2,
+.checkoutItem strong {
+  color: #0f2a44;
+}
+
+.pageSubtitle,
+.catalogMeta > span,
+.cardBody p,
+.category,
+.description,
+.message,
+.emptyState,
+.detailInfo,
+.detailInfo p,
+.metaLabel,
+.detailUrl span:last-child,
+.quantityField,
+.cartItem p,
+.checkoutForm label,
+.paymentOptions legend,
+.checkoutItem span {
+  color: #60758a;
+}
+
+.searchInput,
+.select,
+.productForm input,
+.productForm textarea,
+.quantityField input,
+.cartItem input,
+.checkoutForm input,
+.checkoutForm textarea,
+.paymentOptions label {
+  border-color: #dfe8f2;
+  background: #f8fbfd;
+  color: #102033;
+}
+
+.searchInput:focus,
+.productForm input:focus,
+.productForm textarea:focus,
+.quantityField input:focus,
+.checkoutForm input:focus,
+.checkoutForm textarea:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.13);
+}
+
+.topBar button,
+.resetBtn,
+.cartItem button,
+.categoryChips button {
+  border-color: #dfe8f2;
+  background: #ffffff;
+  color: #263f57;
+}
+
+.topBar button:hover,
+.resetBtn:hover,
+.cartItem button:hover,
+.categoryChips button:hover,
+.categoryChips .activeChip {
+  border-color: #7dd3c7;
+  background: #f0fdfa;
+  color: #047857;
+  box-shadow: 0 12px 26px rgba(15, 118, 110, 0.1);
+}
+
+.searchBtn,
+.addCartBtn,
+.updateProductBtn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+}
+
+.searchBtn:hover,
+.addCartBtn:hover,
+.updateProductBtn:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 16px 32px rgba(5, 150, 105, 0.22);
+}
+
+.cardFooter span:first-child,
+.price,
+.detailMeta strong,
+.checkoutItem b {
+  color: #0369a1;
+}
+
+.cardFooter span:last-child,
+.stock,
+.detailMeta span {
+  color: #047857;
+}
+
+.card:hover {
+  border-color: #7dd3c7;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fffc 100%);
+}
+
+.card:hover .productName,
+.card:hover .cardBody h3 {
+  color: #047857;
+}
+
+.card::after {
+  background: linear-gradient(90deg, #10b981, #38bdf8);
+}
+
+.imageWrapper {
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(16, 185, 129, 0.08)),
+    #eef4f8;
+}
+
+.paymentOptions input {
+  accent-color: #10b981;
+}

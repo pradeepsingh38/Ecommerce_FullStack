@@ -1289,3 +1289,621 @@
     width: 100%;
   }
 }
+
+/* Retail light theme overrides */
+.layout,
+.adminLayout,
+.profilePage,
+.usersPage,
+.ordersPage {
+  background:
+    linear-gradient(145deg, rgba(255, 122, 0, 0.08), transparent 34%),
+    linear-gradient(315deg, rgba(37, 99, 235, 0.07), transparent 36%),
+    #f5f7fb;
+  color: #172033;
+}
+
+.sidebar,
+.panelNavbar,
+.welcomePanel,
+.accountPanel,
+.dashboardCards button,
+.profileCard,
+.card,
+.userStats div,
+.usersTableWrap,
+.orderCard,
+.buyerOrderCard,
+.ordersEmpty,
+.ordersPage .usersHeader,
+.ordersPage .userStats div,
+.ordersPage .ordersEmpty,
+.ordersPage .buyerOrderCard {
+  border-color: #e5eaf1;
+  background: #ffffff;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.08);
+}
+
+.sidebar {
+  box-shadow: 8px 0 28px rgba(15, 23, 42, 0.05);
+}
+
+.logo,
+.title,
+.welcomePanel h2,
+.accountPanel strong,
+.dashboardCards span,
+.profileCard h2,
+.usersTable td,
+.orderHead h2,
+.buyerOrderTop strong,
+.buyerOrderItem h2,
+.ordersEmpty h2,
+.ordersPage .title {
+  color: #0f172a;
+}
+
+.adminBadge,
+.userBadge,
+.heroEyebrow {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.nav button,
+.logoutButton,
+.profileButton,
+.ordersPage .actions button {
+  border-color: #dbe4f0;
+  background: #ffffff;
+  color: #475569;
+}
+
+.nav button:hover,
+.profileButton:hover,
+.logoutButton:hover,
+.ordersPage .actions button:hover {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.avatar,
+.accountAvatar {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.welcomePanel button,
+.profileCard button,
+.actions button,
+.ordersPage .ordersEmpty button,
+.ordersPage .orderItemAction button,
+.orderItemAction button,
+.accountPanel button {
+  border: 0;
+  background: #f97316;
+  color: #ffffff;
+}
+
+.welcomePanel button:hover,
+.profileCard button:hover,
+.actions button:hover,
+.ordersPage .ordersEmpty button:hover,
+.ordersPage .orderItemAction button:hover,
+.orderItemAction button:hover,
+.accountPanel button:hover {
+  background: #ea580c;
+  color: #ffffff;
+  box-shadow: 0 14px 28px rgba(249, 115, 22, 0.22);
+}
+
+.welcomePanel p,
+.dashboardCards strong,
+.accountPanel p,
+.card p,
+.profileCard label,
+.passwordDebug,
+.usersTable th,
+.userStats span,
+.orderHead p,
+.orderHead span,
+.orderMeta,
+.orderAddress,
+.orderItems th,
+.buyerOrderTop span,
+.orderDelivery span,
+.buyerOrderItem p,
+.buyerOrderItem span,
+.ordersEmpty p,
+.message,
+.ordersPage .userStats span,
+.ordersPage .ordersEmpty p {
+  color: #64748b;
+}
+
+.profileCard input {
+  border-color: #dbe4f0;
+  background: #f8fafc;
+  color: #172033;
+}
+
+.profileCard input:focus {
+  border-color: #2563eb;
+}
+
+.passwordDebug,
+.orderDelivery,
+.buyerOrderItem,
+.ordersPage .buyerOrderItem,
+.ordersPage .orderDelivery {
+  border-color: #e5eaf1;
+  background: #f8fafc;
+}
+
+.buyerOrderTop,
+.ordersPage .buyerOrderTop {
+  background: #f8fafc;
+}
+
+.usersTable th,
+.usersTable td,
+.orderItems th,
+.orderItems td,
+.buyerOrderTop,
+.orderAddress {
+  border-color: #e5eaf1;
+}
+
+.userStats strong,
+.orderHead strong,
+.ordersPage .userStats strong,
+.orderItemAction strong {
+  color: #2563eb;
+}
+
+.roleAdmin,
+.buyerOrderTop b {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.roleUser {
+  border-color: #86efac;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.orderItemThumb {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.usersTable tbody tr:hover,
+.orderItems tbody tr:hover {
+  background: #fff7ed;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+/* Real commerce dashboard polish */
+.brandBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f97316, #2563eb);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+  box-shadow: 0 14px 26px rgba(249, 115, 22, 0.22);
+}
+
+.brandBlock .logo {
+  margin: 0;
+}
+
+.brandBlock p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.nav button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navIcon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.nav button:hover .navIcon {
+  background: #fed7aa;
+  color: #c2410c;
+}
+
+.quickStats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1120px;
+}
+
+.quickStats div {
+  display: grid;
+  gap: 5px;
+  padding: 16px 18px;
+  border: 1px solid #e5eaf1;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.quickStats span {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.quickStats strong {
+  color: #0f172a;
+  font-size: 16px;
+}
+
+.cardIcon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.dashboardCards .blue .cardIcon {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.dashboardCards .green .cardIcon {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.dashboardCards .orange:hover {
+  border-color: #fdba74;
+}
+
+.dashboardCards .blue:hover {
+  border-color: #bfdbfe;
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+}
+
+.dashboardCards .blue:hover span:not(.cardIcon) {
+  color: #1d4ed8;
+}
+
+.dashboardCards .green:hover {
+  border-color: #86efac;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+}
+
+.dashboardCards .green:hover span:not(.cardIcon) {
+  color: #166534;
+}
+
+/* Final hover polish */
+.nav button,
+.dashboardCards button,
+.welcomePanel button,
+.profileCard button,
+.actions button,
+.ordersPage .actions button,
+.ordersPage .ordersEmpty button,
+.ordersPage .orderItemAction button,
+.orderItemAction button,
+.accountPanel button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.nav button {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav button:hover {
+  border-color: #fdba74;
+  background: #fff7ed;
+  color: #c2410c;
+  transform: translateX(4px);
+  box-shadow: 0 10px 22px rgba(249, 115, 22, 0.12);
+}
+
+.dashboardCards button {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.dashboardCards button::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: #f97316;
+  opacity: 0;
+  transition: opacity 0.2s ease, width 0.2s ease;
+}
+
+.dashboardCards button:hover {
+  border-color: #fdba74;
+  background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
+  color: #0f172a;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.12);
+}
+
+.dashboardCards button:hover::before {
+  width: 7px;
+  opacity: 1;
+}
+
+.dashboardCards button:hover span {
+  color: #c2410c;
+}
+
+.dashboardCards button:hover strong {
+  color: #475569;
+}
+
+.welcomePanel button,
+.profileCard button,
+.actions button,
+.ordersPage .ordersEmpty button,
+.ordersPage .orderItemAction button,
+.orderItemAction button,
+.accountPanel button {
+  background: linear-gradient(135deg, #ff7a1a, #f97316);
+}
+
+.welcomePanel button:hover,
+.profileCard button:hover,
+.actions button:hover,
+.ordersPage .ordersEmpty button:hover,
+.ordersPage .orderItemAction button:hover,
+.orderItemAction button:hover,
+.accountPanel button:hover {
+  background: linear-gradient(135deg, #ea580c, #dc4f08);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(249, 115, 22, 0.24);
+}
+
+.profileButton:hover,
+.ordersPage .actions button:hover {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.1);
+}
+
+@media (max-width: 760px) {
+  .brandBlock {
+    margin-bottom: 18px;
+  }
+
+  .quickStats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Final ecommerce color system */
+.layout,
+.adminLayout,
+.profilePage,
+.usersPage,
+.ordersPage {
+  background:
+    linear-gradient(145deg, rgba(14, 165, 233, 0.08), transparent 34%),
+    linear-gradient(315deg, rgba(16, 185, 129, 0.08), transparent 38%),
+    #f3f7fb;
+  color: #102033;
+}
+
+.sidebar {
+  background: #ffffff;
+  border-right-color: #d9e4ef;
+  box-shadow: 10px 0 34px rgba(15, 23, 42, 0.06);
+}
+
+.brandBlock {
+  padding: 0 0 22px;
+  border-bottom: 1px solid #e5edf5;
+}
+
+.brandBlock .logo {
+  color: #0f2a44;
+  font-size: 28px;
+}
+
+.brandBlock p {
+  color: #60758a;
+}
+
+.panelNavbar,
+.welcomePanel,
+.quickStats div,
+.dashboardCards button,
+.profileCard,
+.card,
+.userStats div,
+.usersTableWrap,
+.orderCard,
+.buyerOrderCard,
+.ordersEmpty,
+.ordersPage .usersHeader,
+.ordersPage .userStats div,
+.ordersPage .ordersEmpty,
+.ordersPage .buyerOrderCard {
+  border-color: #dfe8f2;
+  background: #ffffff;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.07);
+}
+
+.adminBadge,
+.userBadge,
+.heroEyebrow {
+  border-color: #b9e8dc;
+  background: #ecfdf7;
+  color: #047857;
+}
+
+.title,
+.welcomePanel h2,
+.quickStats strong,
+.dashboardCards span,
+.profileCard h2,
+.usersTable td,
+.orderHead h2,
+.buyerOrderTop strong,
+.buyerOrderItem h2,
+.ordersEmpty h2,
+.ordersPage .title {
+  color: #0f2a44;
+}
+
+.welcomePanel p,
+.dashboardCards strong,
+.quickStats span,
+.accountPanel p,
+.card p,
+.profileCard label,
+.passwordDebug,
+.usersTable th,
+.userStats span,
+.orderHead p,
+.orderHead span,
+.orderMeta,
+.orderAddress,
+.orderItems th,
+.buyerOrderTop span,
+.orderDelivery span,
+.buyerOrderItem p,
+.buyerOrderItem span,
+.ordersEmpty p,
+.message,
+.ordersPage .userStats span,
+.ordersPage .ordersEmpty p {
+  color: #60758a;
+}
+
+.nav button {
+  min-height: 50px;
+  border-color: #dfe8f2;
+  background: #ffffff;
+  color: #263f57;
+  box-shadow: none;
+}
+
+.nav button:hover {
+  border-color: #7dd3c7;
+  background: #f0fdfa;
+  color: #047857;
+  transform: translateX(3px);
+  box-shadow: 0 12px 26px rgba(15, 118, 110, 0.1);
+}
+
+.profileButton,
+.logoutButton,
+.ordersPage .actions button {
+  border-color: #dfe8f2;
+  background: #ffffff;
+  color: #263f57;
+}
+
+.profileButton:hover,
+.logoutButton:hover,
+.ordersPage .actions button:hover {
+  border-color: #bae6fd;
+  background: #f0f9ff;
+  color: #0369a1;
+}
+
+.avatar,
+.accountAvatar {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.welcomePanel button,
+.profileCard button,
+.actions button,
+.ordersPage .ordersEmpty button,
+.ordersPage .orderItemAction button,
+.orderItemAction button,
+.accountPanel button {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+}
+
+.welcomePanel button:hover,
+.profileCard button:hover,
+.actions button:hover,
+.ordersPage .ordersEmpty button:hover,
+.ordersPage .orderItemAction button:hover,
+.orderItemAction button:hover,
+.accountPanel button:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 16px 32px rgba(5, 150, 105, 0.22);
+}
+
+.dashboardCards button::before {
+  background: #10b981;
+}
+
+.dashboardCards button:hover,
+.dashboardCards .primary:hover,
+.dashboardCards .blue:hover,
+.dashboardCards .green:hover {
+  border-color: #7dd3c7;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+}
+
+.dashboardCards button:hover span:not(.cardIcon),
+.dashboardCards .blue:hover span:not(.cardIcon),
+.dashboardCards .green:hover span:not(.cardIcon) {
+  color: #047857;
+}
+
+.userStats strong,
+.orderHead strong,
+.ordersPage .userStats strong,
+.orderItemAction strong {
+  color: #0369a1;
+}

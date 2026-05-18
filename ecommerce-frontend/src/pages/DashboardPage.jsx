@@ -9,60 +9,47 @@ export default function DashboardPage() {
   const isAdmin = user?.role === "ADMIN";
   const dashboardItems = isAdmin
     ? [
-        { label: "Products", value: "Manage catalog", path: "/products" },
-        { label: "Users", value: "Customer accounts", path: "/users" },
-        { label: "Orders", value: "Order history", path: "/orders" },
+        { label: "Products", value: "Manage catalog", path: "/products", tone: "primary" },
+        { label: "Users", value: "Customer accounts", path: "/users", tone: "blue" },
+        { label: "Orders", value: "Order history", path: "/orders", tone: "green" },
       ]
     : [
-        { label: "Products", value: "Browse catalog", path: "/products" },
-        { label: "Cart", value: "View cart items", path: "/cart" },
-        { label: "Orders", value: "Track purchases", path: "/my-orders" },
+        { label: "Products", value: "Browse catalog", path: "/products", tone: "primary" },
+        { label: "Cart", value: "View cart items", path: "/cart", tone: "blue" },
+        { label: "Orders", value: "Track purchases", path: "/my-orders", tone: "green" },
+      ];
+  const navItems = isAdmin
+    ? [
+        { label: "Manage Products", path: "/products" },
+        { label: "Add Product", path: "/products/new" },
+        { label: "Users", path: "/users" },
+        { label: "Order History", path: "/orders" },
+        { label: "Profile", path: "/profile" },
+      ]
+    : [
+        { label: "Products", path: "/products" },
+        { label: "Cart", path: "/cart" },
+        { label: "My Orders", path: "/my-orders" },
+        { label: "Profile", path: "/profile" },
       ];
 
   return (
     <div className={`${styles.layout} ${isAdmin ? styles.adminLayout : ""}`}>
       <aside className={styles.sidebar}>
-        <h2 className={styles.logo}>{isAdmin ? "Admin Panel" : "Ecommerce Web"}</h2>
+        <div className={styles.brandBlock}>
+          <div>
+            <h2 className={styles.logo}>{isAdmin ? "Shop Admin" : "ShopEase"}</h2>
+            <p>{isAdmin ? "Store control center" : "Online shopping"}</p>
+          </div>
+        </div>
         {isAdmin && <span className={styles.adminBadge}>Admin Management</span>}
 
         <nav className={styles.nav}>
-          <button onClick={() => navigate("/products")}>
-            {isAdmin ? "Manage Products" : "Products"}
-          </button>
-
-          {!isAdmin && (
-            <button onClick={() => navigate("/cart")}>
-              Cart
+          {navItems.map((item) => (
+            <button key={item.path} onClick={() => navigate(item.path)}>
+              <span>{item.label}</span>
             </button>
-          )}
-
-          {!isAdmin && (
-            <button onClick={() => navigate("/my-orders")}>
-              My Orders
-            </button>
-          )}
-
-          {isAdmin && (
-            <button onClick={() => navigate("/products/new")}>
-              Add Product
-            </button>
-          )}
-
-          {isAdmin && (
-            <button onClick={() => navigate("/users")}>
-              Users
-            </button>
-          )}
-
-          {isAdmin && (
-            <button onClick={() => navigate("/orders")}>
-              Order History
-            </button>
-          )}
-
-          <button onClick={() => navigate("/profile")}>
-            Profile
-          </button>
+          ))}
         </nav>
       </aside>
 
@@ -86,9 +73,24 @@ export default function DashboardPage() {
           </article>
         </section>
 
+        <section className={styles.quickStats}>
+          <div>
+            <span>Catalog</span>
+            <strong>{isAdmin ? "Live inventory" : "Fresh picks"}</strong>
+          </div>
+          <div>
+            <span>Orders</span>
+            <strong>{isAdmin ? "Track fulfillment" : "Easy tracking"}</strong>
+          </div>
+          <div>
+            <span>Checkout</span>
+            <strong>{isAdmin ? "Customer ready" : "Fast cart flow"}</strong>
+          </div>
+        </section>
+
         <section className={styles.dashboardCards}>
           {dashboardItems.map((item) => (
-            <button type="button" key={item.label} onClick={() => navigate(item.path)}>
+            <button type="button" key={item.label} className={styles[item.tone]} onClick={() => navigate(item.path)}>
               <span>{item.label}</span>
               <strong>{item.value}</strong>
             </button>

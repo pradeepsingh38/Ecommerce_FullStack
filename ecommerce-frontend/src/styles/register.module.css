@@ -151,3 +151,141 @@
     padding: 34px 24px;
   }
 }
+
+/* Retail light theme overrides */
+.container {
+  background:
+    linear-gradient(145deg, rgba(255, 122, 0, 0.09), transparent 34%),
+    linear-gradient(315deg, rgba(37, 99, 235, 0.08), transparent 36%),
+    #f5f7fb;
+  color: #172033;
+}
+
+.card {
+  border-color: #e5eaf1;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+}
+
+.formEyebrow {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.card h1 {
+  color: #0f172a;
+}
+
+.subtitle,
+.card > p {
+  color: #64748b;
+}
+
+.card label span {
+  color: #334155;
+}
+
+.card input {
+  border-color: #dbe4f0;
+  background: #f8fafc;
+  color: #172033;
+}
+
+.card input:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.13);
+}
+
+.card button {
+  background: #f97316;
+  color: #ffffff;
+}
+
+.card button:hover {
+  background: #ea580c;
+  box-shadow: 0 14px 28px rgba(249, 115, 22, 0.22);
+}
+
+.card a {
+  color: #2563eb;
+}
+
+.card a:hover {
+  color: #1d4ed8;
+}
+
+/* Final retail button polish */
+.card button {
+  background: linear-gradient(135deg, #ff7a1a, #f97316);
+}
+
+.card button:hover {
+  background: linear-gradient(135deg, #ea580c, #dc4f08);
+  box-shadow: 0 16px 30px rgba(249, 115, 22, 0.24);
+}
+
+/* Final ecommerce auth theme */
+.container {
+  background:
+    linear-gradient(145deg, rgba(14, 165, 233, 0.08), transparent 34%),
+    linear-gradient(315deg, rgba(16, 185, 129, 0.08), transparent 38%),
+    #f3f7fb;
+  color: #102033;
+}
+
+.card {
+  border-color: #dfe8f2;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+}
+
+.formEyebrow {
+  border-color: #b9e8dc;
+  background: #ecfdf7;
+  color: #047857;
+}
+
+.card h1 {
+  color: #0f2a44;
+}
+
+.subtitle,
+.card > p {
+  color: #60758a;
+}
+
+.card label span {
+  color: #263f57;
+}
+
+.card input {
+  border-color: #dfe8f2;
+  background: #f8fbfd;
+  color: #102033;
+}
+
+.card input:focus {
+  border-color: #38bdf8;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.13);
+}
+
+.card button {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+}
+
+.card button:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 16px 32px rgba(5, 150, 105, 0.22);
+}
+
+.card a {
+  color: #0369a1;
+}
+
+.card a:hover {
+  color: #075985;
+}
