@@ -23,4 +23,22 @@ public class User {
 
 	@Column(nullable = false)
 	private String role = "USER";
+
+	@Column(length = 500)
+	private String address;
+
+	@Column(length = 120)
+	private String houseNo;
+
+	@Column(length = 160)
+	private String street;
+
+	@Column(length = 80)
+	private String city;
+
+	@Column(length = 6)
+	private String pincode;
+
+	@Column(length = 80)
+	private String state;
 }

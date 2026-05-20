@@ -39,13 +39,43 @@ public class AuthController {
 		User user = userRepository.findByEmail(userDetails.getUsername())
 				.orElseThrow(() -> new RuntimeException("User not found"));
 
-		return ResponseEntity.ok(new AuthResponse(null, user.getName(), user.getEmail(), user.getRole()));
+		return ResponseEntity.ok(new AuthResponse(null, user.getName(), user.getEmail(), user.getRole(), user.getAddress(),
+				user.getHouseNo(), user.getStreet(), user.getCity(), user.getPincode(), user.getState(),
+				authService.getAddresses(userDetails.getUsername())));
 	}
 
 	@PutMapping("/profile")
 	public ResponseEntity<AuthResponse> updateProfile(@AuthenticationPrincipal UserDetails userDetails,
 			@Valid @RequestBody UpdateProfileRequest request) {
 		return ResponseEntity.ok(authService.updateProfile(userDetails.getUsername(), request));
+	}
+
+	@PutMapping("/address")
+	public ResponseEntity<AuthResponse> updateAddress(@AuthenticationPrincipal UserDetails userDetails,
+			@Valid @RequestBody UpdateAddressRequest request) {
+		return ResponseEntity.ok(authService.updateAddress(userDetails.getUsername(), request));
+	}
+
+	@GetMapping("/addresses")
+	public ResponseEntity<java.util.List<AddressResponse>> getAddresses(@AuthenticationPrincipal UserDetails userDetails) {
+		return ResponseEntity.ok(authService.getAddresses(userDetails.getUsername()));
+	}
+
+	@PostMapping("/addresses")
+	public ResponseEntity<AddressResponse> addAddress(@AuthenticationPrincipal UserDetails userDetails,
+			@Valid @RequestBody UpdateAddressRequest request) {
+		return ResponseEntity.ok(authService.addAddress(userDetails.getUsername(), request));
+	}
+
+	@PutMapping("/addresses/{addressId}")
+	public ResponseEntity<AddressResponse> updateSavedAddress(@AuthenticationPrincipal UserDetails userDetails,
+			@PathVariable Long addressId, @Valid @RequestBody UpdateAddressRequest request) {
+		return ResponseEntity.ok(authService.updateSavedAddress(userDetails.getUsername(), addressId, request));
+	}
+
+	@PostMapping("/password/otp")
+	public ResponseEntity<OtpResponse> requestPasswordOtp(@Valid @RequestBody OtpRequest request) {
+		return ResponseEntity.ok(authService.requestPasswordOtp(request));
 	}
 
 	@PutMapping("/password")
@@ -61,6 +91,16 @@ public class AuthController {
 	@PostMapping("/change-password")
 	public ResponseEntity<PasswordUpdateResponse> changePassword(@Valid @RequestBody UpdatePasswordRequest request) {
 		return ResponseEntity.ok(authService.updatePassword(request));
+	}
+
+	@PostMapping("/forgot-password/request-otp")
+	public ResponseEntity<OtpResponse> forgotPasswordOtp(@Valid @RequestBody OtpRequest request) {
+		return ResponseEntity.ok(authService.requestPasswordOtp(request));
+	}
+
+	@PostMapping("/forgot-password/reset")
+	public ResponseEntity<PasswordUpdateResponse> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+		return ResponseEntity.ok(authService.resetPassword(request));
 	}
 
 	@PostMapping("/logout")

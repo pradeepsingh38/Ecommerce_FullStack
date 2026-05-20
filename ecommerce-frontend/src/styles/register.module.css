@@ -289,3 +289,10 @@
 .card a:hover {
   color: #075985;
 }
+
+/* High-contrast notices for the light ecommerce theme */
+.errorBanner {
+  border-color: #fca5a5;
+  background: #fef2f2;
+  color: #991b1b;
+}

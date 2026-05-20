@@ -18,4 +18,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 			order by o.createdAt desc
 			""")
 	List<Order> findMyOrdersWithItems(@Param("userId") Long userId);
+
+	@Query("""
+			select distinct o.shippingAddress
+			from Order o
+			where o.user.userId = :userId
+			and o.shippingAddress is not null
+			order by o.shippingAddress
+			""")
+	List<String> findDistinctShippingAddressesByUserId(@Param("userId") Long userId);
 }

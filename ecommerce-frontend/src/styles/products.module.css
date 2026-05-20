@@ -730,6 +730,34 @@
   font-weight: 700;
 }
 
+.savedAddressBox {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #b9e8dc;
+  border-radius: 8px;
+  background: #ecfdf7;
+}
+
+.savedAddressBox label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #047857;
+}
+
+.savedAddressBox input {
+  width: 16px;
+  height: 16px;
+  accent-color: #059669;
+}
+
+.savedAddressBox p {
+  margin: 0;
+  color: #263f57;
+  line-height: 1.55;
+}
+
 .addressGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -752,6 +780,13 @@
   background: rgba(2, 6, 23, 0.82);
   color: #e2e8f0;
   font: inherit;
+}
+
+.checkoutForm .savedAddressBox input {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  accent-color: #059669;
 }
 
 .checkoutForm textarea {
@@ -1575,4 +1610,18 @@
 
 .paymentOptions input {
   accent-color: #10b981;
+}
+
+/* Final contrast fixes for light theme feedback text */
+.message {
+  color: #40566d;
+}
+
+.error,
+.errorCompact {
+  color: #b91c1c;
+}
+
+.success {
+  color: #166534;
 }

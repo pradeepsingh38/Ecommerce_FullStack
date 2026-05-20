@@ -240,6 +240,448 @@
   font-size: 15px;
 }
 
+.profileSummary,
+.profileOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.profileSummary span,
+.profileOption span {
+  color: #60758a;
+  font-weight: 800;
+}
+
+.profileSummary strong {
+  overflow-wrap: anywhere;
+  color: #0f2a44;
+}
+
+.profileOption button {
+  min-width: 150px;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(15, 23, 42, 0.58);
+}
+
+.modalCard {
+  width: min(460px, 100%);
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #dfe8f2;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
+}
+
+.modalCard label {
+  display: grid;
+  gap: 8px;
+  color: #60758a;
+  font-weight: 800;
+}
+
+.modalCard input {
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #172033;
+  outline: none;
+}
+
+.modalCard input:focus {
+  border-color: #38bdf8;
+}
+
+.modalCard > button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.modalCard > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  color: #0f2a44;
+  font-size: 22px;
+}
+
+.modalHeader button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dfe8f2;
+  border-radius: 8px;
+  background: #f8fbfd;
+  color: #263f57;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.secondaryButton {
+  border: 1px solid #b9e8dc !important;
+  background: #ecfdf7 !important;
+  color: #047857 !important;
+}
+
+.otpNote {
+  margin: 0;
+  padding: 11px 13px;
+  border: 1px solid rgba(34, 197, 94, 0.28);
+  border-radius: 8px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.accountShell {
+  max-width: 980px;
+  overflow: hidden;
+  border: 1px solid #dfe8f2;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08);
+}
+
+.accountHero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  border-bottom: 1px solid #edf2f7;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+}
+
+.accountAvatarLarge {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.accountHero span,
+.accountRow span {
+  color: #60758a;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.accountHero h2 {
+  margin: 6px 0 4px;
+  color: #0f2a44;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.accountHero p {
+  margin: 0;
+  color: #60758a;
+  overflow-wrap: anywhere;
+}
+
+.accountRows {
+  display: grid;
+}
+
+.accountRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  min-height: 84px;
+  padding: 18px 24px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.accountRow:last-child {
+  border-bottom: 0;
+}
+
+.accountRow div {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.accountRow strong {
+  color: #0f2a44;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.accountRow small {
+  color: #8aa0b6;
+  font-weight: 700;
+}
+
+.accountRow button {
+  min-width: 104px;
+  min-height: 38px;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  background: #f0f9ff;
+  color: #0369a1;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.accountRow button:hover {
+  border-color: #7dd3c7;
+  background: #f0fdfa;
+  color: #047857;
+}
+
+.modalCard textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #172033;
+  font: inherit;
+  resize: vertical;
+  outline: none;
+}
+
+.modalCard textarea:focus {
+  border-color: #38bdf8;
+}
+
+.addressFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.addressFields label:first-child,
+.addressFields label:nth-child(2),
+.addressFields label:last-child {
+  grid-column: 1 / -1;
+}
+
+.addressBook {
+  max-width: 980px;
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid #dfe8f2;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.07);
+}
+
+.addressBookHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.addressBookHeader span {
+  color: #60758a;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.addressBookHeader h2 {
+  margin: 5px 0 0;
+  color: #0f2a44;
+  font-size: 22px;
+}
+
+.addressBookHeader button,
+.addressCard button {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  background: #f0f9ff;
+  color: #0369a1;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.addressBookHeader button:hover,
+.addressCard button:hover {
+  border-color: #7dd3c7;
+  background: #f0fdfa;
+  color: #047857;
+}
+
+.addressCards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.addressCard,
+.emptyAddress,
+.addAddressTile {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-height: 170px;
+  padding: 16px;
+  border: 1px solid #dfe8f2;
+  border-radius: 8px;
+  background: #f8fbfd;
+}
+
+.addressBookModal {
+  width: min(980px, calc(100vw - 36px));
+  max-height: min(760px, calc(100vh - 36px));
+  overflow: auto;
+}
+
+.addAddressTile {
+  place-items: center;
+  align-content: center;
+  border-style: dashed;
+  background: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  text-align: center;
+}
+
+.addAddressTile span {
+  color: #cbd5e1;
+  font-size: 56px;
+  font-weight: 300;
+  line-height: 0.8;
+}
+
+.addAddressTile strong {
+  color: #475569;
+  font-size: 20px;
+}
+
+.addAddressTile:hover {
+  border-color: #7dd3c7;
+  background: #f0fdfa;
+}
+
+.addressCard strong,
+.emptyAddress strong {
+  color: #0f2a44;
+}
+
+.addressCard p,
+.emptyAddress span {
+  margin: 0;
+  color: #60758a;
+  line-height: 1.45;
+}
+
+.addressCard button {
+  justify-self: start;
+  margin-top: 6px;
+}
+
+.defaultBadge {
+  justify-self: start;
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: #ecfdf7;
+  color: #047857;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.orderAddressBadge {
+  justify-self: start;
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #0369a1;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.modalCard .errorBanner {
+  max-width: none;
+  margin: 0;
+  color: #b91c1c;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+@media (max-width: 760px) {
+  .accountHero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .accountHero h2 {
+    font-size: 24px;
+  }
+
+  .accountRow {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .accountRow button {
+    width: 100%;
+  }
+
+  .addressFields {
+    grid-template-columns: 1fr;
+  }
+
+  .addressBookHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .addressBookHeader button,
+  .addressCards {
+    width: 100%;
+  }
+
+  .addressCards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .nav {
   display: flex;
   flex-direction: column;
@@ -1906,4 +2348,37 @@
 .ordersPage .userStats strong,
 .orderItemAction strong {
   color: #0369a1;
+}
+
+/* Final contrast fixes for light theme messages and order addresses */
+.successBanner {
+  border-color: #86efac;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.errorBanner,
+.modalCard .errorBanner {
+  border-color: #fca5a5;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.message {
+  color: #40566d;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.orderAddress,
+.orderDelivery p,
+.ordersPage .orderDelivery p {
+  color: #263f57;
+}
+
+.orderDelivery small,
+.ordersPage .orderDelivery small {
+  color: #40566d;
 }

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCart } from "../api/cartApi";
 import { placeOrder } from "../api/orderApi";
+import { useAuth } from "../context/useAuth";
 import { handleProductImageError, productImageFallback } from "../utils/productImage";
 import styles from "../styles/products.module.css";
 
@@ -17,13 +18,20 @@ const initialForm = {
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const savedAddress = user?.address || [user?.houseNo, user?.street, user?.city, user?.pincode, user?.state].filter(Boolean).join(", ");
   const [cart, setCart] = useState({ items: [], totalItems: 0, totalAmount: 0 });
   const [form, setForm] = useState(initialForm);
+  const [useSavedAddress, setUseSavedAddress] = useState(Boolean(savedAddress));
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   const buildShippingAddress = () => {
+    if (useSavedAddress && savedAddress) {
+      return savedAddress.trim();
+    }
+
     return [
       form.houseNo.trim(),
       form.street.trim(),
@@ -65,13 +73,11 @@ export default function CheckoutPage() {
   const canSubmit = useMemo(() => {
     return (
       cart.items.length > 0 &&
-      form.houseNo.trim() &&
-      form.city.trim() &&
-      form.pincode.trim() &&
-      form.state.trim() &&
+      ((useSavedAddress && savedAddress) ||
+        (form.houseNo.trim() && form.city.trim() && form.pincode.trim() && form.state.trim())) &&
       !submitting
     );
-  }, [cart.items.length, form.city, form.houseNo, form.pincode, form.state, submitting]);
+  }, [cart.items.length, form.city, form.houseNo, form.pincode, form.state, submitting, useSavedAddress, savedAddress]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -139,6 +145,20 @@ export default function CheckoutPage() {
       {!loading && cart.items.length > 0 && (
         <div className={styles.checkoutLayout}>
           <form className={styles.checkoutForm} onSubmit={handleSubmit}>
+            {savedAddress && (
+              <div className={styles.savedAddressBox}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={useSavedAddress}
+                    onChange={(event) => setUseSavedAddress(event.target.checked)}
+                  />
+                  <span>Use saved delivery address</span>
+                </label>
+                <p>{savedAddress}</p>
+              </div>
+            )}
+
             <div className={styles.addressGrid}>
               <label>
                 <span>House / Flat No.</span>
