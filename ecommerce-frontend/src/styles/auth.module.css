@@ -391,3 +391,57 @@
   background: #f0fdf4;
   color: #166534;
 }
+
+/* Final auth polish */
+.authPage {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(16, 185, 129, 0.16), transparent 26%),
+    radial-gradient(circle at 88% 18%, rgba(14, 165, 233, 0.13), transparent 25%),
+    linear-gradient(135deg, #f4fbff 0%, #eef9f6 100%);
+}
+
+.authCard {
+  position: relative;
+  overflow: hidden;
+  border-color: #dfe8f2;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+}
+
+.authCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, #10b981, #0ea5e9);
+}
+
+.formEyebrow {
+  letter-spacing: 0;
+}
+
+.title {
+  font-size: clamp(30px, 5vw, 38px);
+  letter-spacing: 0;
+}
+
+.field input {
+  min-height: 50px;
+}
+
+.btn,
+.secondaryButton {
+  min-height: 48px;
+  font-weight: 900;
+}
+
+.textButton {
+  color: #047857;
+}
+
+.textButton:hover {
+  color: #0369a1;
+}
+
+.modalCard {
+  border-color: #dfe8f2;
+}

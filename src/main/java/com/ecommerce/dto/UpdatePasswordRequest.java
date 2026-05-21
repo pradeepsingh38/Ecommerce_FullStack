@@ -18,7 +18,4 @@ public class UpdatePasswordRequest {
 	@NotBlank(message = "New password is required")
 	@Size(min = 6, message = "New password must be at least 6 characters")
 	private String newPassword;
-
-	@NotBlank(message = "OTP is required")
-	private String otp;
 }

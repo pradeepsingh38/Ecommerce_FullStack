@@ -17,7 +17,7 @@ public interface AuthService {
 
 	AddressResponse updateSavedAddress(String currentEmail, Long addressId, UpdateAddressRequest request);
 
-	OtpResponse requestPasswordOtp(OtpRequest request);
+	PasswordResetLinkResponse requestPasswordResetLink(PasswordResetLinkRequest request);
 
 	PasswordUpdateResponse updatePassword(UpdatePasswordRequest request);
 

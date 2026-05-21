@@ -3,10 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {
   addAddress,
   getAddresses,
-  loginUser,
-  requestPasswordOtp,
+  requestPasswordResetLink,
   updateSavedAddress,
-  updatePassword,
   updateProfile,
 } from "../api/authApi";
 import PanelNavbar from "../components/PanelNavbar";
@@ -45,17 +43,15 @@ export default function ProfilePage() {
   const isAdmin = user?.role === "ADMIN";
   const [profileForm, setProfileForm] = useState({ name: user?.name || "", email: user?.email || "" });
   const [addressForm, setAddressForm] = useState(() => getAddressForm(user));
-  const [passwordForm, setPasswordForm] = useState({ currentPassword: "", newPassword: "", otp: "" });
   const [addresses, setAddresses] = useState(user?.addresses || []);
   const [addressMode, setAddressMode] = useState("add");
   const [activeModal, setActiveModal] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [otpMessage, setOtpMessage] = useState("");
+  const [passwordResetMessage, setPasswordResetMessage] = useState("");
   const [savingProfile, setSavingProfile] = useState(false);
   const [savingAddress, setSavingAddress] = useState(false);
-  const [savingPassword, setSavingPassword] = useState(false);
-  const [sendingOtp, setSendingOtp] = useState(false);
+  const [sendingResetLink, setSendingResetLink] = useState(false);
   const sessionExpired = error.includes("session expired");
   const savedAddress = user?.address || [user?.houseNo, user?.street, user?.city, user?.pincode, user?.state].filter(Boolean).join(", ");
 
@@ -93,7 +89,7 @@ export default function ProfilePage() {
   const closeModal = () => {
     setActiveModal("");
     setError("");
-    setOtpMessage("");
+    setPasswordResetMessage("");
   };
 
   const closeAddressForm = () => {
@@ -128,24 +124,24 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSendOtp = async () => {
+  const handleSendResetLink = async () => {
     setMessage("");
     setError("");
-    setOtpMessage("");
-    setSendingOtp(true);
+    setPasswordResetMessage("");
+    setSendingResetLink(true);
 
     try {
       const email = profileForm.email.trim().toLowerCase();
-      const res = await requestPasswordOtp({ email });
-      setOtpMessage(
-        `${res.data?.message || "Verification OTP sent to your email"}. It expires in ${
-          res.data?.expiresInMinutes || 5
+      const res = await requestPasswordResetLink({ email });
+      setPasswordResetMessage(
+        `${res.data?.message || "Password reset link sent to your email"}. It expires in ${
+          res.data?.expiresInMinutes || 15
         } minutes.`
       );
     } catch (err) {
-      setError(getErrorMessage(err, "OTP could not be sent"));
+      setError(getErrorMessage(err, "Reset link could not be sent"));
     } finally {
-      setSendingOtp(false);
+      setSendingResetLink(false);
     }
   };
 
@@ -207,49 +203,6 @@ export default function ProfilePage() {
     }
   };
 
-  const handlePasswordSubmit = async (event) => {
-    event.preventDefault();
-    setMessage("");
-    setError("");
-
-    if (!localStorage.getItem("token")) {
-      setError("Your session expired. Please login again.");
-      return;
-    }
-
-    if (!passwordForm.currentPassword.trim() || !passwordForm.newPassword.trim() || !passwordForm.otp.trim()) {
-      setError("Enter current password, new password, and OTP");
-      return;
-    }
-
-    if (passwordForm.newPassword.length < 6) {
-      setError("New password must be at least 6 characters");
-      return;
-    }
-
-    if (passwordForm.currentPassword === passwordForm.newPassword) {
-      setError("New password must be different from current password");
-      return;
-    }
-
-    setSavingPassword(true);
-
-    try {
-      const newPassword = passwordForm.newPassword;
-      const email = profileForm.email.trim().toLowerCase();
-      const res = await updatePassword({ ...passwordForm, email });
-      await loginUser({ email, password: newPassword });
-      setPasswordForm({ currentPassword: "", newPassword: "", otp: "" });
-      setMessage(res.data?.message || "Password updated successfully");
-      closeModal();
-    } catch (err) {
-      const message = getErrorMessage(err, "Password could not be updated");
-      setError(message === "Bad credentials" ? "Password update did not apply. New password login test failed." : message);
-    } finally {
-      setSavingPassword(false);
-    }
-  };
-
   return (
     <div className={`${styles.profilePage} ${isAdmin ? styles.adminLayout : ""}`}>
       <PanelNavbar title="Profile" isAdmin={isAdmin} />
@@ -305,7 +258,7 @@ export default function ProfilePage() {
             <div className={styles.accountRow}>
               <div>
                 <span>Password</span>
-                <strong>OTP verification required</strong>
+                <strong>Email link verification</strong>
               </div>
               <button type="button" onClick={() => setActiveModal("password")}>
                 Update
@@ -443,7 +396,7 @@ export default function ProfilePage() {
 
       {activeModal === "password" && (
         <div className={styles.modalOverlay} role="presentation">
-          <form className={styles.modalCard} onSubmit={handlePasswordSubmit} autoComplete="off">
+          <section className={styles.modalCard}>
             <div className={styles.modalHeader}>
               <h2>Update password</h2>
               <button type="button" onClick={closeModal} aria-label="Close">
@@ -451,47 +404,14 @@ export default function ProfilePage() {
               </button>
             </div>
             {error && <p className={styles.errorBanner}>{error}</p>}
-            {otpMessage && <p className={styles.otpNote}>{otpMessage}</p>}
-            <button type="button" className={styles.secondaryButton} onClick={handleSendOtp} disabled={sendingOtp}>
-              {sendingOtp ? "Sending OTP..." : "Send Verification OTP"}
+            {passwordResetMessage && <p className={styles.passwordResetNote}>{passwordResetMessage}</p>}
+            <p className={styles.passwordResetNote}>
+              We will send a secure link to {profileForm.email}. Open it to set a new password.
+            </p>
+            <button type="button" onClick={handleSendResetLink} disabled={sendingResetLink}>
+              {sendingResetLink ? "Sending link..." : "Send reset link"}
             </button>
-            <label>
-              <span>OTP</span>
-              <input
-                name="profileOtp"
-                type="text"
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                placeholder="Enter OTP"
-                value={passwordForm.otp}
-                onChange={(event) => setPasswordForm({ ...passwordForm, otp: event.target.value })}
-              />
-            </label>
-            <label>
-              <span>Current Password</span>
-              <input
-                type="password"
-                required
-                autoComplete="current-password"
-                value={passwordForm.currentPassword}
-                onChange={(event) => setPasswordForm({ ...passwordForm, currentPassword: event.target.value })}
-              />
-            </label>
-            <label>
-              <span>New Password</span>
-              <input
-                type="password"
-                required
-                minLength="6"
-                autoComplete="new-password"
-                value={passwordForm.newPassword}
-                onChange={(event) => setPasswordForm({ ...passwordForm, newPassword: event.target.value })}
-              />
-            </label>
-            <button type="submit" disabled={savingPassword}>
-              {savingPassword ? "Saving..." : "Update Password"}
-            </button>
-          </form>
+          </section>
         </div>
       )}
     </div>

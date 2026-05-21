@@ -192,6 +192,21 @@ export default function ProductsPage() {
         </div>
       </div>
 
+      <section className={styles.storeOptions} aria-label="Shopping benefits">
+        {[
+          ["Fast Delivery", "Quick cart and checkout"],
+          ["Secure Pay", "Protected order flow"],
+          ["Fresh Catalog", `${allProducts.length} products loaded`],
+          ["Track Orders", "Easy purchase history"],
+        ].map(([title, text]) => (
+          <div key={title}>
+            <span aria-hidden="true"></span>
+            <strong>{title}</strong>
+            <small>{text}</small>
+          </div>
+        ))}
+      </section>
+
       <section className={styles.catalogToolbar}>
         <form onSubmit={handleSearch} className={styles.searchBar}>
           <input

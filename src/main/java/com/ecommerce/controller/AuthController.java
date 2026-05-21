@@ -73,9 +73,9 @@ public class AuthController {
 		return ResponseEntity.ok(authService.updateSavedAddress(userDetails.getUsername(), addressId, request));
 	}
 
-	@PostMapping("/password/otp")
-	public ResponseEntity<OtpResponse> requestPasswordOtp(@Valid @RequestBody OtpRequest request) {
-		return ResponseEntity.ok(authService.requestPasswordOtp(request));
+	@PostMapping("/password/reset-link")
+	public ResponseEntity<PasswordResetLinkResponse> requestPasswordResetLink(@Valid @RequestBody PasswordResetLinkRequest request) {
+		return ResponseEntity.ok(authService.requestPasswordResetLink(request));
 	}
 
 	@PutMapping("/password")
@@ -93,9 +93,9 @@ public class AuthController {
 		return ResponseEntity.ok(authService.updatePassword(request));
 	}
 
-	@PostMapping("/forgot-password/request-otp")
-	public ResponseEntity<OtpResponse> forgotPasswordOtp(@Valid @RequestBody OtpRequest request) {
-		return ResponseEntity.ok(authService.requestPasswordOtp(request));
+	@PostMapping("/forgot-password/request-link")
+	public ResponseEntity<PasswordResetLinkResponse> forgotPasswordLink(@Valid @RequestBody PasswordResetLinkRequest request) {
+		return ResponseEntity.ok(authService.requestPasswordResetLink(request));
 	}
 
 	@PostMapping("/forgot-password/reset")

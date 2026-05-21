@@ -1625,3 +1625,503 @@
 .success {
   color: #166534;
 }
+
+/* Final product, cart, checkout, and form polish */
+.page {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(16, 185, 129, 0.12), transparent 24%),
+    radial-gradient(circle at 92% 12%, rgba(14, 165, 233, 0.12), transparent 24%),
+    linear-gradient(135deg, #f4fbff 0%, #f3f7fb 100%);
+  color: #102033;
+}
+
+.topBar {
+  position: relative;
+  overflow: hidden;
+  border-color: #dfe8f2;
+  background: #ffffff;
+}
+
+.topBar::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, #10b981, #0ea5e9);
+}
+
+.topBar h1 {
+  color: #0f2a44;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.pageEyebrow,
+.categoryPill {
+  border-color: #b9e8dc;
+  background: #ecfdf7;
+  color: #047857;
+}
+
+.topBar button,
+.resetBtn,
+.cartItem button,
+.categoryChips button {
+  border-radius: 8px;
+  font-weight: 900;
+}
+
+.searchBtn,
+.addCartBtn,
+.updateProductBtn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.searchBtn:hover,
+.addCartBtn:hover,
+.updateProductBtn:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+.catalogToolbar,
+.card,
+.detailLayout,
+.cartItem,
+.cartSummary,
+.checkoutForm,
+.checkoutSummary,
+.emptyState {
+  border-color: #dfe8f2;
+  background: #ffffff;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08);
+}
+
+.card {
+  border-radius: 8px;
+}
+
+.card:hover {
+  border-color: #7dd3c7;
+}
+
+.cardBody h3,
+.productName,
+.detailInfo h2,
+.cartItem h3,
+.cartSummary h2,
+.checkoutSummary h2 {
+  color: #0f2a44;
+  font-weight: 900;
+}
+
+.cardFooter span:first-child,
+.price,
+.detailMeta strong,
+.checkoutItem b {
+  color: #0369a1;
+}
+
+.stockQuantity {
+  color: #047857;
+  background: #ecfdf5;
+  border-color: #86efac;
+}
+
+.searchInput,
+.select,
+.productForm input,
+.productForm textarea,
+.quantityField input,
+.cartItem input,
+.checkoutForm input,
+.checkoutForm textarea,
+.paymentOptions label {
+  border-color: #dfe8f2;
+  background: #f8fbfd;
+}
+
+.checkoutForm label,
+.paymentOptions legend,
+.quantityField {
+  color: #263f57;
+}
+
+.paymentOptions label:hover {
+  border-color: #7dd3c7;
+  background: #f0fdfa;
+}
+
+.cartSummary,
+.checkoutSummary {
+  top: 18px;
+}
+
+/* Final catalog storefront polish */
+.storeOptions,
+.catalogToolbar,
+.grid,
+.cartLayout,
+.checkoutLayout,
+.emptyState {
+  width: min(1220px, 100%);
+}
+
+.storeOptions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 auto 22px;
+}
+
+.storeOptions div {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-areas:
+    "icon title"
+    "icon text";
+  align-items: center;
+  column-gap: 12px;
+  min-height: 78px;
+  padding: 14px;
+  border: 1px solid #dfe8f2;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.storeOptions div > span {
+  position: relative;
+  grid-area: icon;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: #ecfdf7;
+}
+
+.storeOptions div > span::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 3px solid #047857;
+  border-radius: 50%;
+}
+
+.storeOptions div > span::after {
+  content: "";
+  position: absolute;
+  right: 9px;
+  bottom: 10px;
+  width: 10px;
+  height: 4px;
+  border-bottom: 3px solid #047857;
+  border-left: 3px solid #047857;
+  transform: rotate(-45deg);
+}
+
+.storeOptions strong {
+  grid-area: title;
+  color: #0f2a44;
+  font-size: 15px;
+  font-weight: 1000;
+}
+
+.storeOptions small {
+  grid-area: text;
+  color: #60758a;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.catalogToolbar {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+}
+
+.grid {
+  align-items: stretch;
+}
+
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.cardBody {
+  align-content: start;
+}
+
+.cardBody h3 {
+  min-height: auto;
+}
+
+.addCartBtn {
+  align-self: end;
+}
+
+@media (max-width: 900px) {
+  .storeOptions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Remove orange accents and align product page with ShopEase theme */
+.searchBtn,
+.addCartBtn,
+.updateProductBtn,
+.checkoutForm button,
+.checkoutSummary button,
+.cartSummary .searchBtn {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #ffffff !important;
+}
+
+.searchBtn:hover,
+.addCartBtn:hover,
+.updateProductBtn:hover,
+.checkoutForm button:hover,
+.checkoutSummary button:hover,
+.cartSummary .searchBtn:hover {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 16px 32px rgba(5, 150, 105, 0.22) !important;
+}
+
+.pageEyebrow,
+.categoryPill,
+.categoryChips .activeChip,
+.categoryChips button:hover {
+  border-color: #b9e8dc !important;
+  background: #ecfdf7 !important;
+  color: #047857 !important;
+}
+
+/* Marketplace-wide product, cart, and checkout redesign */
+.page {
+  max-width: none;
+  min-height: 100vh;
+  padding: 32px clamp(16px, 4vw, 54px) 54px;
+  background:
+    linear-gradient(145deg, rgba(14, 165, 233, 0.08), transparent 34%),
+    linear-gradient(315deg, rgba(16, 185, 129, 0.08), transparent 38%),
+    #f3f7fb;
+}
+
+.topBar {
+  max-width: 1220px;
+  margin: 0 auto 24px;
+  padding: 22px 24px;
+  align-items: center;
+}
+
+.topBar h1 {
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.topActions button,
+.topBar button,
+.searchBtn,
+.resetBtn,
+.addCartBtn,
+.updateProductBtn,
+.deleteProductBtn,
+.cartItem button {
+  min-height: 44px;
+  border-radius: 8px;
+  font-weight: 900;
+}
+
+.topActions button,
+.topBar button,
+.resetBtn {
+  padding-inline: 18px;
+}
+
+.searchBtn,
+.addCartBtn,
+.updateProductBtn {
+  background: linear-gradient(135deg, #ff7a1a, #f97316);
+}
+
+.searchBtn:hover,
+.addCartBtn:hover,
+.updateProductBtn:hover {
+  background: linear-gradient(135deg, #ea580c, #dc4f08);
+  box-shadow: 0 16px 30px rgba(249, 115, 22, 0.24);
+}
+
+.catalogToolbar,
+.grid,
+.cartLayout,
+.checkoutLayout,
+.emptyState {
+  max-width: 1220px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.catalogToolbar {
+  padding: 20px;
+}
+
+.searchBar {
+  align-items: stretch;
+}
+
+.searchInput,
+.select {
+  min-height: 46px;
+}
+
+.grid {
+  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.imageWrapper {
+  aspect-ratio: 5 / 4;
+}
+
+.cardBody {
+  padding: 17px;
+}
+
+.cardBody h3 {
+  min-height: 44px;
+  font-size: 17px;
+}
+
+.cardFooter {
+  padding-top: 2px;
+}
+
+.cardFooter span:first-child {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.addCartBtn {
+  min-height: 44px;
+  margin-top: 10px;
+}
+
+.cartLayout {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+}
+
+.cartItem {
+  grid-template-columns: 110px minmax(190px, 1fr) 94px 128px 104px;
+  min-height: 132px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.cartItem img {
+  width: 110px;
+  height: 110px;
+}
+
+.cartItem h3 {
+  font-size: 18px;
+}
+
+.cartItem > strong {
+  color: #0f2a44;
+  font-size: 18px;
+}
+
+.cartItem button {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.cartItem button:hover {
+  border-color: #fca5a5;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.cartSummary,
+.checkoutSummary {
+  position: sticky;
+  top: 20px;
+  border-radius: 8px;
+}
+
+.cartSummary h2,
+.checkoutSummary h2 {
+  font-size: 24px;
+}
+
+.cartSummary p,
+.checkoutSummary p {
+  min-height: 34px;
+  align-items: center;
+  border-bottom: 1px solid #e5edf5;
+}
+
+.cartSummary p:last-of-type,
+.checkoutSummary p:last-of-type {
+  border-bottom: 0;
+}
+
+.cartSummary .searchBtn,
+.cartSummary .resetBtn {
+  width: 100%;
+}
+
+.emptyState {
+  padding: 42px;
+  border: 1px solid #dfe8f2;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.07);
+}
+
+.emptyState p {
+  margin: 0;
+  color: #0f2a44;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.checkoutForm,
+.checkoutSummary,
+.cartSummary,
+.cartItem {
+  background: #ffffff;
+}
+
+.paymentOptions label:hover {
+  border-color: #7dd3c7;
+  background: #f0fdfa;
+}
+
+@media (max-width: 900px) {
+  .topBar,
+  .cartLayout,
+  .checkoutLayout,
+  .cartItem {
+    grid-template-columns: 1fr;
+  }
+
+  .topBar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .topActions {
+    justify-content: flex-start;
+  }
+
+  .cartSummary,
+  .checkoutSummary {
+    position: static;
+  }
+}

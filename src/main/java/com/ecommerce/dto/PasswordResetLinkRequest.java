@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class OtpRequest {
+public class PasswordResetLinkRequest {
 
 	@NotBlank(message = "Email is required")
 	@Email(message = "Email must be valid")

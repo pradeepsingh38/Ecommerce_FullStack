@@ -9,28 +9,28 @@ export default function DashboardPage() {
   const isAdmin = user?.role === "ADMIN";
   const dashboardItems = isAdmin
     ? [
-        { label: "Products", value: "Manage catalog", path: "/products", tone: "primary" },
-        { label: "Users", value: "Customer accounts", path: "/users", tone: "blue" },
-        { label: "Orders", value: "Order history", path: "/orders", tone: "green" },
+        { icon: "PR", label: "Products", value: "Manage catalog", path: "/products", tone: "primary" },
+        { icon: "US", label: "Users", value: "Customer accounts", path: "/users", tone: "blue" },
+        { icon: "OR", label: "Orders", value: "Order history", path: "/orders", tone: "green" },
       ]
     : [
-        { label: "Products", value: "Browse catalog", path: "/products", tone: "primary" },
-        { label: "Cart", value: "View cart items", path: "/cart", tone: "blue" },
-        { label: "Orders", value: "Track purchases", path: "/my-orders", tone: "green" },
+        { icon: "PR", label: "Products", value: "Browse catalog", path: "/products", tone: "primary" },
+        { icon: "CA", label: "Cart", value: "View cart items", path: "/cart", tone: "blue" },
+        { icon: "OR", label: "Orders", value: "Track purchases", path: "/my-orders", tone: "green" },
       ];
   const navItems = isAdmin
     ? [
-        { label: "Manage Products", path: "/products" },
-        { label: "Add Product", path: "/products/new" },
-        { label: "Users", path: "/users" },
-        { label: "Order History", path: "/orders" },
-        { label: "Profile", path: "/profile" },
+        { icon: "PR", label: "Manage Products", path: "/products" },
+        { icon: "+", label: "Add Product", path: "/products/new" },
+        { icon: "US", label: "Users", path: "/users" },
+        { icon: "OR", label: "Order History", path: "/orders" },
+        { icon: "ME", label: "Profile", path: "/profile" },
       ]
     : [
-        { label: "Products", path: "/products" },
-        { label: "Cart", path: "/cart" },
-        { label: "My Orders", path: "/my-orders" },
-        { label: "Profile", path: "/profile" },
+        { icon: "PR", label: "Products", path: "/products" },
+        { icon: "CA", label: "Cart", path: "/cart" },
+        { icon: "OR", label: "My Orders", path: "/my-orders" },
+        { icon: "ME", label: "Profile", path: "/profile" },
       ];
 
   return (
@@ -75,15 +75,18 @@ export default function DashboardPage() {
 
         <section className={styles.quickStats}>
           <div>
-            <span>Catalog</span>
+            <span className={`${styles.statBoxIcon} ${styles.catalogIcon}`} aria-hidden="true"></span>
+            <small>Catalog</small>
             <strong>{isAdmin ? "Live inventory" : "Fresh picks"}</strong>
           </div>
           <div>
-            <span>Orders</span>
+            <span className={`${styles.statBoxIcon} ${styles.orderIcon}`} aria-hidden="true"></span>
+            <small>Orders</small>
             <strong>{isAdmin ? "Track fulfillment" : "Easy tracking"}</strong>
           </div>
           <div>
-            <span>Checkout</span>
+            <span className={`${styles.statBoxIcon} ${styles.checkoutIcon}`} aria-hidden="true"></span>
+            <small>Checkout</small>
             <strong>{isAdmin ? "Customer ready" : "Fast cart flow"}</strong>
           </div>
         </section>
@@ -91,11 +94,13 @@ export default function DashboardPage() {
         <section className={styles.dashboardCards}>
           {dashboardItems.map((item) => (
             <button type="button" key={item.label} className={styles[item.tone]} onClick={() => navigate(item.path)}>
+              <span className={styles.homeCardIcon} aria-hidden="true">{item.icon}</span>
               <span>{item.label}</span>
               <strong>{item.value}</strong>
             </button>
           ))}
         </section>
+
       </main>
     </div>
   );

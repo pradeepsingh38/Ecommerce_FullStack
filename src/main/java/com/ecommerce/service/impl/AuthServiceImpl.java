@@ -21,17 +21,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
-	private static final long OTP_EXPIRY_MINUTES = 5;
-	private static final SecureRandom OTP_RANDOM = new SecureRandom();
-	private final Map<String, OtpEntry> passwordOtps = new ConcurrentHashMap<>();
+	private static final long RESET_LINK_EXPIRY_MINUTES = 15;
+	private final Map<String, ResetTokenEntry> passwordResetTokens = new ConcurrentHashMap<>();
 
 	@Autowired
 	private UserRepository userRepository;
@@ -56,6 +55,9 @@ public class AuthServiceImpl implements AuthService {
 
 	@Value("${app.mail.from:}")
 	private String mailFrom;
+
+	@Value("${app.frontend.base-url:http://localhost:5173}")
+	private String frontendBaseUrl;
 
 	@Lazy // ← this one line fixes the circular dependency
 	@Autowired
@@ -168,15 +170,15 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public OtpResponse requestPasswordOtp(OtpRequest request) {
+	public PasswordResetLinkResponse requestPasswordResetLink(PasswordResetLinkRequest request) {
 		String email = request.getEmail().trim().toLowerCase();
 		userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
 
-		String otp = String.valueOf(100000 + OTP_RANDOM.nextInt(900000));
-		sendPasswordOtpEmail(email, otp);
-		passwordOtps.put(email, new OtpEntry(otp, LocalDateTime.now().plusMinutes(OTP_EXPIRY_MINUTES)));
+		String token = UUID.randomUUID().toString() + UUID.randomUUID();
+		passwordResetTokens.put(token, new ResetTokenEntry(email, LocalDateTime.now().plusMinutes(RESET_LINK_EXPIRY_MINUTES)));
+		sendPasswordResetLinkEmail(email, token);
 
-		return new OtpResponse("Verification OTP sent to your email", email, OTP_EXPIRY_MINUTES);
+		return new PasswordResetLinkResponse("Password reset link sent to your email", email, RESET_LINK_EXPIRY_MINUTES);
 	}
 
 	@Override
@@ -192,8 +194,6 @@ public class AuthServiceImpl implements AuthService {
 		if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
 			throw new RuntimeException("New password must be different from current password");
 		}
-
-		verifyOtp(email, request.getOtp());
 
 		String encodedNewPassword = passwordEncoder.encode(request.getNewPassword());
 		int updatedRows = jdbcTemplate.update("UPDATE users SET password = ? WHERE user_id = ?", encodedNewPassword,
@@ -217,15 +217,14 @@ public class AuthServiceImpl implements AuthService {
 		}
 
 		return new PasswordUpdateResponse("Password updated successfully", user.getUserId(), user.getEmail(), updatedRows,
-				newPasswordVerified, !oldPasswordStillWorks, "password-update-v3-user-id-jdbc");
+				newPasswordVerified, !oldPasswordStillWorks, "password-update-v4-user-id-jdbc");
 	}
 
 	@Override
 	@Transactional
 	public PasswordUpdateResponse resetPassword(ResetPasswordRequest request) {
-		String email = request.getEmail().trim().toLowerCase();
+		String email = verifyResetToken(request.getToken());
 		User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-		verifyOtp(email, request.getOtp());
 
 		if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
 			throw new RuntimeException("New password must be different from current password");
@@ -247,42 +246,44 @@ public class AuthServiceImpl implements AuthService {
 		}
 
 		return new PasswordUpdateResponse("Password reset successfully", user.getUserId(), user.getEmail(), updatedRows,
-				true, true, "forgot-password-otp-v1");
+				true, true, "password-reset-link-v1");
 	}
 
-	private void verifyOtp(String email, String otp) {
-		OtpEntry entry = passwordOtps.get(email);
+	private String verifyResetToken(String token) {
+		String cleanToken = token == null ? "" : token.trim();
+		ResetTokenEntry entry = passwordResetTokens.get(cleanToken);
 		if (entry == null) {
-			throw new RuntimeException("Please request an OTP first");
+			throw new RuntimeException("Password reset link is invalid. Please request a new link");
 		}
 		if (entry.expiresAt().isBefore(LocalDateTime.now())) {
-			passwordOtps.remove(email);
-			throw new RuntimeException("OTP expired. Please request a new OTP");
+			passwordResetTokens.remove(cleanToken);
+			throw new RuntimeException("Password reset link expired. Please request a new link");
 		}
-		if (!entry.otp().equals(otp.trim())) {
-			throw new RuntimeException("Invalid OTP");
-		}
-		passwordOtps.remove(email);
+		passwordResetTokens.remove(cleanToken);
+		return entry.email();
 	}
 
-	private record OtpEntry(String otp, LocalDateTime expiresAt) {
+	private record ResetTokenEntry(String email, LocalDateTime expiresAt) {
 	}
 
-	private void sendPasswordOtpEmail(String email, String otp) {
+	private void sendPasswordResetLinkEmail(String email, String token) {
 		if (mailFrom == null || mailFrom.isBlank()) {
 			throw new RuntimeException("Mail sender is not configured. Set MAIL_USERNAME, MAIL_PASSWORD, and MAIL_FROM.");
 		}
 
+		String resetLink = frontendBaseUrl.replaceAll("/+$", "") + "/reset-password?token=" + token;
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(mailFrom);
 		message.setTo(email);
-		message.setSubject("Your ShopEase password verification OTP");
+		message.setSubject("Reset your ShopEase password");
 		message.setText("""
-				Your ShopEase OTP is: %s
+				Use this link to reset your ShopEase password:
 
-				This OTP expires in %d minutes.
+				%s
+
+				This link expires in %d minutes.
 				If you did not request this, you can ignore this email.
-				""".formatted(otp, OTP_EXPIRY_MINUTES));
+				""".formatted(resetLink, RESET_LINK_EXPIRY_MINUTES));
 		mailSender.send(message);
 	}
 

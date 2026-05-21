@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { loginUser, requestForgotPasswordOtp, resetForgotPassword } from "../api/authApi";
+import { loginUser, requestForgotPasswordLink } from "../api/authApi";
 import { useAuth } from "../context/useAuth";
 import styles from "../styles/auth.module.css";
 
@@ -8,14 +8,13 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [form, setForm] = useState({ email: "", password: "" });
-  const [forgotForm, setForgotForm] = useState({ email: "", otp: "", newPassword: "" });
+  const [forgotForm, setForgotForm] = useState({ email: "" });
   const [forgotOpen, setForgotOpen] = useState(false);
   const [forgotMessage, setForgotMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [sendingOtp, setSendingOtp] = useState(false);
-  const [resetting, setResetting] = useState(false);
+  const [sendingLink, setSendingLink] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -62,10 +61,11 @@ export default function LoginPage() {
     setForgotMessage("");
     setSuccessMessage("");
     setErrors({});
-    setForgotForm({ email: form.email.trim().toLowerCase(), otp: "", newPassword: "" });
+    setForgotForm({ email: form.email.trim().toLowerCase() });
   };
 
-  const sendForgotOtp = async () => {
+  const sendForgotLink = async (event) => {
+    event.preventDefault();
     setErrors({});
     setForgotMessage("");
     if (!forgotForm.email.trim()) {
@@ -73,50 +73,19 @@ export default function LoginPage() {
       return;
     }
 
-    setSendingOtp(true);
+    setSendingLink(true);
     try {
-      const res = await requestForgotPasswordOtp({ email: forgotForm.email.trim().toLowerCase() });
+      const res = await requestForgotPasswordLink({ email: forgotForm.email.trim().toLowerCase() });
       setForgotMessage(
-        `${res.data?.message || "Verification OTP sent to your email"}. It expires in ${
-          res.data?.expiresInMinutes || 5
+        `${res.data?.message || "Password reset link sent to your email"}. It expires in ${
+          res.data?.expiresInMinutes || 15
         } minutes.`
       );
-    } catch (err) {
-      setErrors({ forgot: getErrorMessage(err, "OTP could not be sent") });
-    } finally {
-      setSendingOtp(false);
-    }
-  };
-
-  const handleForgotSubmit = async (e) => {
-    e.preventDefault();
-    setErrors({});
-    setForgotMessage("");
-
-    if (!forgotForm.email.trim() || !forgotForm.otp.trim() || !forgotForm.newPassword.trim()) {
-      setErrors({ forgot: "Enter email, OTP, and new password" });
-      return;
-    }
-
-    if (forgotForm.newPassword.length < 6) {
-      setErrors({ forgot: "New password must be at least 6 characters" });
-      return;
-    }
-
-    setResetting(true);
-    try {
-      await resetForgotPassword({
-        email: forgotForm.email.trim().toLowerCase(),
-        otp: forgotForm.otp.trim(),
-        newPassword: forgotForm.newPassword,
-      });
       setForm({ email: forgotForm.email.trim().toLowerCase(), password: "" });
-      setForgotOpen(false);
-      setSuccessMessage("Password reset successfully. Please sign in with your new password.");
     } catch (err) {
-      setErrors({ forgot: getErrorMessage(err, "Password could not be reset") });
+      setErrors({ forgot: getErrorMessage(err, "Reset link could not be sent") });
     } finally {
-      setResetting(false);
+      setSendingLink(false);
     }
   };
 
@@ -153,7 +122,7 @@ export default function LoginPage() {
 
       {forgotOpen && (
         <div className={styles.modalOverlay} role="presentation">
-          <form className={styles.modalCard} onSubmit={handleForgotSubmit} autoComplete="off">
+          <form className={styles.modalCard} onSubmit={sendForgotLink} autoComplete="off">
             <div className={styles.modalHeader}>
               <h2>Reset password</h2>
               <button type="button" onClick={() => setForgotOpen(false)} aria-label="Close">
@@ -170,32 +139,8 @@ export default function LoginPage() {
                 onChange={(event) => setForgotForm({ ...forgotForm, email: event.target.value })}
               />
             </div>
-            <button type="button" className={styles.secondaryButton} onClick={sendForgotOtp} disabled={sendingOtp}>
-              {sendingOtp ? "Sending OTP..." : "Send Verification OTP"}
-            </button>
-            <div className={styles.field}>
-              <label>OTP</label>
-              <input
-                name="forgotOtp"
-                type="text"
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                placeholder="Enter OTP"
-                value={forgotForm.otp}
-                onChange={(event) => setForgotForm({ ...forgotForm, otp: event.target.value })}
-              />
-            </div>
-            <div className={styles.field}>
-              <label>New Password</label>
-              <input
-                type="password"
-                minLength="6"
-                value={forgotForm.newPassword}
-                onChange={(event) => setForgotForm({ ...forgotForm, newPassword: event.target.value })}
-              />
-            </div>
-            <button type="submit" className={styles.btn} disabled={resetting}>
-              {resetting ? "Resetting..." : "Reset Password"}
+            <button type="submit" className={styles.btn} disabled={sendingLink}>
+              {sendingLink ? "Sending link..." : "Send reset link"}
             </button>
           </form>
         </div>

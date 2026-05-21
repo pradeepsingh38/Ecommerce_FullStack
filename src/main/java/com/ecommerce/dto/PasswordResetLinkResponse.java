@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class OtpResponse {
+public class PasswordResetLinkResponse {
 	private String message;
 	private String email;
 	private long expiresInMinutes;
