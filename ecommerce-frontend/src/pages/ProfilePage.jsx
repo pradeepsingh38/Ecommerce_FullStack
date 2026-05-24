@@ -15,6 +15,8 @@ const getAddressForm = (user) => {
   if (user?.addressId || user?.houseNo || user?.city || user?.pincode || user?.state) {
     return {
       addressId: user?.addressId || "",
+      source: user?.source || "saved",
+      fullAddress: user?.fullAddress || "",
       houseNo: user?.houseNo || "",
       street: user?.street || "",
       city: user?.city || "",
@@ -26,6 +28,9 @@ const getAddressForm = (user) => {
   const parts = (user?.address || "").split(",").map((part) => part.trim()).filter(Boolean);
   if (parts.length >= 4) {
     return {
+      addressId: "",
+      source: user?.source || "",
+      fullAddress: user?.fullAddress || user?.address || "",
       houseNo: parts[0] || "",
       street: parts.length > 4 ? parts.slice(1, -3).join(", ") : "",
       city: parts.at(-3) || "",
@@ -34,7 +39,7 @@ const getAddressForm = (user) => {
     };
   }
 
-  return { addressId: "", houseNo: "", street: "", city: "", pincode: "", state: "" };
+  return { addressId: "", source: "", fullAddress: "", houseNo: "", street: "", city: "", pincode: "", state: "" };
 };
 
 export default function ProfilePage() {
@@ -153,7 +158,7 @@ export default function ProfilePage() {
   };
 
   const openUpdateAddress = (address) => {
-    setAddressMode(address.addressId ? "update" : "add");
+    setAddressMode("update");
     setAddressForm(getAddressForm(address));
     setError("");
     setActiveModal("addressForm");
@@ -183,13 +188,18 @@ export default function ProfilePage() {
         pincode: addressForm.pincode.trim(),
         state: addressForm.state.trim(),
       };
+      if (addressMode === "update" && !addressForm.addressId && addressForm.fullAddress) {
+        payload.originalFullAddress = addressForm.fullAddress;
+      }
       const res =
         addressMode === "update" && addressForm.addressId
           ? await updateSavedAddress(addressForm.addressId, payload)
           : await addAddress(payload);
       const nextAddresses =
         addressMode === "update"
-          ? addresses.map((address) => (address.addressId === res.data.addressId ? res.data : address))
+          ? addresses.map((address) =>
+              address.addressId === res.data.addressId || address.fullAddress === addressForm.fullAddress ? res.data : address
+            )
           : [res.data, ...addresses];
       setAddresses(nextAddresses);
       const defaultAddress = nextAddresses.find((address) => address.defaultAddress) || nextAddresses[0];
@@ -325,7 +335,7 @@ export default function ProfilePage() {
                   </p>
                   <p>{address.state}</p>
                   <button type="button" onClick={() => openUpdateAddress(address)}>
-                    {address.addressId ? "Edit" : "Save & Edit"}
+                    Edit
                   </button>
                 </article>
               ))}

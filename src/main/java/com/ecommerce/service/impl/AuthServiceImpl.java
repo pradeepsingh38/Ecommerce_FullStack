@@ -142,6 +142,7 @@ public class AuthServiceImpl implements AuthService {
 				.findByUser_UserIdOrderByDefaultAddressDescAddressIdDesc(user.getUserId());
 		UserAddress address = applyAddress(new UserAddress(), request);
 		address.setUser(user);
+		address.setOriginalFullAddress(clean(request.getOriginalFullAddress()));
 		address.setDefaultAddress(existingAddresses.isEmpty());
 		UserAddress savedAddress = userAddressRepository.save(address);
 
@@ -159,6 +160,10 @@ public class AuthServiceImpl implements AuthService {
 		UserAddress address = userAddressRepository.findByAddressIdAndUser_UserId(addressId, user.getUserId())
 				.orElseThrow(() -> new RuntimeException("Address not found"));
 		applyAddress(address, request);
+		String originalFullAddress = clean(request.getOriginalFullAddress());
+		if (!originalFullAddress.isBlank()) {
+			address.setOriginalFullAddress(originalFullAddress);
+		}
 		UserAddress savedAddress = userAddressRepository.save(address);
 
 		if (savedAddress.getDefaultAddress()) {
@@ -357,10 +362,15 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	private List<AddressResponse> getAddressResponses(Long userId) {
-		List<AddressResponse> savedAddresses = userAddressRepository.findByUser_UserIdOrderByDefaultAddressDescAddressIdDesc(userId).stream()
+		List<UserAddress> savedAddressEntities = userAddressRepository.findByUser_UserIdOrderByDefaultAddressDescAddressIdDesc(userId);
+		List<AddressResponse> savedAddresses = savedAddressEntities.stream()
 				.map(this::mapAddress)
 				.toList();
-		List<String> savedFullAddresses = savedAddresses.stream().map(AddressResponse::getFullAddress).toList();
+		List<String> savedFullAddresses = savedAddressEntities.stream()
+				.flatMap(address -> java.util.stream.Stream
+						.of(address.getFullAddress(), address.getOriginalFullAddress()))
+				.filter(address -> address != null && !address.isBlank())
+				.toList();
 		List<AddressResponse> orderAddresses = orderRepository.findDistinctShippingAddressesByUserId(userId).stream()
 				.filter(address -> !savedFullAddresses.contains(address))
 				.map(this::mapOrderAddress)

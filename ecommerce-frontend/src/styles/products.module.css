@@ -2036,6 +2036,11 @@
   font-size: 18px;
 }
 
+.cartItem div strong {
+  color: #047857;
+  font-weight: 900;
+}
+
 .cartItem button {
   border-color: #fecaca;
   color: #b91c1c;
@@ -2064,6 +2069,18 @@
   min-height: 34px;
   align-items: center;
   border-bottom: 1px solid #e5edf5;
+}
+
+.cartSummary p span,
+.checkoutSummary p span {
+  color: #475569;
+  font-weight: 800;
+}
+
+.cartSummary p strong,
+.checkoutSummary p strong {
+  color: #047857;
+  font-weight: 900;
 }
 
 .cartSummary p:last-of-type,
@@ -2096,6 +2113,117 @@
 .cartSummary,
 .cartItem {
   background: #ffffff;
+}
+
+.deliveryAddressPanel {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #b9e8dc;
+  border-radius: 8px;
+  background: #f8fffc;
+}
+
+.checkoutSectionHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.checkoutSectionHeader > span {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #047857);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.checkoutSectionHeader h2 {
+  margin: 0 0 4px;
+  color: #0f2a44;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.checkoutSectionHeader p {
+  margin: 0;
+  color: #60758a;
+}
+
+.addressChoiceList {
+  display: grid;
+  gap: 10px;
+}
+
+.addressChoice {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #dfe8f2;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #263f57;
+  cursor: pointer;
+}
+
+.addressChoiceActive {
+  border-color: #10b981;
+  background: #ecfdf7;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.addressChoice input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  padding: 0;
+  accent-color: #059669;
+}
+
+.addressChoice span {
+  display: grid;
+  gap: 5px;
+}
+
+.addressChoice strong {
+  color: #047857;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.addressChoice b {
+  color: #0f2a44;
+  font-size: 15px;
+}
+
+.addressChoice p {
+  margin: 0;
+  color: #263f57;
+  line-height: 1.5;
+}
+
+.addAddressOption {
+  min-height: 42px;
+  width: max-content;
+  padding: 0 16px;
+  border: 1px solid #b9e8dc;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #047857;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.addAddressOption:hover {
+  border-color: #7dd3c7;
+  background: #f0fdfa;
 }
 
 .paymentOptions label:hover {

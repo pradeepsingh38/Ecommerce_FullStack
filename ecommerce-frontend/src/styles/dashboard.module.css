@@ -3972,5 +3972,93 @@
   color: #047857;
 }
 
+/* Strong light-theme home navigation pass */
+.layout:not(.storeLayout) .sidebar {
+  background:
+    linear-gradient(180deg, #f0fdf4 0%, #ecfdf7 100%);
+  border-right-color: #b9e8dc;
+  box-shadow: 8px 0 28px rgba(4, 120, 87, 0.08);
+}
+
+.layout:not(.storeLayout) .brandBlock {
+  border-bottom: 1px solid #cdeee4;
+  padding-bottom: 22px;
+}
+
+.layout:not(.storeLayout) .brandBlock p {
+  color: #047857;
+  font-weight: 800;
+}
+
+.layout:not(.storeLayout) .logo {
+  color: #0f2a44;
+}
+
+.layout:not(.storeLayout) .nav button {
+  border-color: #b9e8dc;
+  background: rgba(255, 255, 255, 0.78);
+  color: #0f5132;
+  box-shadow: 0 8px 18px rgba(4, 120, 87, 0.06);
+}
+
+.layout:not(.storeLayout) .nav button:hover {
+  border-color: #10b981;
+  background: #dcfce7;
+  color: #047857;
+}
+
+.layout:not(.storeLayout) .nav button:active {
+  background: #047857;
+  color: #ffffff;
+}
+
+.layout:not(.storeLayout) .welcomePanel button,
+.layout:not(.storeLayout) .dashboardCards button:hover {
+  background: linear-gradient(135deg, #10b981, #047857);
+  color: #ffffff;
+}
+
+.layout:not(.storeLayout) .dashboardCards button,
+.layout:not(.storeLayout) .dashboardCards .primary,
+.layout:not(.storeLayout) .dashboardCards .blue,
+.layout:not(.storeLayout) .dashboardCards .green {
+  border-color: #dfe8f2;
+  background:
+    radial-gradient(circle at 94% 90%, rgba(16, 185, 129, 0.11), transparent 25%),
+    #ffffff;
+  color: #0f2a44;
+}
+
+.layout:not(.storeLayout) .dashboardCards button:hover,
+.layout:not(.storeLayout) .dashboardCards .primary:hover,
+.layout:not(.storeLayout) .dashboardCards .blue:hover,
+.layout:not(.storeLayout) .dashboardCards .green:hover {
+  border-color: #b9e8dc;
+  background:
+    radial-gradient(circle at 94% 90%, rgba(16, 185, 129, 0.16), transparent 25%),
+    linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+  color: #0f2a44;
+}
+
+.layout:not(.storeLayout) .dashboardCards button:hover span,
+.layout:not(.storeLayout) .dashboardCards .primary:hover span,
+.layout:not(.storeLayout) .dashboardCards .blue:hover span,
+.layout:not(.storeLayout) .dashboardCards .green:hover span {
+  color: #0f2a44;
+}
+
+.layout:not(.storeLayout) .dashboardCards button:hover strong,
+.layout:not(.storeLayout) .dashboardCards .primary:hover strong,
+.layout:not(.storeLayout) .dashboardCards .blue:hover strong,
+.layout:not(.storeLayout) .dashboardCards .green:hover strong {
+  color: #60758a;
+}
+
+.layout:not(.storeLayout) .profileButton,
+.layout:not(.storeLayout) .logoutButton {
+  border-color: #cbdceb;
+  color: #0f2a44;
+}
+
 
 /* Myntra reference banner replacement */

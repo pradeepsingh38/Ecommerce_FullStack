@@ -21,4 +21,7 @@ public class UpdateAddressRequest {
 
 	@Size(max = 80, message = "State must be 80 characters or less")
 	private String state;
+
+	@Size(max = 500, message = "Original address must be 500 characters or less")
+	private String originalFullAddress;
 }

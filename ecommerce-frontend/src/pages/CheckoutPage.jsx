@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAddresses } from "../api/authApi";
 import { getCart } from "../api/cartApi";
 import { placeOrder } from "../api/orderApi";
 import { useAuth } from "../context/useAuth";
@@ -21,15 +22,49 @@ export default function CheckoutPage() {
   const { user } = useAuth();
   const savedAddress = user?.address || [user?.houseNo, user?.street, user?.city, user?.pincode, user?.state].filter(Boolean).join(", ");
   const [cart, setCart] = useState({ items: [], totalItems: 0, totalAmount: 0 });
+  const [savedAddresses, setSavedAddresses] = useState([]);
+  const [selectedAddressKey, setSelectedAddressKey] = useState(savedAddress ? "default" : "new");
   const [form, setForm] = useState(initialForm);
-  const [useSavedAddress, setUseSavedAddress] = useState(Boolean(savedAddress));
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
+  const addressOptions = useMemo(() => {
+    const options = (savedAddresses.length ? savedAddresses : user?.addresses || [])
+      .filter((address) => address?.fullAddress)
+      .map((address) => ({
+        key: address.addressId ? `saved-${address.addressId}` : `address-${address.fullAddress}`,
+        label: address.defaultAddress ? "Default address" : address.source === "order" ? "Used before" : "Saved address",
+        fullAddress: address.fullAddress,
+        houseNo: address.houseNo,
+        street: address.street,
+        city: address.city,
+        pincode: address.pincode,
+        state: address.state,
+      }));
+
+    if (savedAddress && !options.some((address) => address.fullAddress === savedAddress)) {
+      options.unshift({
+        key: "default",
+        label: "Default address",
+        fullAddress: savedAddress,
+        houseNo: user?.houseNo,
+        street: user?.street,
+        city: user?.city,
+        pincode: user?.pincode,
+        state: user?.state,
+      });
+    }
+
+    return options;
+  }, [savedAddress, savedAddresses, user]);
+
+  const selectedAddress = addressOptions.find((address) => address.key === selectedAddressKey);
+  const useManualAddress = selectedAddressKey === "new" || !selectedAddress;
+
   const buildShippingAddress = () => {
-    if (useSavedAddress && savedAddress) {
-      return savedAddress.trim();
+    if (!useManualAddress && selectedAddress?.fullAddress) {
+      return selectedAddress.fullAddress.trim();
     }
 
     return [
@@ -48,9 +83,20 @@ export default function CheckoutPage() {
 
     const loadCart = async () => {
       try {
-        const res = await getCart();
+        const [cartRes, addressesRes] = await Promise.all([getCart(), getAddresses().catch(() => ({ data: [] }))]);
         if (active) {
-          setCart(res.data);
+          setCart(cartRes.data);
+          setSavedAddresses(addressesRes.data || []);
+          const firstAddress = (addressesRes.data || [])[0];
+          setSelectedAddressKey(
+            firstAddress?.addressId
+              ? `saved-${firstAddress.addressId}`
+              : firstAddress?.fullAddress
+                ? `address-${firstAddress.fullAddress}`
+                : savedAddress
+                  ? "default"
+                  : "new"
+          );
         }
       } catch {
         if (active) {
@@ -68,16 +114,16 @@ export default function CheckoutPage() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [savedAddress]);
 
   const canSubmit = useMemo(() => {
     return (
       cart.items.length > 0 &&
-      ((useSavedAddress && savedAddress) ||
-        (form.houseNo.trim() && form.city.trim() && form.pincode.trim() && form.state.trim())) &&
+      ((!useManualAddress && selectedAddress?.fullAddress) ||
+        (useManualAddress && form.houseNo.trim() && form.city.trim() && form.pincode.trim() && form.state.trim())) &&
       !submitting
     );
-  }, [cart.items.length, form.city, form.houseNo, form.pincode, form.state, submitting, useSavedAddress, savedAddress]);
+  }, [cart.items.length, form.city, form.houseNo, form.pincode, form.state, selectedAddress, submitting, useManualAddress]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -145,82 +191,112 @@ export default function CheckoutPage() {
       {!loading && cart.items.length > 0 && (
         <div className={styles.checkoutLayout}>
           <form className={styles.checkoutForm} onSubmit={handleSubmit}>
-            {savedAddress && (
-              <div className={styles.savedAddressBox}>
+            <section className={styles.deliveryAddressPanel}>
+              <div className={styles.checkoutSectionHeader}>
+                <span>1</span>
+                <div>
+                  <h2>Select a delivery address</h2>
+                  <p>Choose where this order should be delivered.</p>
+                </div>
+              </div>
+
+              {addressOptions.length > 0 && (
+                <div className={styles.addressChoiceList}>
+                  {addressOptions.map((address) => (
+                    <label
+                      className={`${styles.addressChoice} ${selectedAddressKey === address.key ? styles.addressChoiceActive : ""}`}
+                      key={address.key}
+                    >
+                      <input
+                        type="radio"
+                        name="selectedAddress"
+                        value={address.key}
+                        checked={selectedAddressKey === address.key}
+                        onChange={(event) => setSelectedAddressKey(event.target.value)}
+                      />
+                      <span>
+                        <strong>{address.label}</strong>
+                        <b>{user?.name || "Delivery address"}</b>
+                        <p>{address.fullAddress}</p>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+
+              <button
+                type="button"
+                className={styles.addAddressOption}
+                onClick={() => setSelectedAddressKey("new")}
+              >
+                + Add a new delivery address
+              </button>
+            </section>
+
+            {useManualAddress && (
+              <div className={styles.addressGrid}>
                 <label>
+                  <span>House / Flat No.</span>
                   <input
-                    type="checkbox"
-                    checked={useSavedAddress}
-                    onChange={(event) => setUseSavedAddress(event.target.checked)}
+                    type="text"
+                    name="houseNo"
+                    value={form.houseNo}
+                    onChange={handleChange}
+                    maxLength="120"
+                    required={useManualAddress}
                   />
-                  <span>Use saved delivery address</span>
                 </label>
-                <p>{savedAddress}</p>
+
+                <label>
+                  <span>Street / Area</span>
+                  <input
+                    type="text"
+                    name="street"
+                    value={form.street}
+                    onChange={handleChange}
+                    maxLength="160"
+                  />
+                </label>
+
+                <label>
+                  <span>City</span>
+                  <input
+                    type="text"
+                    name="city"
+                    value={form.city}
+                    onChange={handleChange}
+                    maxLength="80"
+                    required={useManualAddress}
+                  />
+                </label>
+
+                <label>
+                  <span>Pincode</span>
+                  <input
+                    type="text"
+                    name="pincode"
+                    value={form.pincode}
+                    onChange={handleChange}
+                    inputMode="numeric"
+                    pattern="[0-9]{6}"
+                    maxLength="6"
+                    required={useManualAddress}
+                  />
+                </label>
+
+                <label>
+                  <span>State</span>
+                  <input
+                    type="text"
+                    name="state"
+                    value={form.state}
+                    onChange={handleChange}
+                    maxLength="80"
+                    required={useManualAddress}
+                  />
+                </label>
               </div>
             )}
-
-            <div className={styles.addressGrid}>
-              <label>
-                <span>House / Flat No.</span>
-                <input
-                  type="text"
-                  name="houseNo"
-                  value={form.houseNo}
-                  onChange={handleChange}
-                  maxLength="120"
-                  required
-                />
-              </label>
-
-              <label>
-                <span>Street / Area</span>
-                <input
-                  type="text"
-                  name="street"
-                  value={form.street}
-                  onChange={handleChange}
-                  maxLength="160"
-                />
-              </label>
-
-              <label>
-                <span>City</span>
-                <input
-                  type="text"
-                  name="city"
-                  value={form.city}
-                  onChange={handleChange}
-                  maxLength="80"
-                  required
-                />
-              </label>
-
-              <label>
-                <span>Pincode</span>
-                <input
-                  type="text"
-                  name="pincode"
-                  value={form.pincode}
-                  onChange={handleChange}
-                  inputMode="numeric"
-                  pattern="[0-9]{6}"
-                  maxLength="6"
-                  required
-                />
-              </label>
-
-              <label>
-                <span>State</span>
-                <input
-                  type="text"
-                  name="state"
-                  value={form.state}
-                  onChange={handleChange}
-                  maxLength="80"
-                  required
-                />
-              </label>
-            </div>
 
             <label>
               <span>Contact Number</span>

@@ -34,6 +34,9 @@ public class UserAddress {
 	@Column(nullable = false, length = 500)
 	private String fullAddress;
 
+	@Column(length = 500)
+	private String originalFullAddress;
+
 	@Column(nullable = false)
 	private Boolean defaultAddress = false;
 }
