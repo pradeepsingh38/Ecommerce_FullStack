@@ -1,0 +1,10 @@
+.git
+.mvn
+target
+test-output
+backend-run.log
+backend-run.err
+ecommerce-frontend
+postman
+*.xlsx
+*.pdf
