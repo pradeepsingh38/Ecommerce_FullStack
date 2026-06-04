@@ -97,21 +97,21 @@ export default function LoginPage() {
         <p className={styles.subtitle}>Enter your details to continue shopping.</p>
         {successMessage && <p className={styles.successBanner}>{successMessage}</p>}
         {errors.general && <p className={styles.errorBanner}>{errors.general}</p>}
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form id="login-form" onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
             <label>Email</label>
-            <input name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} />
+            <input id="login-email" name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} />
             {errors.email && <span className={styles.error}>{errors.email}</span>}
           </div>
           <div className={styles.field}>
             <label>Password</label>
-            <input name="password" type="password" placeholder="Your password" value={form.password} onChange={handleChange} />
+            <input id="login-password" name="password" type="password" placeholder="Your password" value={form.password} onChange={handleChange} />
             {errors.password && <span className={styles.error}>{errors.password}</span>}
           </div>
           <button type="button" className={styles.textButton} onClick={openForgotPassword}>
             Forgot password?
           </button>
-          <button type="submit" className={styles.btn} disabled={loading}>
+          <button id="login-submit" type="submit" className={styles.btn} disabled={loading}>
             {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>

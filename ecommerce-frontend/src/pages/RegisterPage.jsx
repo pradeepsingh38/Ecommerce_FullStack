@@ -53,10 +53,11 @@ export default function RegisterPage() {
 
         {errors.general && <p className={styles.errorBanner}>{errors.general}</p>}
 
-        <form onSubmit={handleSubmit}>
+        <form id="signup-form" onSubmit={handleSubmit}>
           <label>
             <span>Full Name</span>
             <input
+              id="signup-name"
               name="name"
               placeholder="Enter your name"
               value={form.name}
@@ -68,6 +69,7 @@ export default function RegisterPage() {
           <label>
             <span>Email</span>
             <input
+              id="signup-email"
               name="email"
               type="email"
               placeholder="you@example.com"
@@ -80,6 +82,7 @@ export default function RegisterPage() {
           <label>
             <span>Password</span>
             <input
+              id="signup-password"
               name="password"
               type="password"
               placeholder="Create password"
@@ -89,7 +92,7 @@ export default function RegisterPage() {
             {errors.password && <small>{errors.password}</small>}
           </label>
 
-          <button type="submit" disabled={loading}>
+          <button id="signup-submit" type="submit" disabled={loading}>
             {loading ? "Creating..." : "Create account"}
           </button>
         </form>
