@@ -1,85 +1,78 @@
 package com.ecommerce.automation.pages;
 
-import com.ecommerce.automation.config.TestConfig;
+import com.ecommerce.automation.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class SignupPage extends BasePage {
 
-	public static final String PATH = "/register";
-	public static final By FULL_NAME_INPUT_ID = By.id("signup-name");
-	public static final By EMAIL_INPUT_CSS = By.cssSelector("#signup-email");
-	public static final By PASSWORD_INPUT_CSS = By.cssSelector("input[name='password']");
-	public static final By CREATE_ACCOUNT_BUTTON_ID = By.id("signup-submit");
-	public static final By SIGN_IN_LINK_XPATH = By.xpath("//a[@href='/login' and normalize-space()='Sign in']");
-	public static final String VALID_NAME = "Automation User";
-	public static final String VALID_EMAIL = "automation.user@example.com";
-	public static final String VALID_PASSWORD = "123456";
-
-	@FindBy(id = "signup-name")
-	private WebElement fullNameInput;
-
-	@FindBy(css = "#signup-email")
-	private WebElement emailInput;
-
-	@FindBy(css = "input[name='password']")
-	private WebElement passwordInput;
-
-	@FindBy(id = "signup-submit")
-	private WebElement createAccountButton;
-
-	@FindBy(xpath = "//a[@href='/login' and normalize-space()='Sign in']")
-	private WebElement signInLink;
+	private By nameInput = By.id("signup-name");
+	private By emailInput = By.cssSelector("#signup-email");
+	private By passwordInput = By.xpath("//input[@name='password']");
+	private By createAccountButton = By.id("signup-submit");
+	private By signInLink = By.xpath("//a[@href='/login']");
+	private By passwordError = By.xpath("//input[@id='signup-password']/following-sibling::small");
 
 	public SignupPage(WebDriver driver) {
 		super(driver);
 	}
 
-	public static void open(WebDriver driver) {
-		driver.get(TestConfig.baseUrl() + PATH);
+	public void open() {
+		driver.get(BaseTest.BASE_URL + "/register");
 	}
 
 	public boolean isLoaded() {
-		return waitForVisible(fullNameInput).isDisplayed()
+		return waitForVisible(nameInput).isDisplayed()
 				&& waitForVisible(emailInput).isDisplayed()
 				&& waitForVisible(passwordInput).isDisplayed()
 				&& waitForVisible(createAccountButton).isDisplayed();
 	}
 
-	public SignupPage enterRegistrationDetails(String name, String email, String password) {
-		waitForVisible(fullNameInput).clear();
-		fullNameInput.sendKeys(name);
-		waitForVisible(emailInput).clear();
-		emailInput.sendKeys(email);
-		waitForVisible(passwordInput).clear();
-		passwordInput.sendKeys(password);
-		return this;
+	public boolean nameFoundById() {
+		return waitForVisible(nameInput).isDisplayed();
 	}
 
-	public SignupPage enterValidRegistrationDetails() {
-		return enterRegistrationDetails(VALID_NAME, VALID_EMAIL, VALID_PASSWORD);
+	public boolean emailFoundByCss() {
+		return waitForVisible(emailInput).isDisplayed();
 	}
 
-	public String enteredName() {
-		return fullNameInput.getAttribute("value");
+	public boolean passwordFoundByXpath() {
+		return waitForVisible(passwordInput).isDisplayed();
 	}
 
-	public String enteredEmail() {
-		return emailInput.getAttribute("value");
+	public void enterRegistrationDetails(String name, String email, String password) {
+		type(nameInput, name);
+		type(emailInput, email);
+		type(passwordInput, password);
 	}
 
-	public String enteredPassword() {
-		return passwordInput.getAttribute("value");
+	public void clickCreateAccount() {
+		click(createAccountButton);
 	}
 
 	public LoginPage goToLoginPage() {
-		waitForVisible(signInLink).click();
+		click(signInLink);
 		return new LoginPage(driver);
 	}
 
-	public String currentUrl() {
-		return driver.getCurrentUrl();
+	public String getNameValue() {
+		return driver.findElement(nameInput).getAttribute("value");
+	}
+
+	public String getEmailValue() {
+		return driver.findElement(emailInput).getAttribute("value");
+	}
+
+	public String getPasswordValue() {
+		return driver.findElement(passwordInput).getAttribute("value");
+	}
+
+	public String getPasswordErrorMessage() {
+		return waitForVisible(passwordError).getText();
+	}
+
+	public boolean isDashboardOpened() {
+		return wait.until(ExpectedConditions.urlContains("/dashboard"));
 	}
 }
