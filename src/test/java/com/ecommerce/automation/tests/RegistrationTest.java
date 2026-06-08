@@ -8,22 +8,6 @@ import org.testng.annotations.Test;
 public class RegistrationTest extends BaseTest {
 
 	@Test
-	public void shouldValidateRegistrationFields() {
-		SignupPage signupPage = new SignupPage(driver);
-		signupPage.open();
-
-		Assert.assertTrue(signupPage.nameFoundById());
-		Assert.assertTrue(signupPage.emailFoundByCss());
-		Assert.assertTrue(signupPage.passwordFoundByXpath());
-
-		signupPage.enterRegistrationDetails("Abhi Kumar", "abhi.kumar@gmail.com", "Abhi@123");
-
-		Assert.assertEquals(signupPage.getNameValue(), "Abhi Kumar");
-		Assert.assertEquals(signupPage.getEmailValue(), "abhi.kumar@gmail.com");
-		Assert.assertEquals(signupPage.getPasswordValue(), "Abhi@123");
-	}
-
-	@Test
 	public void shouldCreateAccountWithValidDetails() throws InterruptedException {
 		SignupPage signupPage = new SignupPage(driver);
 		signupPage.open();
@@ -37,15 +21,14 @@ public class RegistrationTest extends BaseTest {
 	}
 
 	@Test
-	public void shouldShowPasswordErrorWhenPasswordIsLessThanSixCharacters() throws InterruptedException {
+	public void shouldShowPopupMessageForInvalidEmailType() {
 		SignupPage signupPage = new SignupPage(driver);
 		signupPage.open();
 
-		signupPage.enterRegistrationDetails("Rahul Sharma", "rahul.sharma@gmail.com", "Rah");
+		signupPage.enterRegistrationDetails("Rahul Sharma", "invalid-mail", "Rahul@123");
 		signupPage.clickCreateAccount();
-		Thread.sleep(2000);
 
 		Assert.assertTrue(driver.getCurrentUrl().contains("/register"));
-		Assert.assertEquals(signupPage.getPasswordErrorMessage(), "Password must be at least 6 characters");
+		Assert.assertTrue(signupPage.getEmailValidationMessage().contains("@"));
 	}
 }

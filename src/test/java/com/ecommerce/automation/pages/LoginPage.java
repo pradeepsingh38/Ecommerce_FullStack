@@ -3,6 +3,7 @@ package com.ecommerce.automation.pages;
 import com.ecommerce.automation.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
 
@@ -13,6 +14,7 @@ public class LoginPage extends BasePage {
 	private By forgotPasswordButton = By.xpath("//button[contains(text(),'Forgot password')]");
 	private By resetPasswordPopup = By.cssSelector("form[class*='modalCard']");
 	private By closePopupButton = By.xpath("//button[@aria-label='Close']");
+	private By errorBanner = By.cssSelector("p[class*='errorBanner']");
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
@@ -38,6 +40,26 @@ public class LoginPage extends BasePage {
 
 	public boolean createAccountFoundByXpath() {
 		return waitForVisible(createAccountLink).isDisplayed();
+	}
+
+	public void enterLoginDetails(String email, String password) {
+		type(emailInput, email);
+		type(passwordInput, password);
+	}
+
+	public void clickSignIn() {
+		click(signInButton);
+	}
+
+	public HomePage loginAs(String email, String password) {
+		enterLoginDetails(email, password);
+		clickSignIn();
+		wait.until(ExpectedConditions.urlContains("/dashboard"));
+		return new HomePage(driver);
+	}
+
+	public String getLoginErrorMessage() {
+		return waitForVisible(errorBanner).getText();
 	}
 
 	public SignupPage goToSignupPage() {

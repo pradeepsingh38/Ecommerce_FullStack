@@ -51,6 +51,10 @@ public class SignupPage extends BasePage {
 		click(createAccountButton);
 	}
 
+	public String getEmailValidationMessage() {
+		return driver.findElement(emailInput).getAttribute("validationMessage");
+	}
+
 	public LoginPage goToLoginPage() {
 		click(signInLink);
 		return new LoginPage(driver);
