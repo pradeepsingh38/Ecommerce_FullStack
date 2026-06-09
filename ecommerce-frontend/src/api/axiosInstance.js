@@ -18,8 +18,12 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401 || error.response?.status === 403) {
+      const hadToken = Boolean(localStorage.getItem("token"));
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      if (hadToken) {
+        window.dispatchEvent(new CustomEvent("auth:session-expired"));
+      }
     }
     return Promise.reject(error);
   }

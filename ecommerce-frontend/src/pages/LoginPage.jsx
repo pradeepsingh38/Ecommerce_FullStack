@@ -4,6 +4,12 @@ import { loginUser, requestForgotPasswordLink } from "../api/authApi";
 import { useAuth } from "../context/useAuth";
 import styles from "../styles/auth.module.css";
 
+const MIN_LOGIN_DELAY_MS = 5000;
+
+const wait = (ms) => new Promise((resolve) => {
+  window.setTimeout(resolve, ms);
+});
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -12,7 +18,14 @@ export default function LoginPage() {
   const [forgotOpen, setForgotOpen] = useState(false);
   const [forgotMessage, setForgotMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(() => {
+    const authMessage = sessionStorage.getItem("authMessage");
+    if (authMessage) {
+      sessionStorage.removeItem("authMessage");
+      return { general: authMessage };
+    }
+    return {};
+  });
   const [loading, setLoading] = useState(false);
   const [sendingLink, setSendingLink] = useState(false);
 
@@ -22,8 +35,18 @@ export default function LoginPage() {
     setSuccessMessage("");
   };
 
+  const getAuthErrorMessage = (err, fallback) => {
+    const data = err.response?.data;
+    if (data?.error) return data.error;
+    if (data && typeof data === "object") {
+      return Object.values(data).find(Boolean) || fallback;
+    }
+    return fallback;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const startedAt = Date.now();
     setLoading(true);
     setErrors({});
     try {
@@ -34,13 +57,14 @@ export default function LoginPage() {
         return;
       }
       login(userData, token);
+      await wait(Math.max(MIN_LOGIN_DELAY_MS - (Date.now() - startedAt), 0));
       navigate("/dashboard");
     } catch (err) {
       const data = err.response?.data;
       if (data?.error) {
         setErrors({ general: data.error });
       } else if (data && typeof data === "object") {
-        setErrors(data);
+        setErrors({ ...data, general: getAuthErrorMessage(err, "Invalid email or password") });
       } else {
         setErrors({ general: "Invalid email or password" });
       }
@@ -96,7 +120,7 @@ export default function LoginPage() {
         <h1 className={styles.title}>Sign in</h1>
         <p className={styles.subtitle}>Enter your details to continue shopping.</p>
         {successMessage && <p className={styles.successBanner}>{successMessage}</p>}
-        {errors.general && <p className={styles.errorBanner}>{errors.general}</p>}
+        {errors.general && <p className={styles.errorBanner} role="alert">{errors.general}</p>}
         <form id="login-form" onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
             <label>Email</label>
@@ -129,7 +153,7 @@ export default function LoginPage() {
                 x
               </button>
             </div>
-            {errors.forgot && <p className={styles.errorBanner}>{errors.forgot}</p>}
+            {errors.forgot && <p className={styles.errorBanner} role="alert">{errors.forgot}</p>}
             {forgotMessage && <p className={styles.successBanner}>{forgotMessage}</p>}
             <div className={styles.field}>
               <label>Email</label>

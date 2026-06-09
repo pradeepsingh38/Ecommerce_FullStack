@@ -4,6 +4,12 @@ import { registerUser } from "../api/authApi";
 import { useAuth } from "../context/useAuth";
 import styles from "../styles/register.module.css";
 
+const MIN_REGISTER_DELAY_MS = 5000;
+
+const wait = (ms) => new Promise((resolve) => {
+  window.setTimeout(resolve, ms);
+});
+
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -17,8 +23,43 @@ export default function RegisterPage() {
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
+  const getAuthErrorMessage = (err, fallback) => {
+    const data = err.response?.data;
+    if (data?.error) return data.error;
+    if (data && typeof data === "object") {
+      return Object.values(data).find(Boolean) || fallback;
+    }
+    return fallback;
+  };
+
+  const validateForm = () => {
+    const nextErrors = {};
+    const email = form.email.trim();
+
+    if (!form.name.trim()) {
+      nextErrors.name = "Name is required";
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      nextErrors.email = "Enter a valid email address";
+    }
+    if (!form.password.trim()) {
+      nextErrors.password = "Password is required";
+    }
+
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors({ ...nextErrors, general: "Bad credentials" });
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const startedAt = Date.now();
+    if (!validateForm()) {
+      return;
+    }
     setLoading(true);
     setErrors({});
     try {
@@ -29,15 +70,16 @@ export default function RegisterPage() {
         return;
       }
       login(userData, token);
+      await wait(Math.max(MIN_REGISTER_DELAY_MS - (Date.now() - startedAt), 0));
       navigate("/dashboard");
     } catch (err) {
       const data = err.response?.data;
       if (data?.error) {
         setErrors({ general: data.error });
       } else if (data && typeof data === "object") {
-        setErrors(data);
+        setErrors({ ...data, general: getAuthErrorMessage(err, "Bad credentials") });
       } else {
-        setErrors({ general: "Registration failed" });
+        setErrors({ general: "Bad credentials" });
       }
     } finally {
       setLoading(false);
@@ -51,9 +93,9 @@ export default function RegisterPage() {
         <h1>Sign up</h1>
         <p className={styles.subtitle}>Fill in your details to create a new customer account.</p>
 
-        {errors.general && <p className={styles.errorBanner}>{errors.general}</p>}
+        {errors.general && <p className={styles.errorBanner} role="alert">{errors.general}</p>}
 
-        <form id="signup-form" onSubmit={handleSubmit}>
+        <form id="signup-form" onSubmit={handleSubmit} noValidate>
           <label>
             <span>Full Name</span>
             <input

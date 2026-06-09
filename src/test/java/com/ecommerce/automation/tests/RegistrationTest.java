@@ -15,7 +15,7 @@ public class RegistrationTest extends BaseTest {
 		String email = "abhi.kumar" + System.currentTimeMillis() + "@gmail.com";
 		signupPage.enterRegistrationDetails("Abhi Kumar", email, "Abhi@123");
 		signupPage.clickCreateAccount();
-		Thread.sleep(2000);
+		Thread.sleep(6000);
 
 		Assert.assertTrue(signupPage.isDashboardOpened());
 	}
@@ -29,6 +29,6 @@ public class RegistrationTest extends BaseTest {
 		signupPage.clickCreateAccount();
 
 		Assert.assertTrue(driver.getCurrentUrl().contains("/register"));
-		Assert.assertTrue(signupPage.getEmailValidationMessage().contains("@"));
+		Assert.assertEquals(signupPage.getRegistrationErrorMessage(), "Bad credentials");
 	}
 }

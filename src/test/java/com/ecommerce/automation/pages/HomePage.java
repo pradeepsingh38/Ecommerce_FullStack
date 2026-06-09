@@ -30,6 +30,10 @@ public class HomePage extends BasePage {
 		return waitForVisible(dashboardTitle).isDisplayed();
 	}
 
+	public boolean isLogoutButtonVisible() {
+		return waitForVisible(logoutButton).isDisplayed();
+	}
+
 	public void clickLogout() {
 		click(logoutButton);
 	}

@@ -13,6 +13,7 @@ public class SignupPage extends BasePage {
 	private By createAccountButton = By.id("signup-submit");
 	private By signInLink = By.xpath("//a[@href='/login']");
 	private By passwordError = By.xpath("//input[@id='signup-password']/following-sibling::small");
+	private By errorBanner = By.cssSelector("p[class*='errorBanner']");
 
 	public SignupPage(WebDriver driver) {
 		super(driver);
@@ -53,6 +54,10 @@ public class SignupPage extends BasePage {
 
 	public String getEmailValidationMessage() {
 		return driver.findElement(emailInput).getAttribute("validationMessage");
+	}
+
+	public String getRegistrationErrorMessage() {
+		return waitForVisible(errorBanner).getText();
 	}
 
 	public LoginPage goToLoginPage() {

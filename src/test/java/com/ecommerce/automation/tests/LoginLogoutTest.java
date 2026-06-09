@@ -13,7 +13,7 @@ public class LoginLogoutTest extends BaseTest {
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.open();
 
-		HomePage dashboardPage = loginPage.loginAs("admin@gmail.com", "admin123");
+		HomePage dashboardPage = loginPage.loginAs("pradeepsingh3802@gmail.com", "123456");
 
 		Assert.assertTrue(dashboardPage.isDashboardLoaded());
 
@@ -28,7 +28,7 @@ public class LoginLogoutTest extends BaseTest {
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.open();
 
-		loginPage.enterLoginDetails("admin@gmail.com", "wrongpassword");
+		loginPage.enterLoginDetails("user1@gmail.com", "wrongpassword");
 		loginPage.clickSignIn();
 
 		Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
