@@ -58,4 +58,15 @@ public class LoginTest extends BaseTest {
 
 		Assert.assertTrue(loginPage.isLoginOpened());
 	}
+
+	@Test
+	public void shouldRedirectToLoginAfterSessionIsCleared() {
+		LoginUtils.loginAsDefaultUser(driver);
+
+		LoginUtils.clearSessionAndGoTo(driver, BASE_URL + "/dashboard");
+		LoginPage loginPage = new LoginPage(driver);
+
+		Assert.assertTrue(loginPage.isLoginOpened());
+		Assert.assertTrue(loginPage.isLoaded());
+	}
 }

@@ -1,6 +1,6 @@
 package com.ecommerce.automation.pages;
 
-import com.ecommerce.automation.base.BaseTest;
+import com.ecommerce.automation.config.TestConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -20,7 +20,7 @@ public class LoginPage extends BasePage {
 	}
 
 	public void open() {
-		driver.get(BaseTest.BASE_URL + "/login");
+		driver.get(TestConfig.BASE_URL + "/login");
 	}
 
 	public boolean isLoaded() {

@@ -1,6 +1,6 @@
 package com.ecommerce.automation.pages;
 
-import com.ecommerce.automation.base.BaseTest;
+import com.ecommerce.automation.config.TestConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -14,11 +14,11 @@ public class HomePage extends BasePage {
 	}
 
 	public void open() {
-		driver.get(BaseTest.BASE_URL);
+		driver.get(TestConfig.BASE_URL);
 	}
 
 	public void openDashboard() {
-		driver.get(BaseTest.BASE_URL + "/dashboard");
+		driver.get(TestConfig.BASE_URL + "/dashboard");
 	}
 
 	public String pageTitle() {
@@ -35,6 +35,10 @@ public class HomePage extends BasePage {
 
 	public boolean isLogoutButtonVisible() {
 		return waitForVisible(logoutButton).isDisplayed();
+	}
+
+	public boolean isLogoutButtonPresent() {
+		return !driver.findElements(logoutButton).isEmpty();
 	}
 
 	public LoginPage logout() {
