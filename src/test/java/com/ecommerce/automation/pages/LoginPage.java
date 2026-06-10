@@ -3,18 +3,17 @@ package com.ecommerce.automation.pages;
 import com.ecommerce.automation.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
 
-	private By emailInput = By.id("login-email");
-	private By passwordInput = By.cssSelector("#login-password");
-	private By signInButton = By.cssSelector("#login-form button[type='submit']");
-	private By createAccountLink = By.xpath("//a[@href='/register']");
-	private By forgotPasswordButton = By.xpath("//button[contains(text(),'Forgot password')]");
-	private By resetPasswordPopup = By.cssSelector("form[class*='modalCard']");
-	private By closePopupButton = By.xpath("//button[@aria-label='Close']");
-	private By errorBanner = By.cssSelector("p[class*='errorBanner']");
+	private final By emailInput = By.id("login-email");
+	private final By passwordInput = By.cssSelector("#login-password");
+	private final By signInButton = By.id("login-submit");
+	private final By createAccountLink = By.xpath("//a[@href='/register']");
+	private final By forgotPasswordButton = By.xpath("//button[contains(text(),'Forgot password')]");
+	private final By resetPasswordPopup = By.cssSelector("form[class*='modalCard']");
+	private final By closePopupButton = By.xpath("//button[@aria-label='Close']");
+	private final By errorBanner = By.cssSelector("p[class*='errorBanner']");
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
@@ -28,6 +27,10 @@ public class LoginPage extends BasePage {
 		return waitForVisible(emailInput).isDisplayed()
 				&& waitForVisible(passwordInput).isDisplayed()
 				&& waitForVisible(signInButton).isDisplayed();
+	}
+
+	public boolean isLoginOpened() {
+		return urlContains("/login");
 	}
 
 	public boolean emailFoundById() {
@@ -47,6 +50,14 @@ public class LoginPage extends BasePage {
 		type(passwordInput, password);
 	}
 
+	public String getEmailValue() {
+		return valueOf(emailInput);
+	}
+
+	public String getPasswordValue() {
+		return valueOf(passwordInput);
+	}
+
 	public void clickSignIn() {
 		click(signInButton);
 	}
@@ -54,7 +65,7 @@ public class LoginPage extends BasePage {
 	public HomePage loginAs(String email, String password) {
 		enterLoginDetails(email, password);
 		clickSignIn();
-		wait.until(ExpectedConditions.urlContains("/dashboard"));
+		urlContains("/dashboard");
 		return new HomePage(driver);
 	}
 

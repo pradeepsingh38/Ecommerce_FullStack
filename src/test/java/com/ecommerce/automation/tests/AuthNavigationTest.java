@@ -20,7 +20,7 @@ public class AuthNavigationTest extends BaseTest {
 
 		SignupPage signupPage = loginPage.goToSignupPage();
 
-		Assert.assertTrue(driver.getCurrentUrl().contains("/register"));
+		Assert.assertTrue(signupPage.isRegisterOpened());
 		Assert.assertTrue(signupPage.isLoaded());
 	}
 
@@ -31,7 +31,7 @@ public class AuthNavigationTest extends BaseTest {
 
 		LoginPage loginPage = signupPage.goToLoginPage();
 
-		Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
+		Assert.assertTrue(loginPage.isLoginOpened());
 		Assert.assertTrue(loginPage.isLoaded());
 	}
 

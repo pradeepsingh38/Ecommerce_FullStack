@@ -23,12 +23,20 @@ public abstract class BasePage {
 	}
 
 	protected void click(By locator) {
-		waitForVisible(locator).click();
+		wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
 	}
 
 	protected void type(By locator, String value) {
 		WebElement element = waitForVisible(locator);
 		element.clear();
 		element.sendKeys(value);
+	}
+
+	protected String valueOf(By locator) {
+		return waitForVisible(locator).getAttribute("value");
+	}
+
+	protected boolean urlContains(String text) {
+		return wait.until(ExpectedConditions.urlContains(text));
 	}
 }

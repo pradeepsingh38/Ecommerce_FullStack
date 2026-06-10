@@ -4,12 +4,6 @@ import { loginUser, requestForgotPasswordLink } from "../api/authApi";
 import { useAuth } from "../context/useAuth";
 import styles from "../styles/auth.module.css";
 
-const MIN_LOGIN_DELAY_MS = 5000;
-
-const wait = (ms) => new Promise((resolve) => {
-  window.setTimeout(resolve, ms);
-});
-
 export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -35,18 +29,17 @@ export default function LoginPage() {
     setSuccessMessage("");
   };
 
-  const getAuthErrorMessage = (err, fallback) => {
+  const getAuthErrorMessage = (err) => {
     const data = err.response?.data;
     if (data?.error) return data.error;
     if (data && typeof data === "object") {
-      return Object.values(data).find(Boolean) || fallback;
+      return Object.values(data).find(Boolean) || "Bad credentials";
     }
-    return fallback;
+    return "Bad credentials";
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const startedAt = Date.now();
     setLoading(true);
     setErrors({});
     try {
@@ -57,16 +50,15 @@ export default function LoginPage() {
         return;
       }
       login(userData, token);
-      await wait(Math.max(MIN_LOGIN_DELAY_MS - (Date.now() - startedAt), 0));
       navigate("/dashboard");
     } catch (err) {
       const data = err.response?.data;
       if (data?.error) {
         setErrors({ general: data.error });
       } else if (data && typeof data === "object") {
-        setErrors({ ...data, general: getAuthErrorMessage(err, "Invalid email or password") });
+        setErrors({ ...data, general: getAuthErrorMessage(err) });
       } else {
-        setErrors({ general: "Invalid email or password" });
+        setErrors({ general: "Bad credentials" });
       }
     } finally {
       setLoading(false);

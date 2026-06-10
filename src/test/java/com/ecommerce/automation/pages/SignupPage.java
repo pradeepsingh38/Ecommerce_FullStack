@@ -3,17 +3,17 @@ package com.ecommerce.automation.pages;
 import com.ecommerce.automation.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class SignupPage extends BasePage {
 
-	private By nameInput = By.id("signup-name");
-	private By emailInput = By.cssSelector("#signup-email");
-	private By passwordInput = By.xpath("//input[@name='password']");
-	private By createAccountButton = By.id("signup-submit");
-	private By signInLink = By.xpath("//a[@href='/login']");
-	private By passwordError = By.xpath("//input[@id='signup-password']/following-sibling::small");
-	private By errorBanner = By.cssSelector("p[class*='errorBanner']");
+	private final By nameInput = By.id("signup-name");
+	private final By emailInput = By.cssSelector("#signup-email");
+	private final By passwordInput = By.xpath("//input[@name='password']");
+	private final By createAccountButton = By.id("signup-submit");
+	private final By signInLink = By.xpath("//a[@href='/login']");
+	private final By emailError = By.xpath("//input[@id='signup-email']/following-sibling::small");
+	private final By passwordError = By.xpath("//input[@id='signup-password']/following-sibling::small");
+	private final By errorBanner = By.cssSelector("p[class*='errorBanner']");
 
 	public SignupPage(WebDriver driver) {
 		super(driver);
@@ -28,6 +28,10 @@ public class SignupPage extends BasePage {
 				&& waitForVisible(emailInput).isDisplayed()
 				&& waitForVisible(passwordInput).isDisplayed()
 				&& waitForVisible(createAccountButton).isDisplayed();
+	}
+
+	public boolean isRegisterOpened() {
+		return urlContains("/register");
 	}
 
 	public boolean nameFoundById() {
@@ -66,15 +70,19 @@ public class SignupPage extends BasePage {
 	}
 
 	public String getNameValue() {
-		return driver.findElement(nameInput).getAttribute("value");
+		return valueOf(nameInput);
 	}
 
 	public String getEmailValue() {
-		return driver.findElement(emailInput).getAttribute("value");
+		return valueOf(emailInput);
 	}
 
 	public String getPasswordValue() {
-		return driver.findElement(passwordInput).getAttribute("value");
+		return valueOf(passwordInput);
+	}
+
+	public String getEmailErrorMessage() {
+		return waitForVisible(emailError).getText();
 	}
 
 	public String getPasswordErrorMessage() {
@@ -82,6 +90,6 @@ public class SignupPage extends BasePage {
 	}
 
 	public boolean isDashboardOpened() {
-		return wait.until(ExpectedConditions.urlContains("/dashboard"));
+		return urlContains("/dashboard");
 	}
 }
