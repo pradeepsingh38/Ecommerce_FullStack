@@ -9,6 +9,7 @@ export default function PanelNavbar({ title, isAdmin }) {
 
   const handleLogout = async () => {
     await logout();
+    sessionStorage.setItem("logoutMessage", "Logged out successfully");
     navigate("/login");
   };
 

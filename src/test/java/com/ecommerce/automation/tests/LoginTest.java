@@ -45,6 +45,7 @@ public class LoginTest extends BaseTest {
 
 		Assert.assertTrue(loginPage.isLoginOpened());
 		Assert.assertTrue(loginPage.isLoaded());
+		Assert.assertEquals(loginPage.getSuccessMessage(), "Logged out successfully");
 	}
 
 	@Test

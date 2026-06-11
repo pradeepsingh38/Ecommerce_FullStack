@@ -3,10 +3,13 @@ package com.ecommerce.automation.base;
 import java.time.Duration;
 
 import com.ecommerce.automation.config.TestConfig;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 public abstract class BaseTest {
@@ -15,10 +18,16 @@ public abstract class BaseTest {
 
 	protected WebDriver driver;
 
-	@BeforeMethod(alwaysRun = true)
+	@BeforeClass(alwaysRun = true)
 	public void setUp() {
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--remote-allow-origins=*");
+		options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+		options.addArguments(
+				"--remote-allow-origins=*",
+				"--disable-background-networking",
+				"--disable-extensions",
+				"--disable-notifications",
+				"--no-first-run");
 		if (TestConfig.HEADLESS) {
 			options.addArguments("--headless=new", "--window-size=1920,1080");
 		}
@@ -28,9 +37,17 @@ public abstract class BaseTest {
 			driver.manage().window().maximize();
 		}
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TestConfig.PAGE_LOAD_TIMEOUT_SECONDS));
+		driver.get(BASE_URL);
 	}
 
-	@AfterMethod(alwaysRun = true)
+	@BeforeMethod(alwaysRun = true)
+	public void resetBrowserState() {
+		driver.manage().deleteAllCookies();
+		((JavascriptExecutor) driver).executeScript(
+				"window.localStorage.clear(); window.sessionStorage.clear();");
+	}
+
+	@AfterClass(alwaysRun = true)
 	public void tearDown() {
 		if (driver != null) {
 			driver.quit();

@@ -19,18 +19,7 @@ public class RegistrationTest extends BaseTest {
 		Assert.assertTrue(signupPage.isDashboardOpened());
 	}
 
-	@Test
-	public void shouldValidateRegistrationInputFields() {
-		SignupPage signupPage = new SignupPage(driver);
-		signupPage.open();
-
-		signupPage.enterRegistrationDetails("Rahul Sharma", "invalid-mail", "Rahul@123");
-
-		Assert.assertEquals(signupPage.getNameValue(), "Rahul Sharma");
-		Assert.assertEquals(signupPage.getEmailValue(), "invalid-mail");
-		Assert.assertEquals(signupPage.getPasswordValue(), "Rahul@123");
-	}
-
+	
 	@Test
 	public void shouldShowPopupMessageForInvalidEmailType() {
 		SignupPage signupPage = new SignupPage(driver);

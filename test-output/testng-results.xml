@@ -1,147 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="11" passed="11" failed="0" skipped="0">
+<testng-results ignored="0" total="13" passed="13" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-06-10T09:46:11 IST" name="Default suite" finished-at="2026-06-10T09:52:35 IST" duration-ms="384366">
+  <suite started-at="2026-06-11T08:51:34 IST" name="Default suite" finished-at="2026-06-11T08:52:58 IST" duration-ms="83645">
     <groups>
     </groups>
-    <test started-at="2026-06-10T09:46:11 IST" name="Default test" finished-at="2026-06-10T09:52:35 IST" duration-ms="384366">
+    <test started-at="2026-06-11T08:51:34 IST" name="Default test" finished-at="2026-06-11T08:52:58 IST" duration-ms="83645">
       <class name="com.ecommerce.automation.tests.RegistrationTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:49:56 IST" name="setUp" finished-at="2026-06-10T09:50:07 IST" duration-ms="11010" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@4e928fbf]" started-at="2026-06-11T08:52:45 IST" name="setUp" finished-at="2026-06-11T08:52:51 IST" duration-ms="5581" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="shouldCreateAccountWithValidDetails()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:50:07 IST" name="shouldCreateAccountWithValidDetails" finished-at="2026-06-10T09:50:18 IST" duration-ms="10273" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@4e928fbf]" started-at="2026-06-11T08:52:51 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:51 IST" duration-ms="177" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldCreateAccountWithValidDetails()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@4e928fbf]" started-at="2026-06-11T08:52:51 IST" name="shouldCreateAccountWithValidDetails" finished-at="2026-06-11T08:52:53 IST" duration-ms="2401" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldCreateAccountWithValidDetails -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:50:18 IST" name="tearDown" finished-at="2026-06-10T09:50:59 IST" duration-ms="41363" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@4e928fbf]" started-at="2026-06-11T08:52:53 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:53 IST" duration-ms="115" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:50:59 IST" name="setUp" finished-at="2026-06-10T09:51:40 IST" duration-ms="40476" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldShowPopupMessageForInvalidEmailType()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:51:40 IST" name="shouldShowPopupMessageForInvalidEmailType" finished-at="2026-06-10T09:51:49 IST" duration-ms="8908" status="PASS">
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldShowPopupMessageForInvalidEmailType()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@4e928fbf]" started-at="2026-06-11T08:52:53 IST" name="shouldShowPopupMessageForInvalidEmailType" finished-at="2026-06-11T08:52:56 IST" duration-ms="3033" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldShowPopupMessageForInvalidEmailType -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:51:49 IST" name="tearDown" finished-at="2026-06-10T09:52:07 IST" duration-ms="18805" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:52:08 IST" name="setUp" finished-at="2026-06-10T09:52:20 IST" duration-ms="12226" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldValidateRegistrationInputFields()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:52:20 IST" name="shouldValidateRegistrationInputFields" finished-at="2026-06-10T09:52:26 IST" duration-ms="5908" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- shouldValidateRegistrationInputFields -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@6950ed69]" started-at="2026-06-10T09:52:26 IST" name="tearDown" finished-at="2026-06-10T09:52:35 IST" duration-ms="9358" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@4e928fbf]" started-at="2026-06-11T08:52:56 IST" name="tearDown" finished-at="2026-06-11T08:52:58 IST" duration-ms="1607" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.ecommerce.automation.tests.RegistrationTest -->
       <class name="com.ecommerce.automation.tests.HomePageSmokeTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@205d38da]" started-at="2026-06-10T09:49:17 IST" name="setUp" finished-at="2026-06-10T09:49:23 IST" duration-ms="5816" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@3116c353]" started-at="2026-06-11T08:52:17 IST" name="setUp" finished-at="2026-06-11T08:52:22 IST" duration-ms="4405" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="shouldOpenHomePage()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@205d38da]" started-at="2026-06-10T09:49:23 IST" name="shouldOpenHomePage" finished-at="2026-06-10T09:49:24 IST" duration-ms="1565" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@3116c353]" started-at="2026-06-11T08:52:22 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:22 IST" duration-ms="126" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldOpenHomePage()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@3116c353]" started-at="2026-06-11T08:52:22 IST" name="shouldOpenHomePage" finished-at="2026-06-11T08:52:23 IST" duration-ms="1645" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldOpenHomePage -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@205d38da]" started-at="2026-06-10T09:49:24 IST" name="tearDown" finished-at="2026-06-10T09:49:56 IST" duration-ms="32080" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@3116c353]" started-at="2026-06-11T08:52:23 IST" name="tearDown" finished-at="2026-06-11T08:52:26 IST" duration-ms="2222" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.ecommerce.automation.tests.HomePageSmokeTest -->
       <class name="com.ecommerce.automation.tests.AuthNavigationTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:46:11 IST" name="setUp" finished-at="2026-06-10T09:46:33 IST" duration-ms="22168" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4f4c4b1a]" started-at="2026-06-11T08:51:34 IST" name="setUp" finished-at="2026-06-11T08:51:45 IST" duration-ms="10475" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="shouldNavigateFromLoginToSignup()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:46:33 IST" name="shouldNavigateFromLoginToSignup" finished-at="2026-06-10T09:46:41 IST" duration-ms="7683" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4f4c4b1a]" started-at="2026-06-11T08:51:45 IST" name="resetBrowserState" finished-at="2026-06-11T08:51:45 IST" duration-ms="169" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldNavigateFromLoginToSignup()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4f4c4b1a]" started-at="2026-06-11T08:51:45 IST" name="shouldNavigateFromLoginToSignup" finished-at="2026-06-11T08:51:47 IST" duration-ms="1248" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldNavigateFromLoginToSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:46:41 IST" name="tearDown" finished-at="2026-06-10T09:46:58 IST" duration-ms="16751" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4f4c4b1a]" started-at="2026-06-11T08:51:47 IST" name="resetBrowserState" finished-at="2026-06-11T08:51:47 IST" duration-ms="16" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:46:58 IST" name="setUp" finished-at="2026-06-10T09:47:05 IST" duration-ms="7132" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldNavigateFromSignupToLogin()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:47:05 IST" name="shouldNavigateFromSignupToLogin" finished-at="2026-06-10T09:47:10 IST" duration-ms="5079" status="PASS">
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldNavigateFromSignupToLogin()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4f4c4b1a]" started-at="2026-06-11T08:51:47 IST" name="shouldNavigateFromSignupToLogin" finished-at="2026-06-11T08:51:47 IST" duration-ms="407" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldNavigateFromSignupToLogin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:47:10 IST" name="tearDown" finished-at="2026-06-10T09:47:13 IST" duration-ms="3284" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4f4c4b1a]" started-at="2026-06-11T08:51:47 IST" name="resetBrowserState" finished-at="2026-06-11T08:51:47 IST" duration-ms="9" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:47:13 IST" name="setUp" finished-at="2026-06-10T09:47:20 IST" duration-ms="6398" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldOpenAndCloseForgotPasswordPopup()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:47:20 IST" name="shouldOpenAndCloseForgotPasswordPopup" finished-at="2026-06-10T09:47:25 IST" duration-ms="4999" status="PASS">
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldOpenAndCloseForgotPasswordPopup()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4f4c4b1a]" started-at="2026-06-11T08:51:47 IST" name="shouldOpenAndCloseForgotPasswordPopup" finished-at="2026-06-11T08:51:48 IST" duration-ms="597" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldOpenAndCloseForgotPasswordPopup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@2462cb01]" started-at="2026-06-10T09:47:25 IST" name="tearDown" finished-at="2026-06-10T09:47:30 IST" duration-ms="5546" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4f4c4b1a]" started-at="2026-06-11T08:51:48 IST" name="tearDown" finished-at="2026-06-11T08:51:48 IST" duration-ms="371" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.ecommerce.automation.tests.AuthNavigationTest -->
-      <class name="com.ecommerce.automation.tests.LoginTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:47:30 IST" name="setUp" finished-at="2026-06-10T09:47:37 IST" duration-ms="6443" status="PASS">
+      <class name="com.ecommerce.automation.tests.ProductListingTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@f627d13]" started-at="2026-06-11T08:52:26 IST" name="setUp" finished-at="2026-06-11T08:52:28 IST" duration-ms="2543" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="shouldLoginWithValidCredentials()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:47:37 IST" name="shouldLoginWithValidCredentials" finished-at="2026-06-10T09:47:45 IST" duration-ms="8558" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@f627d13]" started-at="2026-06-11T08:52:28 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:28 IST" duration-ms="199" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldDisplayProductListingPage()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@f627d13]" started-at="2026-06-11T08:52:28 IST" name="shouldDisplayProductListingPage" finished-at="2026-06-11T08:52:38 IST" duration-ms="9696" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldDisplayProductListingPage -->
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@f627d13]" started-at="2026-06-11T08:52:38 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:38 IST" duration-ms="179" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldDisplayVisibleProductsWithRequiredDetails()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@f627d13]" started-at="2026-06-11T08:52:38 IST" name="shouldDisplayVisibleProductsWithRequiredDetails" finished-at="2026-06-11T08:52:45 IST" duration-ms="6358" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldDisplayVisibleProductsWithRequiredDetails -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@f627d13]" started-at="2026-06-11T08:52:45 IST" name="tearDown" finished-at="2026-06-11T08:52:45 IST" duration-ms="385" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.ecommerce.automation.tests.ProductListingTest -->
+      <class name="com.ecommerce.automation.tests.LoginTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:51:48 IST" name="setUp" finished-at="2026-06-11T08:51:54 IST" duration-ms="5785" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:51:54 IST" name="resetBrowserState" finished-at="2026-06-11T08:51:54 IST" duration-ms="86" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldLoginWithValidCredentials()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:51:54 IST" name="shouldLoginWithValidCredentials" finished-at="2026-06-11T08:52:00 IST" duration-ms="5663" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldLoginWithValidCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:47:45 IST" name="tearDown" finished-at="2026-06-10T09:48:05 IST" duration-ms="19169" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:00 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:00 IST" duration-ms="34" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:48:05 IST" name="setUp" finished-at="2026-06-10T09:48:13 IST" duration-ms="8884" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldLogoutAfterLogin()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:48:13 IST" name="shouldLogoutAfterLogin" finished-at="2026-06-10T09:48:24 IST" duration-ms="10223" status="PASS">
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldLogoutAfterLogin()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:00 IST" name="shouldLogoutAfterLogin" finished-at="2026-06-11T08:52:03 IST" duration-ms="2958" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldLogoutAfterLogin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:48:24 IST" name="tearDown" finished-at="2026-06-10T09:48:39 IST" duration-ms="14904" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:03 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:03 IST" duration-ms="36" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:48:39 IST" name="setUp" finished-at="2026-06-10T09:48:45 IST" duration-ms="6243" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldRedirectToLoginAfterLogoutWhenOpeningDashboard()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:48:45 IST" name="shouldRedirectToLoginAfterLogoutWhenOpeningDashboard" finished-at="2026-06-10T09:48:54 IST" duration-ms="8887" status="PASS">
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldRedirectToLoginAfterLogoutWhenOpeningDashboard()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:03 IST" name="shouldRedirectToLoginAfterLogoutWhenOpeningDashboard" finished-at="2026-06-11T08:52:08 IST" duration-ms="5156" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldRedirectToLoginAfterLogoutWhenOpeningDashboard -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:48:54 IST" name="tearDown" finished-at="2026-06-10T09:48:58 IST" duration-ms="3327" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:08 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:08 IST" duration-ms="44" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:48:58 IST" name="setUp" finished-at="2026-06-10T09:49:04 IST" duration-ms="6121" status="PASS">
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldRedirectToLoginAfterSessionIsCleared()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:08 IST" name="shouldRedirectToLoginAfterSessionIsCleared" finished-at="2026-06-11T08:52:13 IST" duration-ms="4807" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldShowErrorMessageForInvalidCredentials()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:49:04 IST" name="shouldShowErrorMessageForInvalidCredentials" finished-at="2026-06-10T09:49:14 IST" duration-ms="10193" status="PASS">
+        </test-method> <!-- shouldRedirectToLoginAfterSessionIsCleared -->
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:13 IST" name="resetBrowserState" finished-at="2026-06-11T08:52:13 IST" duration-ms="17" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldShowErrorMessageForInvalidCredentials()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:13 IST" name="shouldShowErrorMessageForInvalidCredentials" finished-at="2026-06-11T08:52:15 IST" duration-ms="2446" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldShowErrorMessageForInvalidCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@7c3fdb62]" started-at="2026-06-10T09:49:14 IST" name="tearDown" finished-at="2026-06-10T09:49:17 IST" duration-ms="2750" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@6ea2bc93]" started-at="2026-06-11T08:52:15 IST" name="tearDown" finished-at="2026-06-11T08:52:17 IST" duration-ms="1996" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

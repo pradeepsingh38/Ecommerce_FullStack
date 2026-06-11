@@ -17,7 +17,7 @@ public final class TestConfig {
 	public static final String BAD_CREDENTIALS_MESSAGE = value("automation.bad-credentials-message");
 	public static final long EXPLICIT_WAIT_SECONDS = longValue("automation.explicit-wait-seconds");
 	public static final long PAGE_LOAD_TIMEOUT_SECONDS = longValue("automation.page-load-timeout-seconds");
-	public static final boolean HEADLESS = Boolean.parseBoolean(value("automation.headless"));
+	public static final boolean HEADLESS = booleanValue("automation.headless", false);
 
 	private TestConfig() {
 	}
@@ -59,5 +59,22 @@ public final class TestConfig {
 		} catch (NumberFormatException exception) {
 			throw new IllegalStateException("Test configuration must be a number: " + key, exception);
 		}
+	}
+
+	private static boolean booleanValue(String key, boolean defaultValue) {
+		String systemValue = System.getProperty(key);
+		if (systemValue != null && !systemValue.isBlank()) {
+			return Boolean.parseBoolean(systemValue);
+		}
+
+		String environmentValue = System.getenv(key.toUpperCase().replace('.', '_').replace('-', '_'));
+		if (environmentValue != null && !environmentValue.isBlank()) {
+			return Boolean.parseBoolean(environmentValue);
+		}
+
+		String configuredValue = PROPERTIES.getProperty(key);
+		return configuredValue == null || configuredValue.isBlank()
+				? defaultValue
+				: Boolean.parseBoolean(configuredValue.trim());
 	}
 }

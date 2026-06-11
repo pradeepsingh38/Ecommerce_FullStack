@@ -1,6 +1,7 @@
 package com.ecommerce.automation.utils;
 
 import java.time.Duration;
+import java.util.List;
 
 import com.ecommerce.automation.config.TestConfig;
 import org.openqa.selenium.By;
@@ -27,5 +28,13 @@ public final class WaitUtils {
 
 	public boolean untilUrlContains(String text) {
 		return wait.until(ExpectedConditions.urlContains(text));
+	}
+
+	public List<WebElement> untilAllVisible(By locator) {
+		return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+	}
+
+	public boolean untilInvisible(By locator) {
+		return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 	}
 }

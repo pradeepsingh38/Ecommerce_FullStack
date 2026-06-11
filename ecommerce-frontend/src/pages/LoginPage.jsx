@@ -11,7 +11,11 @@ export default function LoginPage() {
   const [forgotForm, setForgotForm] = useState({ email: "" });
   const [forgotOpen, setForgotOpen] = useState(false);
   const [forgotMessage, setForgotMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(() => {
+    const logoutMessage = sessionStorage.getItem("logoutMessage");
+    sessionStorage.removeItem("logoutMessage");
+    return logoutMessage || "";
+  });
   const [errors, setErrors] = useState(() => {
     const authMessage = sessionStorage.getItem("authMessage");
     if (authMessage) {
@@ -111,7 +115,7 @@ export default function LoginPage() {
         <span className={styles.formEyebrow}>ShopEase Account</span>
         <h1 className={styles.title}>Sign in</h1>
         <p className={styles.subtitle}>Enter your details to continue shopping.</p>
-        {successMessage && <p className={styles.successBanner}>{successMessage}</p>}
+        {successMessage && <p className={styles.successBanner} role="status">{successMessage}</p>}
         {errors.general && <p className={styles.errorBanner} role="alert">{errors.general}</p>}
         <form id="login-form" onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>

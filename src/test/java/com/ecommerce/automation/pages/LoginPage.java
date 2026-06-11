@@ -14,6 +14,7 @@ public class LoginPage extends BasePage {
 	private final By resetPasswordPopup = By.cssSelector("form[class*='modalCard']");
 	private final By closePopupButton = By.xpath("//button[@aria-label='Close']");
 	private final By errorBanner = By.cssSelector("p[class*='errorBanner']");
+	private final By successBanner = By.cssSelector("p[role='status']");
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
@@ -71,6 +72,10 @@ public class LoginPage extends BasePage {
 
 	public String getLoginErrorMessage() {
 		return waitForVisible(errorBanner).getText();
+	}
+
+	public String getSuccessMessage() {
+		return waitForVisible(successBanner).getText();
 	}
 
 	public SignupPage goToSignupPage() {
