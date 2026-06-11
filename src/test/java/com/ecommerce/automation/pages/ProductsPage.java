@@ -56,6 +56,11 @@ public class ProductsPage extends BasePage {
 				card.findElement(By.xpath(".//div[contains(@class,'cardFooter')]/span[2]")).getText());
 	}
 
+	public void openFirstVisibleProduct() {
+		List<WebElement> cards = wait.untilAllVisible(productCards);
+		cards.get(0).click();
+	}
+
 	private void waitForCatalogRequest() {
 		waitForVisible(pageHeading);
 		wait.untilInvisible(loadingMessage);
