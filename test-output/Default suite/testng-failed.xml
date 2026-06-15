@@ -3,13 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.ecommerce.automation.tests.LoginLogoutTest">
+      <class name="com.ecommerce.automation.tests.ProductListingTest">
         <methods>
           <include name="setUp"/>
-          <include name="shouldShowErrorMessageForInvalidCredentials"/>
           <include name="tearDown"/>
+          <include name="shouldFilterProductsByCategory"/>
+          <include name="resetBrowserState"/>
         </methods>
-      </class> <!-- com.ecommerce.automation.tests.LoginLogoutTest -->
+      </class> <!-- com.ecommerce.automation.tests.ProductListingTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

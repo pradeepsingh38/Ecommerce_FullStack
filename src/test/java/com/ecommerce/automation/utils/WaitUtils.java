@@ -2,6 +2,7 @@ package com.ecommerce.automation.utils;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 import com.ecommerce.automation.config.TestConfig;
 import org.openqa.selenium.By;
@@ -36,5 +37,9 @@ public final class WaitUtils {
 
 	public boolean untilInvisible(By locator) {
 		return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
+
+	public boolean until(BooleanSupplier condition) {
+		return wait.until(driver -> condition.getAsBoolean());
 	}
 }

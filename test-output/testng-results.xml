@@ -1,169 +1,245 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="14" passed="14" failed="0" skipped="0">
+<testng-results ignored="0" total="17" passed="16" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-06-11T23:31:48 IST" name="Default suite" finished-at="2026-06-11T23:32:53 IST" duration-ms="65233">
+  <suite started-at="2026-06-15T10:04:13 IST" name="Default suite" finished-at="2026-06-15T10:06:42 IST" duration-ms="148946">
     <groups>
     </groups>
-    <test started-at="2026-06-11T23:31:48 IST" name="Default test" finished-at="2026-06-11T23:32:53 IST" duration-ms="65233">
+    <test started-at="2026-06-15T10:04:13 IST" name="Default test" finished-at="2026-06-15T10:06:42 IST" duration-ms="148946">
       <class name="com.ecommerce.automation.tests.RegistrationTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@3e44f2a5]" started-at="2026-06-11T23:32:46 IST" name="setUp" finished-at="2026-06-11T23:32:49 IST" duration-ms="2935" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@1b266842]" started-at="2026-06-15T10:06:25 IST" name="setUp" finished-at="2026-06-15T10:06:31 IST" duration-ms="6340" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@3e44f2a5]" started-at="2026-06-11T23:32:49 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:49 IST" duration-ms="65" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@1b266842]" started-at="2026-06-15T10:06:31 IST" name="resetBrowserState" finished-at="2026-06-15T10:06:31 IST" duration-ms="266" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldCreateAccountWithValidDetails()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@3e44f2a5]" started-at="2026-06-11T23:32:49 IST" name="shouldCreateAccountWithValidDetails" finished-at="2026-06-11T23:32:51 IST" duration-ms="2027" status="PASS">
+        <test-method signature="shouldCreateAccountWithValidDetails()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@1b266842]" started-at="2026-06-15T10:06:31 IST" name="shouldCreateAccountWithValidDetails" finished-at="2026-06-15T10:06:36 IST" duration-ms="4466" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldCreateAccountWithValidDetails -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@3e44f2a5]" started-at="2026-06-11T23:32:51 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:51 IST" duration-ms="23" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@1b266842]" started-at="2026-06-15T10:06:36 IST" name="resetBrowserState" finished-at="2026-06-15T10:06:36 IST" duration-ms="39" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldShowPopupMessageForInvalidEmailType()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@3e44f2a5]" started-at="2026-06-11T23:32:51 IST" name="shouldShowPopupMessageForInvalidEmailType" finished-at="2026-06-11T23:32:53 IST" duration-ms="1452" status="PASS">
+        <test-method signature="shouldShowPopupMessageForInvalidEmailType()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@1b266842]" started-at="2026-06-15T10:06:36 IST" name="shouldShowPopupMessageForInvalidEmailType" finished-at="2026-06-15T10:06:38 IST" duration-ms="1750" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldShowPopupMessageForInvalidEmailType -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@3e44f2a5]" started-at="2026-06-11T23:32:53 IST" name="tearDown" finished-at="2026-06-11T23:32:53 IST" duration-ms="404" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.RegistrationTest@1b266842]" started-at="2026-06-15T10:06:38 IST" name="tearDown" finished-at="2026-06-15T10:06:42 IST" duration-ms="4528" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.ecommerce.automation.tests.RegistrationTest -->
       <class name="com.ecommerce.automation.tests.HomePageSmokeTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@2e32ccc5]" started-at="2026-06-11T23:32:26 IST" name="setUp" finished-at="2026-06-11T23:32:29 IST" duration-ms="3089" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@463fd068]" started-at="2026-06-15T10:05:20 IST" name="setUp" finished-at="2026-06-15T10:05:25 IST" duration-ms="5336" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@2e32ccc5]" started-at="2026-06-11T23:32:29 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:29 IST" duration-ms="86" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@463fd068]" started-at="2026-06-15T10:05:25 IST" name="resetBrowserState" finished-at="2026-06-15T10:05:25 IST" duration-ms="107" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldOpenHomePage()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@2e32ccc5]" started-at="2026-06-11T23:32:29 IST" name="shouldOpenHomePage" finished-at="2026-06-11T23:32:30 IST" duration-ms="541" status="PASS">
+        <test-method signature="shouldOpenHomePage()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@463fd068]" started-at="2026-06-15T10:05:25 IST" name="shouldOpenHomePage" finished-at="2026-06-15T10:05:26 IST" duration-ms="369" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldOpenHomePage -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@2e32ccc5]" started-at="2026-06-11T23:32:30 IST" name="tearDown" finished-at="2026-06-11T23:32:31 IST" duration-ms="1635" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.HomePageSmokeTest@463fd068]" started-at="2026-06-15T10:05:26 IST" name="tearDown" finished-at="2026-06-15T10:05:32 IST" duration-ms="6757" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.ecommerce.automation.tests.HomePageSmokeTest -->
       <class name="com.ecommerce.automation.tests.AuthNavigationTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4fa1c212]" started-at="2026-06-11T23:31:48 IST" name="setUp" finished-at="2026-06-11T23:32:03 IST" duration-ms="14805" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@3224a577]" started-at="2026-06-15T10:04:13 IST" name="setUp" finished-at="2026-06-15T10:04:37 IST" duration-ms="24063" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4fa1c212]" started-at="2026-06-11T23:32:03 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:03 IST" duration-ms="62" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@3224a577]" started-at="2026-06-15T10:04:37 IST" name="resetBrowserState" finished-at="2026-06-15T10:04:44 IST" duration-ms="6139" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldNavigateFromLoginToSignup()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4fa1c212]" started-at="2026-06-11T23:32:03 IST" name="shouldNavigateFromLoginToSignup" finished-at="2026-06-11T23:32:05 IST" duration-ms="1848" status="PASS">
+        <test-method signature="shouldNavigateFromLoginToSignup()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@3224a577]" started-at="2026-06-15T10:04:44 IST" name="shouldNavigateFromLoginToSignup" finished-at="2026-06-15T10:04:46 IST" duration-ms="2145" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldNavigateFromLoginToSignup -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4fa1c212]" started-at="2026-06-11T23:32:05 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:05 IST" duration-ms="75" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@3224a577]" started-at="2026-06-15T10:04:46 IST" name="resetBrowserState" finished-at="2026-06-15T10:04:46 IST" duration-ms="26" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldNavigateFromSignupToLogin()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4fa1c212]" started-at="2026-06-11T23:32:05 IST" name="shouldNavigateFromSignupToLogin" finished-at="2026-06-11T23:32:06 IST" duration-ms="774" status="PASS">
+        <test-method signature="shouldNavigateFromSignupToLogin()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@3224a577]" started-at="2026-06-15T10:04:46 IST" name="shouldNavigateFromSignupToLogin" finished-at="2026-06-15T10:04:48 IST" duration-ms="2685" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldNavigateFromSignupToLogin -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4fa1c212]" started-at="2026-06-11T23:32:06 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:06 IST" duration-ms="21" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@3224a577]" started-at="2026-06-15T10:04:49 IST" name="resetBrowserState" finished-at="2026-06-15T10:04:49 IST" duration-ms="119" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldOpenAndCloseForgotPasswordPopup()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4fa1c212]" started-at="2026-06-11T23:32:06 IST" name="shouldOpenAndCloseForgotPasswordPopup" finished-at="2026-06-11T23:32:07 IST" duration-ms="1123" status="PASS">
+        <test-method signature="shouldOpenAndCloseForgotPasswordPopup()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@3224a577]" started-at="2026-06-15T10:04:49 IST" name="shouldOpenAndCloseForgotPasswordPopup" finished-at="2026-06-15T10:04:51 IST" duration-ms="2065" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldOpenAndCloseForgotPasswordPopup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@4fa1c212]" started-at="2026-06-11T23:32:07 IST" name="tearDown" finished-at="2026-06-11T23:32:08 IST" duration-ms="1180" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.AuthNavigationTest@3224a577]" started-at="2026-06-15T10:04:51 IST" name="tearDown" finished-at="2026-06-15T10:04:52 IST" duration-ms="1330" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.ecommerce.automation.tests.AuthNavigationTest -->
       <class name="com.ecommerce.automation.tests.ProductListingTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@748741cb]" started-at="2026-06-11T23:32:31 IST" name="setUp" finished-at="2026-06-11T23:32:34 IST" duration-ms="2786" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:05:32 IST" name="setUp" finished-at="2026-06-15T10:05:37 IST" duration-ms="4928" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@748741cb]" started-at="2026-06-11T23:32:34 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:34 IST" duration-ms="84" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:05:37 IST" name="resetBrowserState" finished-at="2026-06-15T10:05:37 IST" duration-ms="75" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldDisplayProductListingPage()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@748741cb]" started-at="2026-06-11T23:32:34 IST" name="shouldDisplayProductListingPage" finished-at="2026-06-11T23:32:37 IST" duration-ms="3196" status="PASS">
+        <test-method signature="shouldDisplayProductListingPage()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:05:37 IST" name="shouldDisplayProductListingPage" finished-at="2026-06-15T10:05:44 IST" duration-ms="6623" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldDisplayProductListingPage -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@748741cb]" started-at="2026-06-11T23:32:37 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:37 IST" duration-ms="19" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:05:44 IST" name="resetBrowserState" finished-at="2026-06-15T10:05:44 IST" duration-ms="27" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldDisplayProductNameAndPrice()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@748741cb]" started-at="2026-06-11T23:32:37 IST" name="shouldDisplayProductNameAndPrice" description="T082: Validate product details (name, price)" finished-at="2026-06-11T23:32:41 IST" duration-ms="3142" status="PASS">
+        <test-method signature="shouldDisplayProductNameAndPrice()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:05:44 IST" name="shouldDisplayProductNameAndPrice" description="T082: Validate product details (name, price)" finished-at="2026-06-15T10:05:50 IST" duration-ms="5767" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldDisplayProductNameAndPrice -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@748741cb]" started-at="2026-06-11T23:32:41 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:41 IST" duration-ms="29" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:05:50 IST" name="resetBrowserState" finished-at="2026-06-15T10:05:50 IST" duration-ms="16" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldNavigateToSelectedProductDetails()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@748741cb]" started-at="2026-06-11T23:32:41 IST" name="shouldNavigateToSelectedProductDetails" description="T083: Verify product navigation" finished-at="2026-06-11T23:32:46 IST" duration-ms="4958" status="PASS">
+        <test-method signature="shouldFilterProductsByCategory()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:05:50 IST" name="shouldFilterProductsByCategory" description="T085: Validate filtering" finished-at="2026-06-15T10:06:03 IST" duration-ms="13528" status="FAIL">
+          <exception class="org.openqa.selenium.TimeoutException">
+            <message>
+              <![CDATA[Expected condition failed: waiting for com.ecommerce.automation.utils.WaitUtils$$Lambda$704/0x00000207012a1fa8@4a50c746 (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.23.0', revision: '4df0a231af'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 149.0.7827.103, chrome: {chromedriverVersion: 149.0.7827.115 (daf70f9ddee..., userDataDir: C:\Users\Lenovo\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49291}, goog:processID: 8624, networkConnectionEnabled: false, pageLoadStrategy: eager, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49291/devtoo..., se:cdpVersion: 149.0.7827.103, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 80493b7fefd1b5c49efcaacdc95a7143]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for com.ecommerce.automation.utils.WaitUtils$$Lambda$704/0x00000207012a1fa8@4a50c746 (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.23.0', revision: '4df0a231af'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 149.0.7827.103, chrome: {chromedriverVersion: 149.0.7827.115 (daf70f9ddee..., userDataDir: C:\Users\Lenovo\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49291}, goog:processID: 8624, networkConnectionEnabled: false, pageLoadStrategy: eager, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49291/devtoo..., se:cdpVersion: 149.0.7827.103, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 80493b7fefd1b5c49efcaacdc95a7143
+at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+at com.ecommerce.automation.utils.WaitUtils.until(WaitUtils.java:43)
+at com.ecommerce.automation.pages.ProductsPage.filterByCategory(ProductsPage.java:81)
+at com.ecommerce.automation.tests.ProductListingTest.shouldFilterProductsByCategory(ProductListingTest.java:81)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:739)
+at org.testng.TestRunner.run(TestRunner.java:614)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldFilterProductsByCategory -->
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:06:03 IST" name="resetBrowserState" finished-at="2026-06-15T10:06:03 IST" duration-ms="23" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldHandleDynamicNoResultsAndResetStates()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:06:03 IST" name="shouldHandleDynamicNoResultsAndResetStates" description="T086: Handle dynamic elements" finished-at="2026-06-15T10:06:12 IST" duration-ms="8682" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldHandleDynamicNoResultsAndResetStates -->
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:06:12 IST" name="resetBrowserState" finished-at="2026-06-15T10:06:12 IST" duration-ms="46" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldNavigateToSelectedProductDetails()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:06:12 IST" name="shouldNavigateToSelectedProductDetails" description="T083: Verify product navigation" finished-at="2026-06-15T10:06:17 IST" duration-ms="4859" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldNavigateToSelectedProductDetails -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@748741cb]" started-at="2026-06-11T23:32:46 IST" name="tearDown" finished-at="2026-06-11T23:32:46 IST" duration-ms="469" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:06:17 IST" name="resetBrowserState" finished-at="2026-06-15T10:06:17 IST" duration-ms="19" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- resetBrowserState -->
+        <test-method signature="shouldSearchProductsByName()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:06:17 IST" name="shouldSearchProductsByName" description="T084: Test search functionality" finished-at="2026-06-15T10:06:22 IST" duration-ms="5045" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldSearchProductsByName -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.ProductListingTest@895e367]" started-at="2026-06-15T10:06:22 IST" name="tearDown" finished-at="2026-06-15T10:06:25 IST" duration-ms="2788" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.ecommerce.automation.tests.ProductListingTest -->
       <class name="com.ecommerce.automation.tests.LoginTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:08 IST" name="setUp" finished-at="2026-06-11T23:32:11 IST" duration-ms="3093" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:04:52 IST" name="setUp" finished-at="2026-06-15T10:04:58 IST" duration-ms="5571" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:11 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:11 IST" duration-ms="65" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:04:58 IST" name="resetBrowserState" finished-at="2026-06-15T10:04:58 IST" duration-ms="114" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldLoginWithValidCredentials()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:11 IST" name="shouldLoginWithValidCredentials" finished-at="2026-06-11T23:32:17 IST" duration-ms="6032" status="PASS">
+        <test-method signature="shouldLoginWithValidCredentials()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:04:58 IST" name="shouldLoginWithValidCredentials" finished-at="2026-06-15T10:05:06 IST" duration-ms="7883" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldLoginWithValidCredentials -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:17 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:17 IST" duration-ms="24" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:06 IST" name="resetBrowserState" finished-at="2026-06-15T10:05:06 IST" duration-ms="16" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldLogoutAfterLogin()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:17 IST" name="shouldLogoutAfterLogin" finished-at="2026-06-11T23:32:20 IST" duration-ms="2900" status="PASS">
+        <test-method signature="shouldLogoutAfterLogin()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:06 IST" name="shouldLogoutAfterLogin" finished-at="2026-06-15T10:05:10 IST" duration-ms="3938" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldLogoutAfterLogin -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:20 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:20 IST" duration-ms="30" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:10 IST" name="resetBrowserState" finished-at="2026-06-15T10:05:10 IST" duration-ms="19" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldRedirectToLoginAfterLogoutWhenOpeningDashboard()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:20 IST" name="shouldRedirectToLoginAfterLogoutWhenOpeningDashboard" finished-at="2026-06-11T23:32:22 IST" duration-ms="2290" status="PASS">
+        <test-method signature="shouldRedirectToLoginAfterLogoutWhenOpeningDashboard()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:10 IST" name="shouldRedirectToLoginAfterLogoutWhenOpeningDashboard" finished-at="2026-06-15T10:05:12 IST" duration-ms="2494" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldRedirectToLoginAfterLogoutWhenOpeningDashboard -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:22 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:22 IST" duration-ms="36" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:12 IST" name="resetBrowserState" finished-at="2026-06-15T10:05:12 IST" duration-ms="37" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldRedirectToLoginAfterSessionIsCleared()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:22 IST" name="shouldRedirectToLoginAfterSessionIsCleared" finished-at="2026-06-11T23:32:24 IST" duration-ms="1690" status="PASS">
+        <test-method signature="shouldRedirectToLoginAfterSessionIsCleared()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:12 IST" name="shouldRedirectToLoginAfterSessionIsCleared" finished-at="2026-06-15T10:05:16 IST" duration-ms="4135" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldRedirectToLoginAfterSessionIsCleared -->
-        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:24 IST" name="resetBrowserState" finished-at="2026-06-11T23:32:24 IST" duration-ms="15" status="PASS">
+        <test-method is-config="true" signature="resetBrowserState()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:16 IST" name="resetBrowserState" finished-at="2026-06-15T10:05:16 IST" duration-ms="24" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- resetBrowserState -->
-        <test-method signature="shouldShowErrorMessageForInvalidCredentials()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:24 IST" name="shouldShowErrorMessageForInvalidCredentials" finished-at="2026-06-11T23:32:25 IST" duration-ms="1445" status="PASS">
+        <test-method signature="shouldShowErrorMessageForInvalidCredentials()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:16 IST" name="shouldShowErrorMessageForInvalidCredentials" finished-at="2026-06-15T10:05:18 IST" duration-ms="1626" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldShowErrorMessageForInvalidCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@3224a577]" started-at="2026-06-11T23:32:25 IST" name="tearDown" finished-at="2026-06-11T23:32:26 IST" duration-ms="504" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.ecommerce.automation.tests.LoginTest@5f77d0f9]" started-at="2026-06-15T10:05:18 IST" name="tearDown" finished-at="2026-06-15T10:05:20 IST" duration-ms="1751" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
