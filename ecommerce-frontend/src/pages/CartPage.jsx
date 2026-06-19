@@ -13,6 +13,21 @@ export default function CartPage() {
   const [error, setError] = useState("");
   const isAdmin = user?.role === "ADMIN";
 
+  const money = (value) => Number(value || 0);
+
+  const formatMoney = (value) => Number(value).toFixed(2);
+
+  const recalculateCart = (items) => {
+    const totalItems = items.reduce((sum, item) => sum + Number(item.quantity), 0);
+    const totalAmount = items.reduce((sum, item) => sum + money(item.subtotal), 0);
+
+    return {
+      items,
+      totalItems,
+      totalAmount: formatMoney(totalAmount),
+    };
+  };
+
   const loadCart = async () => {
     setError("");
 
@@ -70,11 +85,27 @@ export default function CartPage() {
       return;
     }
 
+    setError("");
+    setCart((current) =>
+      recalculateCart(
+        current.items.map((cartItem) =>
+          cartItem.cartItemId === item.cartItemId
+            ? {
+                ...cartItem,
+                quantity: nextQuantity,
+                subtotal: formatMoney(money(cartItem.price) * nextQuantity),
+              }
+            : cartItem,
+        ),
+      ),
+    );
+
     try {
       const res = await updateCartItem(item.cartItemId, nextQuantity);
       setCart(res.data);
     } catch (err) {
       setError(err.response?.data?.error || "Quantity could not be updated");
+      await loadCart();
     }
   };
 

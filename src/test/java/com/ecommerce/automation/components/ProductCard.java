@@ -3,7 +3,12 @@ package com.ecommerce.automation.components;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public final class ProductCard {
+
+	private static final Pattern STOCK_QUANTITY = Pattern.compile("(\\d+)\\s+Qty");
 
 	private final WebElement root;
 
@@ -29,6 +34,19 @@ public final class ProductCard {
 
 	public String stock() {
 		return root.findElement(By.xpath(".//div[contains(@class,'cardFooter')]/span[2]")).getText();
+	}
+
+	public int stockQuantity() {
+		Matcher matcher = STOCK_QUANTITY.matcher(stock());
+		return matcher.matches() ? Integer.parseInt(matcher.group(1)) : 0;
+	}
+
+	public boolean isInStock() {
+		return stockQuantity() > 0;
+	}
+
+	public void addToCart() {
+		root.findElement(By.xpath(".//button[normalize-space()='Add to Cart']")).click();
 	}
 
 	public void open() {

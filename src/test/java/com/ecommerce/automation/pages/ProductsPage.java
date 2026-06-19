@@ -21,6 +21,8 @@ public class ProductsPage extends BasePage {
 	private final By loadingMessage = By.xpath("//p[normalize-space()='Loading...']");
 	private final By noProductsMessage = By.xpath("//p[normalize-space()='No products found']");
 	private final By productCount = By.xpath("//span[contains(normalize-space(), 'products showing')]");
+	private final By successToastMessage = By.xpath("//div[contains(@class,'toastSuccess')]/span");
+	private final By cartButton = By.xpath("//button[normalize-space()='Cart']");
 
 	public ProductsPage(WebDriver driver) {
 		super(driver);
@@ -56,6 +58,29 @@ public class ProductsPage extends BasePage {
 
 	public ProductCard firstVisibleProduct() {
 		return visibleProducts().get(0);
+	}
+
+	public ProductCard firstInStockProduct() {
+		return visibleProducts().stream()
+				.filter(ProductCard::isInStock)
+				.findFirst()
+				.orElseThrow(() -> new IllegalStateException("No in-stock products are available"));
+	}
+
+	public ProductCard firstProductWithStockAtLeast(int minimumStock) {
+		return visibleProducts().stream()
+				.filter(product -> product.stockQuantity() >= minimumStock)
+				.findFirst()
+				.orElseThrow(() -> new IllegalStateException("No product has stock of at least " + minimumStock));
+	}
+
+	public String successToastMessage() {
+		return waitForVisible(successToastMessage).getText();
+	}
+
+	public void openCart() {
+		driver.get(TestConfig.BASE_URL + "/cart");
+		urlContains("/cart");
 	}
 
 	public void searchFor(String keyword) {
