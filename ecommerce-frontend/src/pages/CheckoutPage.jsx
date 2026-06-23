@@ -28,6 +28,7 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const addressOptions = useMemo(() => {
     const options = (savedAddresses.length ? savedAddresses : user?.addresses || [])
@@ -61,6 +62,24 @@ export default function CheckoutPage() {
 
   const selectedAddress = addressOptions.find((address) => address.key === selectedAddressKey);
   const useManualAddress = selectedAddressKey === "new" || !selectedAddress;
+  const isPincodeValid = !useManualAddress || /^[0-9]{6}$/.test(form.pincode.trim());
+  const isContactNumberValid = !form.contactNumber.trim() || /^[0-9]{1,11}$/.test(form.contactNumber.trim());
+
+  const validateForm = (nextForm = form) => {
+    const errors = {};
+    const pincode = nextForm.pincode.trim();
+    const contactNumber = nextForm.contactNumber.trim();
+
+    if (useManualAddress && pincode && !/^[0-9]{6}$/.test(pincode)) {
+      errors.pincode = "Pincode must be exactly 6 digits";
+    }
+
+    if (contactNumber && !/^[0-9]{1,11}$/.test(contactNumber)) {
+      errors.contactNumber = "Contact number must not be more than 11 digits";
+    }
+
+    return errors;
+  };
 
   const buildShippingAddress = () => {
     if (!useManualAddress && selectedAddress?.fullAddress) {
@@ -123,11 +142,25 @@ export default function CheckoutPage() {
         (useManualAddress && form.houseNo.trim() && form.city.trim() && form.pincode.trim() && form.state.trim())) &&
       !submitting
     );
-  }, [cart.items.length, form.city, form.houseNo, form.pincode, form.state, selectedAddress, submitting, useManualAddress]);
+  }, [
+    cart.items.length,
+    form.city,
+    form.houseNo,
+    form.pincode,
+    form.state,
+    selectedAddress,
+    submitting,
+    useManualAddress,
+  ]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setForm((current) => ({ ...current, [name]: value }));
+    const nextForm = { ...form, [name]: value };
+    setForm(nextForm);
+    if (name === "pincode" || name === "contactNumber") {
+      setFieldErrors(validateForm(nextForm));
+      setError("");
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -138,6 +171,13 @@ export default function CheckoutPage() {
 
     if (!shippingAddress) {
       setError("Shipping address is required");
+      return;
+    }
+
+    const validationErrors = validateForm();
+    setFieldErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0 || !isPincodeValid || !isContactNumberValid) {
+      setError("Please correct the highlighted checkout fields before placing your order");
       return;
     }
 
@@ -177,7 +217,11 @@ export default function CheckoutPage() {
       </div>
 
       {loading && <p className={styles.message}>Loading checkout...</p>}
-      {!loading && error && <p className={styles.errorCompact}>{error}</p>}
+      {!loading && error && (
+        <p className={styles.errorCompact} role="alert">
+          {error}
+        </p>
+      )}
 
       {!loading && cart.items.length === 0 && (
         <div className={styles.emptyState}>
@@ -190,7 +234,7 @@ export default function CheckoutPage() {
 
       {!loading && cart.items.length > 0 && (
         <div className={styles.checkoutLayout}>
-          <form className={styles.checkoutForm} onSubmit={handleSubmit}>
+          <form className={styles.checkoutForm} onSubmit={handleSubmit} noValidate>
             <section className={styles.deliveryAddressPanel}>
               <div className={styles.checkoutSectionHeader}>
                 <span>1</span>
@@ -279,9 +323,16 @@ export default function CheckoutPage() {
                     onChange={handleChange}
                     inputMode="numeric"
                     pattern="[0-9]{6}"
-                    maxLength="6"
+                    title="Pincode must be exactly 6 digits"
+                    aria-invalid={Boolean(fieldErrors.pincode)}
+                    aria-describedby={fieldErrors.pincode ? "pincode-error" : undefined}
                     required={useManualAddress}
                   />
+                  {fieldErrors.pincode && (
+                    <small id="pincode-error" className={styles.fieldError}>
+                      {fieldErrors.pincode}
+                    </small>
+                  )}
                 </label>
 
                 <label>
@@ -305,8 +356,17 @@ export default function CheckoutPage() {
                 name="contactNumber"
                 value={form.contactNumber}
                 onChange={handleChange}
-                maxLength="20"
+                inputMode="numeric"
+                pattern="[0-9]{1,11}"
+                title="Contact number must not be more than 11 digits"
+                aria-invalid={Boolean(fieldErrors.contactNumber)}
+                aria-describedby={fieldErrors.contactNumber ? "contact-number-error" : undefined}
               />
+              {fieldErrors.contactNumber && (
+                <small id="contact-number-error" className={styles.fieldError}>
+                  {fieldErrors.contactNumber}
+                </small>
+              )}
             </label>
 
             <fieldset className={styles.paymentOptions}>

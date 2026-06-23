@@ -405,6 +405,23 @@
   color: #f87171;
 }
 
+.fieldError {
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.checkoutForm input[aria-invalid="true"] {
+  border-color: #ef4444;
+  background: #fff7f7;
+}
+
+.checkoutForm input[aria-invalid="true"]:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.14);
+}
+
 .detailLayout {
   display: grid;
   grid-template-columns: minmax(280px, 520px) minmax(280px, 1fr);
