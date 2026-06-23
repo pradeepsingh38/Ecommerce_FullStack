@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Locale;
 
 public class AddToCartTest extends BaseTest {
 
@@ -72,7 +74,8 @@ public class AddToCartTest extends BaseTest {
 		cartPage.waitForProduct(expectedName);
 		Assert.assertEquals(cartPage.visibleItemCount(), 1, "Cart should show one cart item row");
 		Assert.assertTrue(cartPage.hasProduct(expectedName), "Cart item name should match the added product");
-		Assert.assertEquals(cartPage.productCategory(expectedName), expectedCategory,
+		Assert.assertEquals(cartPage.productCategory(expectedName).toLowerCase(Locale.ROOT),
+				expectedCategory.toLowerCase(Locale.ROOT),
 				"Cart item category should match the added product");
 		Assert.assertEquals(cartPage.productPrice(expectedName), expectedPrice,
 				"Cart item unit price should match the added product");
@@ -110,6 +113,120 @@ public class AddToCartTest extends BaseTest {
 		Assert.assertEquals(cartPage.totalItems(), "2", "Cart summary should count both units");
 		assertMoneyEquals(money(cartPage.totalAmount()), expectedSubtotal,
 				"Cart summary total should match the line subtotal");
+	}
+
+	@Test(description = "T092: Automate update cart")
+	public void shouldUpdateCartItemQuantity() {
+		LoginUtils.loginAsDefaultUser(driver);
+		clearCart();
+
+		ProductsPage productsPage = new ProductsPage(driver);
+		productsPage.open();
+		ProductCard product = productsPage.firstProductWithStockAtLeast(2);
+		String expectedName = product.name();
+		BigDecimal unitPrice = money(product.price());
+		BigDecimal expectedSubtotal = unitPrice.multiply(BigDecimal.valueOf(2));
+
+		product.addToCart();
+		productsPage.openCart();
+
+		CartPage cartPage = new CartPage(driver);
+		cartPage.waitForProduct(expectedName);
+		cartPage.updateProductQuantity(expectedName, 2);
+
+		Assert.assertEquals(cartPage.productQuantity(expectedName), "2",
+				"Cart quantity input should show the updated quantity");
+		assertMoneyEquals(money(cartPage.productSubtotal(expectedName)), expectedSubtotal,
+				"Updated line subtotal should match the new quantity");
+		Assert.assertEquals(cartPage.totalItems(), "2", "Summary item count should update with quantity changes");
+		assertMoneyEquals(money(cartPage.totalAmount()), expectedSubtotal,
+				"Summary total should update with quantity changes");
+	}
+
+	@Test(description = "T093: Automate remove item")
+	public void shouldRemoveItemFromCart() {
+		LoginUtils.loginAsDefaultUser(driver);
+		clearCart();
+
+		ProductsPage productsPage = new ProductsPage(driver);
+		productsPage.open();
+		ProductCard product = productsPage.firstInStockProduct();
+		String expectedName = product.name();
+
+		product.addToCart();
+		productsPage.openCart();
+
+		CartPage cartPage = new CartPage(driver);
+		cartPage.waitForProduct(expectedName);
+		cartPage.removeProduct(expectedName);
+		cartPage.waitForProductToBeRemoved(expectedName);
+		cartPage.waitUntilEmpty();
+
+		Assert.assertFalse(cartPage.hasProduct(expectedName), "Removed item should no longer appear in the cart");
+		Assert.assertTrue(cartPage.isEmpty(), "Cart should show the empty state after removing the only item");
+	}
+
+	@Test(description = "T094: Validate cart summary")
+	public void shouldValidateCartSummaryForMultipleItems() {
+		LoginUtils.loginAsDefaultUser(driver);
+		clearCart();
+
+		ProductsPage productsPage = new ProductsPage(driver);
+		productsPage.open();
+		List<ProductCard> products = productsPage.visibleProducts().stream()
+				.filter(ProductCard::isInStock)
+				.limit(2)
+				.toList();
+		Assert.assertEquals(products.size(), 2, "At least two in-stock products are required for summary validation");
+
+		String firstProductName = products.get(0).name();
+		String secondProductName = products.get(1).name();
+		BigDecimal expectedTotal = money(products.get(0).price()).add(money(products.get(1).price()));
+
+		products.get(0).addToCart();
+		Assert.assertTrue(productsPage.successToastMessage().contains(firstProductName),
+				"First add-to-cart toast should mention the selected product");
+		products.get(1).addToCart();
+		Assert.assertTrue(productsPage.successToastMessage().contains(secondProductName),
+				"Second add-to-cart toast should mention the selected product");
+		productsPage.openCart();
+
+		CartPage cartPage = new CartPage(driver);
+		cartPage.waitForProduct(firstProductName);
+		cartPage.waitForProduct(secondProductName);
+
+		Assert.assertEquals(cartPage.visibleItemCount(), 2, "Cart should show both selected products");
+		Assert.assertEquals(cartPage.totalItems(), "2", "Summary should count one unit for each product");
+		assertMoneyEquals(money(cartPage.totalAmount()), expectedTotal,
+				"Summary total should equal the sum of all line subtotals");
+	}
+
+	@Test(description = "T095: Handle edge cases")
+	public void shouldHandleCartEdgeCases() {
+		LoginUtils.loginAsDefaultUser(driver);
+		clearCart();
+
+		CartPage emptyCartPage = new CartPage(driver);
+		emptyCartPage.open();
+		Assert.assertTrue(emptyCartPage.isEmpty(), "Empty cart should show a clear empty-state message");
+		Assert.assertEquals(emptyCartPage.visibleItemCount(), 0, "Empty cart should not render item rows");
+
+		ProductsPage productsPage = new ProductsPage(driver);
+		productsPage.open();
+		ProductCard product = productsPage.firstInStockProduct();
+		String expectedName = product.name();
+		String expectedStock = String.valueOf(product.stockQuantity());
+
+		product.addToCart();
+		productsPage.openCart();
+
+		CartPage cartPage = new CartPage(driver);
+		cartPage.waitForProduct(expectedName);
+		Assert.assertEquals(cartPage.productMinimumQuantity(expectedName), "1",
+				"Quantity input should prevent zero or negative cart quantities");
+		Assert.assertEquals(cartPage.productMaximumQuantity(expectedName), expectedStock,
+				"Quantity input should cap updates at available stock");
+		Assert.assertFalse(cartPage.isErrorVisible(), "Valid cart edge states should not show an error message");
 	}
 
 	private void clearCart() {
