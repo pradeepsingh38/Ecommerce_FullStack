@@ -6,6 +6,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.Optional;
+
 public class CheckoutPage extends BasePage {
 
 	private final By pageHeading = By.xpath("//h1[normalize-space()='Checkout']");
@@ -79,6 +81,23 @@ public class CheckoutPage extends BasePage {
 				.anyMatch(item -> item.isDisplayed() && item.getText().contains(productName)));
 	}
 
+	public String summaryProductQuantity(String productName) {
+		return summaryItem(productName)
+				.map(item -> item.findElement(By.xpath(".//span[contains(normalize-space(), ' x Rs.')]")).getText()
+						.split(" x Rs\\.")[0].trim())
+				.orElseThrow(() -> new IllegalStateException("Product is not present in checkout summary: " + productName));
+	}
+
+	public String summaryProductSubtotal(String productName) {
+		return summaryItem(productName)
+				.map(item -> item.findElement(By.xpath(".//b[starts-with(normalize-space(), 'Rs.')]")).getText())
+				.orElseThrow(() -> new IllegalStateException("Product is not present in checkout summary: " + productName));
+	}
+
+	public boolean isPaymentMethodSelected(String paymentMethod) {
+		return waitForVisible(By.cssSelector("input[name='paymentMethod'][value='" + paymentMethod + "']")).isSelected();
+	}
+
 	public String totalItems() {
 		return waitForVisible(totalItems).getText();
 	}
@@ -112,6 +131,12 @@ public class CheckoutPage extends BasePage {
 
 	private By field(String fieldName) {
 		return By.cssSelector("[name='" + fieldName + "']");
+	}
+
+	private Optional<WebElement> summaryItem(String productName) {
+		return driver.findElements(checkoutItems).stream()
+				.filter(item -> item.isDisplayed() && item.getText().contains(productName))
+				.findFirst();
 	}
 
 	private void waitForCheckoutRequest() {

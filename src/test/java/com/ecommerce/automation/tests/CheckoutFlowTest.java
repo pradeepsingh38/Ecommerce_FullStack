@@ -8,7 +8,10 @@ import com.ecommerce.automation.pages.ProductsPage;
 import com.ecommerce.automation.pages.UserOrdersPage;
 import com.ecommerce.automation.utils.LoginUtils;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.math.BigDecimal;
 
 public class CheckoutFlowTest extends BaseTest {
 
@@ -170,9 +173,66 @@ public class CheckoutFlowTest extends BaseTest {
 				"Invalid checkout data should block order placement");
 	}
 
+	@DataProvider(name = "checkoutSummaryData")
+	public Object[][] checkoutSummaryData() {
+		return new Object[][] {
+				{ 1, "COD" },
+				{ 2, "UPI" },
+				{ 3, "CARD" }
+		};
+	}
+
+	@Test(dataProvider = "checkoutSummaryData",
+			description = "T101-T104: Validate checkout order summary and totals with multiple data sets")
+	public void shouldValidateCheckoutSummaryAndTotalsWithMultipleDatasets(int quantity, String paymentMethod) {
+		LoginUtils.loginAsDefaultUser(driver);
+		clearCart();
+
+		ProductsPage productsPage = new ProductsPage(driver);
+		productsPage.open();
+		ProductCard product = productsPage.firstProductWithStockAtLeast(quantity);
+		String expectedName = product.name();
+		BigDecimal unitPrice = money(product.price());
+		BigDecimal expectedTotal = unitPrice.multiply(BigDecimal.valueOf(quantity));
+
+		for (int itemCount = 0; itemCount < quantity; itemCount++) {
+			product.addToCart();
+		}
+		productsPage.openCart();
+
+		CartPage cartPage = new CartPage(driver);
+		cartPage.waitForProductQuantity(expectedName, String.valueOf(quantity));
+		cartPage.startCheckout();
+
+		CheckoutPage checkoutPage = new CheckoutPage(driver);
+		Assert.assertTrue(checkoutPage.isLoaded(), "Checkout page should load before validating summary");
+		Assert.assertTrue(checkoutPage.hasSummaryProduct(expectedName),
+				"Order summary should include the selected product");
+		Assert.assertEquals(checkoutPage.summaryProductQuantity(expectedName), String.valueOf(quantity),
+				"Order summary should show the dataset quantity");
+		assertMoneyEquals(money(checkoutPage.summaryProductSubtotal(expectedName)), expectedTotal,
+				"Order summary line subtotal should equal unit price multiplied by quantity");
+		Assert.assertEquals(checkoutPage.totalItems(), String.valueOf(quantity),
+				"Order summary item count should match the dataset quantity");
+		assertMoneyEquals(money(checkoutPage.totalAmount()), expectedTotal,
+				"Order summary total should match the calculated line total");
+
+		checkoutPage.choosePaymentMethod(paymentMethod);
+		Assert.assertTrue(checkoutPage.isPaymentMethodSelected(paymentMethod),
+				"Checkout should select the payment method supplied by the dataset");
+	}
+
 	private void clearCart() {
 		CartPage cartPage = new CartPage(driver);
 		cartPage.open();
 		cartPage.clearIfNotEmpty();
+	}
+
+	private BigDecimal money(String value) {
+		return new BigDecimal(value.replace("Rs.", "").trim());
+	}
+
+	private void assertMoneyEquals(BigDecimal actual, BigDecimal expected, String message) {
+		Assert.assertEquals(actual.compareTo(expected), 0, message);
 	}
 }
